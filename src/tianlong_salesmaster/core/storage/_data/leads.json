@@ -1,0 +1,167 @@
+{
+  "csv_1777721555_4": {
+    "id": "csv_1777721555_4",
+    "info": {
+      "name": "刘先生",
+      "intent": "跟进中"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.529482",
+    "updated_at": "2026-05-02T19:57:26.529493"
+  },
+  "csv_1777721555_3": {
+    "id": "csv_1777721555_3",
+    "info": {
+      "name": "陈总",
+      "intent": "高意向"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.535966",
+    "updated_at": "2026-05-02T19:57:26.535977"
+  },
+  "csv_1777721555_2": {
+    "id": "csv_1777721555_2",
+    "info": {
+      "name": "王老板",
+      "intent": "新客户"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.542760",
+    "updated_at": "2026-05-02T19:57:26.542772"
+  },
+  "csv_1777721554_1": {
+    "id": "csv_1777721554_1",
+    "info": {
+      "name": "李经理",
+      "intent": "跟进中"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.549318",
+    "updated_at": "2026-05-02T19:57:26.549330"
+  },
+  "csv_1777721554_0": {
+    "id": "csv_1777721554_0",
+    "info": {
+      "name": "张总",
+      "intent": "高意向"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.556094",
+    "updated_at": "2026-05-02T19:57:26.556105"
+  },
+  "csv_1777721470_2": {
+    "id": "csv_1777721470_2",
+    "info": {
+      "name": "王五",
+      "intent": "跟进中"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.562580",
+    "updated_at": "2026-05-02T19:57:26.562592"
+  },
+  "csv_1777721469_1": {
+    "id": "csv_1777721469_1",
+    "info": {
+      "name": "李四",
+      "intent": "新客户"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.569369",
+    "updated_at": "2026-05-02T19:57:26.569381"
+  },
+  "csv_1777721469_0": {
+    "id": "csv_1777721469_0",
+    "info": {
+      "name": "张三",
+      "intent": "高意向"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.576060",
+    "updated_at": "2026-05-02T19:57:26.576071"
+  },
+  "widget_1777720468670": {
+    "id": "widget_1777720468670",
+    "info": {
+      "name": "张测试客户",
+      "intent": "新客户"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.582484",
+    "updated_at": "2026-05-02T19:57:26.582495"
+  },
+  "widget_1777720348": {
+    "id": "widget_1777720348",
+    "info": {
+      "name": "测试访客",
+      "intent": "新客户"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.589111",
+    "updated_at": "2026-05-02T19:57:26.589123"
+  },
+  "z": {
+    "id": "z",
+    "info": {
+      "name": "张先生",
+      "intent": "高意向"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.595661",
+    "updated_at": "2026-05-02T19:57:26.595673"
+  },
+  "l": {
+    "id": "l",
+    "info": {
+      "name": "李女士",
+      "intent": "跟进中"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.602485",
+    "updated_at": "2026-05-02T19:57:26.602496"
+  },
+  "w": {
+    "id": "w",
+    "info": {
+      "name": "王先生",
+      "intent": "已成交"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.609033",
+    "updated_at": "2026-05-02T19:57:26.609045"
+  },
+  "zhao": {
+    "id": "zhao",
+    "info": {
+      "name": "赵先生",
+      "intent": "新客户"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.615523",
+    "updated_at": "2026-05-02T19:57:26.615535"
+  },
+  "liu": {
+    "id": "liu",
+    "info": {
+      "name": "刘女士",
+      "intent": "跟进中"
+    },
+    "stage": "discovery",
+    "history": [],
+    "created_at": "2026-05-02T19:57:26.622190",
+    "updated_at": "2026-05-02T19:57:26.622202"
+  }
+}

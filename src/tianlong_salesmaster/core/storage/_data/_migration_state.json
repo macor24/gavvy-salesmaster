@@ -1,0 +1,126 @@
+{
+  "last_migration": "2026-05-03T12:34:13.253590",
+  "migrations": [
+    {
+      "file_name": "crm_customers",
+      "records_total": 0,
+      "records_migrated": 0,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:33:43.334787",
+      "completed_at": "2026-05-03T12:33:43.334787"
+    },
+    {
+      "file_name": "crm_contacts",
+      "records_total": 0,
+      "records_migrated": 0,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:33:43.337332",
+      "completed_at": "2026-05-03T12:33:43.337332"
+    },
+    {
+      "file_name": "leads",
+      "records_total": 0,
+      "records_migrated": 0,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:33:43.341416",
+      "completed_at": "2026-05-03T12:33:43.341416"
+    },
+    {
+      "file_name": "crm_deals",
+      "records_total": 0,
+      "records_migrated": 0,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:33:43.350413",
+      "completed_at": "2026-05-03T12:33:43.350413"
+    },
+    {
+      "file_name": "quotes_quotes",
+      "records_total": 0,
+      "records_migrated": 0,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:33:43.380911",
+      "completed_at": "2026-05-03T12:33:43.380911"
+    },
+    {
+      "file_name": "quotes_contracts",
+      "records_total": 0,
+      "records_migrated": 0,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:33:43.407500",
+      "completed_at": "2026-05-03T12:33:43.407500"
+    },
+    {
+      "file_name": "crm_customers",
+      "records_total": 3,
+      "records_migrated": 3,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:34:13.141397",
+      "completed_at": "2026-05-03T12:34:13.200498"
+    },
+    {
+      "file_name": "crm_contacts",
+      "records_total": 2,
+      "records_migrated": 2,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:34:13.201503",
+      "completed_at": "2026-05-03T12:34:13.201503"
+    },
+    {
+      "file_name": "leads",
+      "records_total": 15,
+      "records_migrated": 0,
+      "records_failed": 0,
+      "status": "failed",
+      "error": "'str' object has no attribute 'get'",
+      "started_at": "2026-05-03T12:34:13.201503",
+      "completed_at": "2026-05-03T12:34:13.202498"
+    },
+    {
+      "file_name": "crm_deals",
+      "records_total": 2,
+      "records_migrated": 2,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:34:13.202498",
+      "completed_at": "2026-05-03T12:34:13.224048"
+    },
+    {
+      "file_name": "quotes_quotes",
+      "records_total": 1,
+      "records_migrated": 1,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:34:13.225095",
+      "completed_at": "2026-05-03T12:34:13.235573"
+    },
+    {
+      "file_name": "quotes_contracts",
+      "records_total": 1,
+      "records_migrated": 1,
+      "records_failed": 0,
+      "status": "completed",
+      "error": "",
+      "started_at": "2026-05-03T12:34:13.236576",
+      "completed_at": "2026-05-03T12:34:13.253590"
+    }
+  ],
+  "tenant_id": "00000000-0000-0000-0000-000000000001"
+}

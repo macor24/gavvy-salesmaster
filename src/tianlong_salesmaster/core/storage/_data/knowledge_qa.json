@@ -1,0 +1,60 @@
+[
+  {
+    "id": "f3114a54-3ff",
+    "question": "产品可以退换吗？",
+    "answer": "是的，支持 7 天无理由退换，30 天质量问题包换。",
+    "category": "常见问题",
+    "tags": [
+      "退换货",
+      "售后"
+    ],
+    "use_count": 0,
+    "positive_rating": 0,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "extra": {}
+  },
+  {
+    "id": "9fb59d50-18e",
+    "question": "支持哪些操作系统？",
+    "answer": "支持 Windows 10+、MacOS 10.15+、Linux 主流发行版。",
+    "category": "常见问题",
+    "tags": [
+      "技术",
+      "系统"
+    ],
+    "use_count": 0,
+    "positive_rating": 0,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "extra": {}
+  },
+  {
+    "id": "6eea0b2d-5ef",
+    "question": "价格有什么优惠？",
+    "answer": "批量购买享受 9 折优惠，年度会员享受 8 折优惠。",
+    "category": "常见问题",
+    "tags": [
+      "价格",
+      "优惠",
+      "折扣"
+    ],
+    "use_count": 0,
+    "positive_rating": 0,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "extra": {}
+  },
+  {
+    "id": "b664f682-18c",
+    "question": "怎么退款？",
+    "answer": "退款流程：联系客服→寄回商品→等待审核→收到退款。",
+    "category": "售后服务",
+    "tags": [],
+    "use_count": 0,
+    "positive_rating": 0,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "extra": {}
+  }
+]

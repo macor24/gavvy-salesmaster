@@ -1,0 +1,6 @@
+{
+  "trial": {"days": 7, "daily_limit": 30, "price": 0, "price_label": "免费"},
+  "personal": {"price": 999, "period": "year", "price_label": "¥999/年"},
+  "team": {"price": 4999, "period": "year", "price_label": "¥4,999/年"},
+  "enterprise": {"price": 19999, "period": "year", "price_label": "¥19,999/年"}
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "38c95478-4dd",
+    "title": "产品价格政策",
+    "content": "我们的产品支持7天无理由退换，30天质量问题包换。具体价格根据不同产品有不同规定。价格折扣政策：批量购买享受9折优惠，年度会员享受8折优惠。",
+    "category": "产品政策",
+    "tags": [
+      "价格",
+      "退换货",
+      "折扣",
+      "售后"
+    ],
+    "priority": 3,
+    "status": "published",
+    "version": 1,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "views": 0,
+    "useful_count": 0,
+    "extra": {}
+  },
+  {
+    "id": "3852e829-68f",
+    "title": "会员权益说明",
+    "content": "会员用户享受：专属客服、优先发货、生日礼包、积分兑换。",
+    "category": "产品政策",
+    "tags": [
+      "会员",
+      "权益",
+      "服务"
+    ],
+    "priority": 2,
+    "status": "published",
+    "version": 1,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "views": 0,
+    "useful_count": 0,
+    "extra": {}
+  },
+  {
+    "id": "8a39591b-949",
+    "title": "售后服务指南",
+    "content": "如果客户有售后问题，请先安抚情绪，然后分类处理。一般问题: 提供解决方案。复杂问题: 请转人工。",
+    "category": "售后服务",
+    "tags": [
+      "售后",
+      "服务",
+      "客服"
+    ],
+    "priority": 2,
+    "status": "published",
+    "version": 1,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "views": 0,
+    "useful_count": 0,
+    "extra": {}
+  },
+  {
+    "id": "763b7380-541",
+    "title": "退款流程说明",
+    "content": "退款流程：1. 联系客服；2. 寄回商品；3. 等待审核；4. 收到退款。注意：原包装退回且商品不影响二次销售。",
+    "category": "售后服务",
+    "tags": [
+      "退款",
+      "退货",
+      "售后"
+    ],
+    "priority": 3,
+    "status": "published",
+    "version": 1,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "views": 0,
+    "useful_count": 0,
+    "extra": {}
+  },
+  {
+    "id": "7c25a30b-792",
+    "title": "产品规格参数",
+    "content": "本产品支持主流平台：Windows 10+/MacOS 10.15+/Linux（主流发行版）。硬件要求：4GB 内存、10GB 可用空间。",
+    "category": "技术规格",
+    "tags": [
+      "技术",
+      "系统",
+      "参数"
+    ],
+    "priority": 2,
+    "status": "published",
+    "version": 1,
+    "created_at": "2026-05-02 23:43:40",
+    "updated_at": "2026-05-02 23:43:40",
+    "views": 0,
+    "useful_count": 0,
+    "extra": {}
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ct_cbd789e276",
+    "deal_id": "",
+    "customer_id": "cust_81bafd2a50fa",
+    "title": "专业版服务合同",
+    "amount": 5999,
+    "status": "signed",
+    "signed_date": "",
+    "start_date": "",
+    "end_date": "",
+    "content": "",
+    "notes": "",
+    "created_at": "2026-05-03T00:02:05.584389",
+    "updated_at": "2026-05-03T00:02:05.584389"
+  },
+  {
+    "id": "ct_8fc04d90cd",
+    "deal_id": "",
+    "customer_id": "cust_4aca432e60f3",
+    "title": "企业版服务合同",
+    "amount": 19999,
+    "status": "signed",
+    "signed_date": "",
+    "start_date": "",
+    "end_date": "",
+    "content": "",
+    "notes": "",
+    "created_at": "2026-05-03T00:06:12.317305",
+    "updated_at": "2026-05-03T00:06:12.317305"
+  }
+]

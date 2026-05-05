@@ -1,0 +1,122 @@
+[
+  {
+    "id": "csv_1777721555_4",
+    "name": "刘先生",
+    "intent": "跟进中",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "csv_1777721555_3",
+    "name": "陈总",
+    "intent": "高意向",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "csv_1777721555_2",
+    "name": "王老板",
+    "intent": "新客户",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "csv_1777721554_1",
+    "name": "李经理",
+    "intent": "跟进中",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "csv_1777721554_0",
+    "name": "张总",
+    "intent": "高意向",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "csv_1777721470_2",
+    "name": "王五",
+    "intent": "跟进中",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "csv_1777721469_1",
+    "name": "李四",
+    "intent": "新客户",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "csv_1777721469_0",
+    "name": "张三",
+    "intent": "高意向",
+    "status": "初步沟通",
+    "lastMsg": "CSV批量导入",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "widget_1777720468670",
+    "name": "张测试客户",
+    "intent": "新客户",
+    "status": "初步沟通",
+    "lastMsg": "【售前对话 — 张测试客户】\n━━━━━━━━━━━━━━━",
+    "lastTime": "19:14"
+  },
+  {
+    "id": "widget_1777720348",
+    "name": "测试访客",
+    "intent": "新客户",
+    "status": "初步沟通",
+    "lastMsg": "来自 演示站 的咨询",
+    "lastTime": "刚刚"
+  },
+  {
+    "id": "z",
+    "name": "张先生",
+    "intent": "高意向",
+    "status": "谈判中",
+    "lastMsg": "测试持久化消息",
+    "lastTime": "15:00"
+  },
+  {
+    "id": "l",
+    "name": "李女士",
+    "intent": "跟进中",
+    "status": "需求分析",
+    "lastMsg": "好的，我先了解一下",
+    "lastTime": "14:15"
+  },
+  {
+    "id": "w",
+    "name": "王先生",
+    "intent": "已成交",
+    "status": "已成交",
+    "lastMsg": "已付款，谢谢！",
+    "lastTime": "13:52"
+  },
+  {
+    "id": "zhao",
+    "name": "赵先生",
+    "intent": "新客户",
+    "status": "初步沟通",
+    "lastMsg": "你们产品主要用在哪些场景？",
+    "lastTime": "13:30"
+  },
+  {
+    "id": "liu",
+    "name": "刘女士",
+    "intent": "跟进中",
+    "status": "需求分析",
+    "lastMsg": "价格能不能再低点？",
+    "lastTime": "12:45"
+  }
+]

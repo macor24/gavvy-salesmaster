@@ -1,0 +1,24 @@
+[
+  {
+    "id": "tr_f1860e0a1d",
+    "scenario": "objection_handling",
+    "state": "completed",
+    "messages": [
+      {
+        "role": "user",
+        "content": "我理解您的顾虑",
+        "timestamp": "2026-05-03T00:28:09.753897"
+      },
+      {
+        "role": "coach",
+        "content": "💡 回复过短，建议补充更多信息来建立客户信任。\n✅ 尝试将价值量化，让客户看到具体收益\n\n📖 参考话术：\n我理解您的顾虑。表面上看我们的价格比同类高一些，但实际上我们的产品包含了{a}、{b}、{c}三项独家功能。按年计算，每天的成本其实只有{price_per_day}元，而它能帮您每天节省{time_save}小时的工作量。",
+        "timestamp": "2026-05-03T00:28:09.754160"
+      }
+    ],
+    "current_script_id": "sp_f0e3686f92",
+    "score": 4,
+    "feedback": "",
+    "created_at": "2026-05-03T00:28:09.734371",
+    "updated_at": "2026-05-03T00:28:09.769081"
+  }
+]

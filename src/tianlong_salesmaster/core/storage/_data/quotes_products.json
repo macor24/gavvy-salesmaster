@@ -1,0 +1,15 @@
+[
+  {
+    "id": "08769c42-48e",
+    "name": "企业版套餐",
+    "description": "为企业客户提供的完整解决方案",
+    "sku": "ENT-2024-001",
+    "unit_price": 50000.0,
+    "cost_price": 0.0,
+    "category": "软件产品",
+    "tags": [],
+    "is_active": true,
+    "created_at": "2026-05-03 00:02:23",
+    "updated_at": "2026-05-03 00:02:23"
+  }
+]

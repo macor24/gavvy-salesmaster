@@ -1,0 +1,57 @@
+[
+  {
+    "id": "8c60e469-a53",
+    "user_id": "f130accd-50d",
+    "username": "u_5c65b1",
+    "token": "vbxaFyPvnf_0xyS07LFJfNUCYynMrtuIGTwOTmLz_q0",
+    "ip_address": "testclient",
+    "user_agent": "testclient",
+    "created_at": "2026-05-03 20:28:38",
+    "expires_at": "2026-05-04 20:28:38",
+    "is_active": true
+  },
+  {
+    "id": "8d332c98-b7a",
+    "user_id": "f080bd1c-cf3",
+    "username": "u_e2dd8d",
+    "token": "6atjKq5mZEdOegRDvYh-ImWZ6EgYUNIcsal-PsnD06w",
+    "ip_address": "testclient",
+    "user_agent": "testclient",
+    "created_at": "2026-05-03 20:28:50",
+    "expires_at": "2026-05-04 20:28:50",
+    "is_active": true
+  },
+  {
+    "id": "a82d4020-7c7",
+    "user_id": "5292be6f-302",
+    "username": "u_6e109f",
+    "token": "wIX6V63JKNpN4EHXgIoQHx74hNX_AA6QcIwGZ4wyZdA",
+    "ip_address": "testclient",
+    "user_agent": "testclient",
+    "created_at": "2026-05-03 20:29:02",
+    "expires_at": "2026-05-04 20:29:02",
+    "is_active": true
+  },
+  {
+    "id": "ce6d049f-c94",
+    "user_id": "a2e49bf6-986",
+    "username": "u_afcfa8",
+    "token": "ytp1ryMCn0S82yn9Z5xeFNCDldKRDzbuFrezGGUvMzk",
+    "ip_address": "testclient",
+    "user_agent": "testclient",
+    "created_at": "2026-05-03 20:29:38",
+    "expires_at": "2026-05-04 20:29:38",
+    "is_active": true
+  },
+  {
+    "id": "58936f79-e3c",
+    "user_id": "e24aca9d-694",
+    "username": "u_d07482",
+    "token": "VrxrVRGgzxs_vMUkkyPxPQBgTHMFUPDWCx5A6JSMbdk",
+    "ip_address": "testclient",
+    "user_agent": "testclient",
+    "created_at": "2026-05-03 20:30:06",
+    "expires_at": "2026-05-04 20:30:06",
+    "is_active": false
+  }
+]

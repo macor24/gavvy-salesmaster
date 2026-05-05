@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project data (runtime generated)
+src/tianlong_salesmaster/web/_messages/
+src/tianlong_salesmaster/web/_settings.json
+reports/
+
+# Environment
+.env
+*.env.local

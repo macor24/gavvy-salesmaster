@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>销售宗师 - AI驱动的新一代销售自动化平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --black: #000000; --white: #ffffff;
+            --gray-100: #f5f5f7; --gray-200: #e8e8ed; --gray-300: #d2d2d7;
+            --gray-400: #86868b; --gray-500: #6e6e73; --gray-600: #424245;
+            --blue: #0071e3; --blue-dark: #0077ED; --orange: #ff9500;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--black); line-height: 1.5;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden;
+        }
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Navigation */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 48px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .nav-inner {
+            max-width: 1024px; margin: 0 auto; padding: 0 22px;
+            height: 100%; display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { font-size: 18px; font-weight: 600; color: var(--black); text-decoration: none; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+        .logo-icon { font-size: 20px; }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-link { font-size: 12px; color: var(--gray-500); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+        .nav-link:hover, .nav-link.active { color: var(--black); }
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 8px 16px; border-radius: 980px; font-size: 12px; font-weight: 500;
+            text-decoration: none; transition: all 0.3s; cursor: pointer; border: none;
+        }
+        .btn-primary { background: var(--blue); color: var(--white); }
+        .btn-primary:hover { background: var(--blue-dark); }
+        .btn-secondary { background: var(--gray-100); color: var(--blue); }
+        .btn-secondary:hover { background: var(--gray-200); }
+        .btn-lg { padding: 12px 24px; font-size: 14px; }
+        .btn-xl { padding: 16px 32px; font-size: 17px; }
+
+        /* Hero */
+        .hero { padding: 130px 0 80px; text-align: center; background: var(--gray-100); }
+        .hero-content { max-width: 800px; margin: 0 auto; padding: 0 22px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(0,113,227,0.1); color: var(--blue); border-radius: 980px; font-size: 12px; font-weight: 500; margin-bottom: 24px; }
+        .hero h1 { font-size: 80px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .hero h1 .gradient { background: linear-gradient(135deg, var(--blue), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 28px; font-weight: 400; color: var(--gray-500); line-height: 1.3; margin-bottom: 32px; }
+        .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 48px; }
+        .hero-stats { display: flex; align-items: center; justify-content: center; gap: 48px; }
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-size: 36px; font-weight: 700; }
+        .hero-stat-label { font-size: 14px; color: var(--gray-500); margin-top: 4px; }
+
+        /* Sections */
+        .section { padding: 120px 0; }
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 0 22px; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-label { font-size: 14px; font-weight: 500; color: var(--orange); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+        .section-title { font-size: 64px; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+        .section-subtitle { font-size: 24px; color: var(--gray-500); }
+
+        /* Features Grid */
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .feature-card { background: var(--gray-100); border-radius: 24px; padding: 40px; transition: all 0.3s; cursor: pointer; }
+        .feature-card:hover { transform: scale(1.02); }
+        .feature-icon { font-size: 48px; margin-bottom: 24px; }
+        .feature-title { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+        .feature-desc { font-size: 15px; color: var(--gray-500); line-height: 1.5; margin-bottom: 20px; }
+        .feature-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .feature-tag { padding: 6px 12px; background: var(--white); border-radius: 980px; font-size: 12px; color: var(--gray-500); }
+
+        /* Product Showcase */
+        .product-showcase { padding: 80px 0; background: var(--black); }
+        .showcase-container { max-width: 1200px; margin: 0 auto; padding: 0 22px; }
+        .showcase-title { font-size: 64px; font-weight: 700; color: var(--white); text-align: center; margin-bottom: 16px; }
+        .showcase-subtitle { font-size: 24px; color: var(--gray-400); text-align: center; margin-bottom: 64px; }
+        .showcase-window { background: var(--gray-600); border-radius: 16px; overflow: hidden; }
+        .window-header { display: flex; align-items: center; gap: 8px; padding: 16px 20px; background: rgba(255,255,255,0.05); }
+        .window-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .window-dot.red { background: #ff5f57; }
+        .window-dot.yellow { background: #febc2e; }
+        .window-dot.green { background: #28c840; }
+        .window-content { padding: 32px; display: flex; gap: 32px; }
+        .window-sidebar { width: 200px; flex-shrink: 0; }
+        .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; color: var(--gray-300); border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 13px; }
+        .sidebar-item:hover { background: rgba(255,255,255,0.1); }
+        .sidebar-item.active { background: var(--blue); color: var(--white); }
+        .window-main { flex: 1; background: var(--gray-600); border-radius: 12px; padding: 24px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+        .metric-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; }
+        .metric-value { font-size: 28px; font-weight: 700; color: var(--white); }
+        .metric-label { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+        .metric-trend { font-size: 12px; color: #28c840; margin-top: 8px; }
+        .chart-area { background: rgba(255,255,255,0.03); border-radius: 12px; height: 200px; display: flex; align-items: center; justify-content: center; color: var(--gray-400); font-size: 14px; }
+
+        /* Comparison */
+        .comparison { padding: 120px 0; background: var(--black); }
+        .comparison .section-title { color: var(--white); }
+        .comparison .section-subtitle { color: var(--gray-400); }
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .comparison-card { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 48px; }
+        .comparison-card.bad { background: rgba(255,95,87,0.1); }
+        .comparison-card.good { background: rgba(40,200,64,0.1); }
+        .comparison-title { font-size: 32px; font-weight: 600; margin-bottom: 32px; }
+        .comparison-card.bad .comparison-title { color: #ff5f57; }
+        .comparison-card.good .comparison-title { color: #28c840; }
+        .comparison-list { list-style: none; }
+        .comparison-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .comparison-item:last-child { border-bottom: none; }
+        .comparison-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+        .comparison-card.bad .comparison-icon { background: rgba(255,95,87,0.2); color: #ff5f57; }
+        .comparison-card.good .comparison-icon { background: rgba(40,200,64,0.2); color: #28c840; }
+        .comparison-text { font-size: 16px; color: var(--gray-300); line-height: 1.5; }
+
+        /* Testimonials */
+        .testimonials { padding: 120px 0; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .testimonial-card { background: var(--gray-100); border-radius: 24px; padding: 40px; }
+        .testimonial-content { font-size: 17px; line-height: 1.5; color: var(--gray-600); margin-bottom: 24px; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-avatar { width: 48px; height: 48px; background: linear-gradient(135deg, var(--blue), var(--orange)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; }
+        .testimonial-name { font-size: 15px; font-weight: 600; }
+        .testimonial-title { font-size: 13px; color: var(--gray-500); }
+        .testimonial-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--gray-200); }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 24px; font-weight: 700; color: #28c840; }
+        .stat-label { font-size: 11px; color: var(--gray-500); margin-top: 4px; }
+
+        /* Pricing */
+        .pricing { padding: 120px 0; background: var(--gray-100); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .pricing-card { background: var(--white); border-radius: 24px; padding: 40px; text-align: center; position: relative; }
+        .pricing-card.popular { background: var(--black); color: var(--white); transform: scale(1.05); }
+        .pricing-popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); padding: 6px 16px; background: var(--orange); color: var(--white); border-radius: 980px; font-size: 12px; font-weight: 600; }
+        .pricing-name { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .pricing-desc { font-size: 14px; color: var(--gray-500); margin-bottom: 24px; }
+        .pricing-card.popular .pricing-desc { color: var(--gray-400); }
+        .pricing-price { margin-bottom: 24px; }
+        .pricing-value { font-size: 48px; font-weight: 700; }
+        .pricing-unit { font-size: 16px; color: var(--gray-500); }
+        .pricing-card.popular .pricing-unit { color: var(--gray-400); }
+        .pricing-features { list-style: none; text-align: left; margin-bottom: 32px; }
+        .pricing-features li { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-size: 14px; color: var(--gray-600); }
+        .pricing-features li::before { content: '✓'; width: 20px; height: 20px; background: rgba(40,200,64,0.1); color: #28c840; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+        .pricing-cta { width: 100%; }
+
+        /* CTA */
+        .cta { padding: 160px 0; text-align: center; }
+        .cta-content { max-width: 600px; margin: 0 auto; padding: 0 22px; }
+        .cta h2 { font-size: 56px; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+        .cta p { font-size: 22px; color: var(--gray-500); margin-bottom: 32px; }
+        .cta-actions { display: flex; align-items: center; justify-content: center; gap: 16px; }
+
+        /* Footer */
+        .footer { padding: 60px 0; background: var(--gray-100); border-top: 1px solid var(--gray-200); }
+        .footer-inner { max-width: 1024px; margin: 0 auto; padding: 0 22px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+        .footer-brand { max-width: 280px; }
+        .footer-brand .logo { margin-bottom: 12px; }
+        .footer-brand p { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+        .footer-title { font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a, .footer-links span { font-size: 13px; color: var(--gray-500); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+        .footer-links a:hover, .footer-links span:hover { color: var(--black); }
+        .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--gray-200); font-size: 12px; color: var(--gray-500); }
+        .footer-legal { display: flex; gap: 24px; }
+        .footer-legal a { color: var(--gray-500); text-decoration: none; }
+        .footer-legal a:hover { color: var(--black); }
+
+        /* Feature Detail Page */
+        .detail-hero { padding: 160px 0 80px; background: var(--black); text-align: center; }
+        .detail-hero h1 { font-size: 64px; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+        .detail-hero p { font-size: 24px; color: var(--gray-400); max-width: 600px; margin: 0 auto; }
+        .detail-content { padding: 80px 0; }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 120px; }
+        .detail-grid.reverse { direction: rtl; }
+        .detail-grid.reverse > * { direction: ltr; }
+        .detail-text h3 { font-size: 40px; font-weight: 700; margin-bottom: 16px; }
+        .detail-text p { font-size: 18px; color: var(--gray-500); line-height: 1.6; margin-bottom: 24px; }
+        .detail-list { list-style: none; }
+        .detail-list li { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-size: 16px; color: var(--gray-600); }
+        .detail-list li::before { content: '✓'; width: 24px; height: 24px; background: rgba(40,200,64,0.1); color: #28c840; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+        .detail-image { background: var(--gray-100); border-radius: 24px; height: 400px; display: flex; align-items: center; justify-content: center; color: var(--gray-400); font-size: 18px; }
+
+        /* About Page */
+        .about-hero { padding: 160px 0 80px; background: var(--gray-100); text-align: center; }
+        .about-hero h1 { font-size: 64px; font-weight: 700; margin-bottom: 16px; }
+        .about-hero p { font-size: 24px; color: var(--gray-500); max-width: 700px; margin: 0 auto; }
+        .about-mission { padding: 100px 0; background: var(--white); }
+        .mission-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .mission-quote { font-size: 36px; font-weight: 500; line-height: 1.4; color: var(--black); margin-bottom: 32px; }
+        .mission-author { font-size: 18px; color: var(--gray-500); }
+        .about-values { padding: 100px 0; background: var(--gray-100); }
+        .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .value-card { background: var(--white); border-radius: 24px; padding: 40px; text-align: center; }
+        .value-icon { font-size: 48px; margin-bottom: 20px; }
+        .value-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .value-desc { font-size: 14px; color: var(--gray-500); line-height: 1.5; }
+        .about-team { padding: 100px 0; background: var(--white); }
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .team-card { text-align: center; }
+        .team-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--blue), var(--orange)); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--white); font-weight: 600; }
+        .team-name { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        .team-title { font-size: 14px; color: var(--gray-500); }
+        .about-timeline { padding: 100px 0; background: var(--gray-100); }
+        .timeline { max-width: 600px; margin: 0 auto; }
+        .timeline-item { display: flex; gap: 24px; padding-bottom: 40px; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: 11px; top: 32px; bottom: 0; width: 2px; background: var(--gray-200); }
+        .timeline-item:last-child::before { display: none; }
+        .timeline-dot { width: 24px; height: 24px; background: var(--blue); border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+        .timeline-content h4 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        .timeline-content p { font-size: 14px; color: var(--gray-500); }
+
+        /* Help Page */
+        .help-hero { padding: 160px 0 80px; background: var(--gray-100); text-align: center; }
+        .help-hero h1 { font-size: 64px; font-weight: 700; margin-bottom: 16px; }
+        .help-categories { padding: 80px 0; }
+        .help-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .help-card { background: var(--white); border-radius: 24px; padding: 40px; cursor: pointer; transition: all 0.3s; }
+        .help-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .help-icon { font-size: 48px; margin-bottom: 20px; }
+        .help-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .help-desc { font-size: 14px; color: var(--gray-500); line-height: 1.5; margin-bottom: 16px; }
+        .help-count { font-size: 14px; color: var(--blue); }
+        .help-articles { padding: 80px 0; background: var(--gray-100); }
+        .articles-list { max-width: 800px; margin: 0 auto; }
+        .article-item { background: var(--white); border-radius: 16px; padding: 24px; margin-bottom: 16px; cursor: pointer; transition: all 0.2s; }
+        .article-item:hover { background: var(--gray-100); }
+        .article-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+        .article-preview { font-size: 14px; color: var(--gray-500); }
+        .article-meta { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; color: var(--gray-400); }
+
+        /* Contact Page */
+        .contact-hero { padding: 160px 0 80px; background: var(--gray-100); text-align: center; }
+        .contact-hero h1 { font-size: 64px; font-weight: 700; margin-bottom: 16px; }
+        .contact-hero p { font-size: 24px; color: var(--gray-500); }
+        .contact-content { padding: 80px 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+        .contact-form { background: var(--white); border-radius: 24px; padding: 48px; }
+        .form-title { font-size: 28px; font-weight: 600; margin-bottom: 32px; }
+        .form-group { margin-bottom: 24px; }
+        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+        .form-input { width: 100%; padding: 14px 16px; border: 1px solid var(--gray-200); border-radius: 12px; font-size: 16px; font-family: inherit; transition: border-color 0.2s; }
+        .form-input:focus { outline: none; border-color: var(--blue); }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        .form-submit { width: 100%; margin-top: 16px; }
+        .contact-info { padding-top: 20px; }
+        .contact-info h3 { font-size: 28px; font-weight: 600; margin-bottom: 32px; }
+        .contact-item { display: flex; align-items: flex-start; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--gray-200); }
+        .contact-item:last-child { border-bottom: none; }
+        .contact-icon { font-size: 32px; margin-top: 4px; }
+        .contact-item h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .contact-item p { font-size: 14px; color: var(--gray-500); }
+        .contact-map { margin-top: 48px; background: var(--gray-100); border-radius: 24px; height: 300px; display: flex; align-items: center; justify-content: center; color: var(--gray-400); }
+
+        /* FAQ Section */
+        .faq { padding: 80px 0; }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--white); border-radius: 16px; padding: 24px; margin-bottom: 16px; cursor: pointer; }
+        .faq-question { font-size: 17px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+        .faq-answer { font-size: 15px; color: var(--gray-500); line-height: 1.6; display: none; }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-toggle { font-size: 20px; color: var(--gray-400); }
+
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .hero h1, .section-title, .showcase-title, .detail-hero h1, .about-hero h1, .help-hero h1, .contact-hero h1 { font-size: 48px; }
+            .features-grid, .help-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { max-width: 700px; }
+            .pricing-card.popular { transform: none; }
+            .values-grid, .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .detail-grid, .comparison-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .detail-grid.reverse { direction: ltr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1, .section-title, .showcase-title, .detail-hero h1, .about-hero h1, .help-hero h1, .contact-hero h1 { font-size: 36px; }
+            .hero-subtitle, .section-subtitle, .showcase-subtitle, .detail-hero p, .about-hero p, .contact-hero p { font-size: 18px; }
+            .features-grid, .help-grid { grid-template-columns: 1fr; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .values-grid, .team-grid { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .cta h2 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="logo" onclick="showPage('home')">
+                <span class="logo-icon">🤖</span> 销售宗师
+            </a>
+            <div class="nav-links">
+                <a class="nav-link active" onclick="showPage('home')">首页</a>
+                <a class="nav-link" onclick="showPage('features')">功能</a>
+                <a class="nav-link" onclick="showPage('about')">关于我们</a>
+                <a class="nav-link" onclick="showPage('help')">帮助</a>
+                <a class="nav-link" onclick="showPage('contact')">联系</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-secondary">登录</a>
+                <a href="#" class="btn btn-primary">免费试用</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page active">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">AI驱动的新一代销售自动化</div>
+                <h1><span class="gradient">AI替代人工跟进</span><br>每年轻松多签30%单子</h1>
+                <p class="hero-subtitle">6大AI Agent帮你自动挖掘线索、自动跟进、自动预测<br>让销售团队专注谈单，而不是录入数据</p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary btn-xl">免费试用14天</a>
+                    <a href="#" class="btn btn-secondary btn-xl">查看演示</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><div class="hero-stat-value">1,000+</div><div class="hero-stat-label">企业正在使用</div></div>
+                    <div class="hero-stat"><div class="hero-stat-value">45%</div><div class="hero-stat-label">线索转化率提升</div></div>
+                    <div class="hero-stat"><div class="hero-stat-value">90%+</div><div class="hero-stat-label">AI预测准确率</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Showcase -->
+        <section class="product-showcase">
+            <div class="showcase-container">
+                <h2 class="showcase-title">你的AI销售团队</h2>
+                <p class="showcase-subtitle">6大专属Agent，7×24小时为你工作</p>
+                <div class="showcase-window">
+                    <div class="window-header">
+                        <div class="window-dot red"></div><div class="window-dot yellow"></div><div class="window-dot green"></div>
+                    </div>
+                    <div class="window-content">
+                        <div class="window-sidebar">
+                            <div class="sidebar-item active"><span>🎯</span> 市场调研</div>
+                            <div class="sidebar-item"><span>🔍</span> 竞品分析</div>
+                            <div class="sidebar-item"><span>💬</span> 售前咨询</div>
+                            <div class="sidebar-item"><span>🤝</span> 售后跟进</div>
+                            <div class="sidebar-item"><span>💰</span> 成本优化</div>
+                            <div class="sidebar-item"><span>📊</span> 运营决策</div>
+                        </div>
+                        <div class="window-main">
+                            <div class="metrics-grid">
+                                <div class="metric-card"><div class="metric-value">328</div><div class="metric-label">今日新线索</div><div class="metric-trend">↑ 12%</div></div>
+                                <div class="metric-card"><div class="metric-value">89</div><div class="metric-label">待跟进</div><div class="metric-trend">↑ 5%</div></div>
+                                <div class="metric-card"><div class="metric-value">¥45万</div><div class="metric-label">预测本月成交</div><div class="metric-trend">↑ 23%</div></div>
+                                <div class="metric-card"><div class="metric-value">3</div><div class="metric-label">风险预警</div><div class="metric-trend" style="color:#ff5f57;">需关注</div></div>
+                            </div>
+                            <div class="chart-area">📊 销售数据可视化看板</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-label">核心功能</div>
+                    <h2 class="section-title">6大AI Agent<br>替代人工销售</h2>
+                    <p class="section-subtitle">每个销售环节都有专属AI Agent处理</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">市场调研Agent</h3>
+                        <p class="feature-desc">AI每天自动挖掘100+优质线索，基于工商信息、招标公告等多维度数据分析</p>
+                        <div class="feature-tags"><span class="feature-tag">天眼查API</span><span class="feature-tag">招标抓取</span><span class="feature-tag">自动评分</span></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">竞品分析Agent</h3>
+                        <p class="feature-desc">实时监控竞品动态，自动追踪价格、产品、融资等关键信息</p>
+                        <div class="feature-tags"><span class="feature-tag">竞品监控</span><span class="feature-tag">差异分析</span><span class="feature-tag">策略推荐</span></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3 class="feature-title">售前咨询Agent</h3>
+                        <p class="feature-desc">7×24小时自动回复客户咨询，深度理解意图，精准推荐话术</p>
+                        <div class="feature-tags"><span class="feature-tag">自动回复</span><span class="feature-tag">话术推荐</span><span class="feature-tag">意向识别</span></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h3 class="feature-title">售后跟进Agent</h3>
+                        <p class="feature-desc">自动化多步触达，跟进规则引擎+逾期提醒+升级机制</p>
+                        <div class="feature-tags"><span class="feature-tag">自动跟进</span><span class="feature-tag">逾期提醒</span><span class="feature-tag">任务自动化</span></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title">成本优化Agent</h3>
+                        <p class="feature-desc">智能报价策略，价格阈值管控，利润优化建议</p>
+                        <div class="feature-tags"><span class="feature-tag">智能报价</span><span class="feature-tag">折扣管控</span><span class="feature-tag">利润分析</span></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">运营决策Agent</h3>
+                        <p class="feature-desc">AI销售预测+风险预警+数据看板，辅助精准决策</p>
+                        <div class="feature-tags"><span class="feature-tag">销售预测</span><span class="feature-tag">风险预警</span><span class="feature-tag">数据看板</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison -->
+        <section class="comparison">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-label" style="color:var(--gray-400)">效果对比</div>
+                    <h2 class="section-title">销售宗师 vs 传统CRM</h2>
+                    <p class="section-subtitle">不只是工具升级，是销售模式的革命</p>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-card bad">
+                        <h3 class="comparison-title">❌ 传统CRM</h3>
+                        <ul class="comparison-list">
+                            <li class="comparison-item"><div class="comparison-icon">✗</div><div class="comparison-text">销售手动录入数据，浪费时间且易遗漏</div></li>
+                            <li class="comparison-item"><div class="comparison-icon">✗</div><div class="comparison-text">跟进靠人工提醒，经常错过最佳时机</div></li>
+                            <li class="comparison-item"><div class="comparison-icon">✗</div><div class="comparison-text">业绩预测凭经验，数据滞后不准确</div></li>
+                            <li class="comparison-item"><div class="comparison-icon">✗</div><div class="comparison-text">新人培养周期长，3-6个月才能上手</div></li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card good">
+                        <h3 class="comparison-title">✅ 销售宗师</h3>
+                        <ul class="comparison-list">
+                            <li class="comparison-item"><div class="comparison-icon">✓</div><div class="comparison-text">AI自动采集分析，销售专注谈客户</div></li>
+                            <li class="comparison-item"><div class="comparison-icon">✓</div><div class="comparison-text">Agent自动执行多步触达，永不遗忘</div></li>
+                            <li class="comparison-item"><div class="comparison-icon">✓</div><div class="comparison-text">AI预测准确率90%+，决策有据可依</div></li>
+                            <li class="comparison-item"><div class="comparison-icon">✓</div><div class="comparison-text">AI话术推荐，新人也能专业谈单</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-label">客户案例</div>
+                    <h2 class="section-title">真实客户，真实效果</h2>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"以前销售每天忙着录入数据，现在AI帮我们做了，我们只管谈客户。线索转化率从8%提升到了15%。"</p>
+                        <div class="testimonial-author"><div class="testimonial-avatar">张</div><div><div class="testimonial-name">张总</div><div class="testimonial-title">某科技公司 · 销售总监</div></div></div>
+                        <div class="testimonial-stats"><div class="stat-item"><div class="stat-value">+87%</div><div class="stat-label">转化率提升</div></div><div class="stat-item"><div class="stat-value">-29%</div><div class="stat-label">成单周期</div></div><div class="stat-item"><div class="stat-value">+75%</div><div class="stat-label">人均月单</div></div></div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"销售宗师的AI预测太准了！每月预测的成交额和实际误差不超过10%。让我可以提前布局资源。"</p>
+                        <div class="testimonial-author"><div class="testimonial-avatar">李</div><div><div class="testimonial-name">李经理</div><div class="testimonial-title">某SaaS公司 · 运营总监</div></div></div>
+                        <div class="testimonial-stats"><div class="stat-item"><div class="stat-value">90%+</div><div class="stat-label">预测准确率</div></div><div class="stat-item"><div class="stat-value">2x</div><div class="stat-label">团队效率</div></div><div class="stat-item"><div class="stat-value">10%</div><div class="stat-label">误差范围</div></div></div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">"最让我惊喜的是自动跟进功能。系统会自动提醒销售跟进客户，还会推荐最佳话术。"</p>
+                        <div class="testimonial-author"><div class="testimonial-avatar">王</div><div><div class="testimonial-name">王主管</div><div class="testimonial-title">某企业服务公司 · 销售主管</div></div></div>
+                        <div class="testimonial-stats"><div class="stat-item"><div class="stat-value">-83%</div><div class="stat-label">上手周期</div></div><div class="stat-item"><div class="stat-value">85%</div><div class="stat-label">预警准确率</div></div><div class="stat-item"><div class="stat-value">2周</div><div class="stat-label">新人上岗</div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-label">定价</div>
+                    <h2 class="section-title">简单透明，按需选择</h2>
+                    <p class="section-subtitle">所有版本均支持14天免费试用</p>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-name">标准版</div><div class="pricing-desc">适合小规模团队起步</div>
+                        <div class="pricing-price"><span class="pricing-value">¥299</span><span class="pricing-unit">/用户/年</span></div>
+                        <ul class="pricing-features"><li>CRM基础管理</li><li>线索管理（1000条）</li><li>基础报表</li><li>企业微信集成</li><li>邮件/短信通知</li></ul>
+                        <a href="#" class="btn btn-secondary pricing-cta">立即试用</a>
+                    </div>
+                    <div class="pricing-card popular">
+                        <div class="pricing-popular-badge">最受欢迎</div>
+                        <div class="pricing-name">专业版</div><div class="pricing-desc">适合成长型销售团队</div>
+                        <div class="pricing-price"><span class="pricing-value">¥799</span><span class="pricing-unit">/用户/年</span></div>
+                        <ul class="pricing-features"><li>标准版全部功能</li><li>AI线索评分</li><li>智能寻客（工商API）</li><li>自动跟进引擎</li><li>AI销售预测</li><li>风险预警 + 话术推荐</li></ul>
+                        <a href="#" class="btn btn-primary pricing-cta">立即试用</a>
+                    </div>
+                    <div class="pricing-card">
+                        <div class="pricing-name">企业版</div><div class="pricing-desc">适合中大型企业</div>
+                        <div class="pricing-price"><span class="pricing-value">定制</span></div>
+                        <ul class="pricing-features"><li>专业版全部功能</li><li>私有化部署</li><li>定制开发</li><li>API开放平台</li><li>专属成功经理</li><li>SLA服务保障</li></ul>
+                        <a href="#" class="btn btn-secondary pricing-cta">联系我们</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <div class="cta-content">
+                <h2>准备好提升销售业绩了吗？</h2>
+                <p>立即开始14天免费试用，体验AI驱动的销售自动化</p>
+                <div class="cta-actions">
+                    <a href="#" class="btn btn-primary btn-xl">免费试用14天</a>
+                    <a href="#" class="btn btn-secondary btn-xl">预约演示</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FEATURES PAGE -->
+    <div id="page-features" class="page">
+        <section class="detail-hero">
+            <h1>核心功能详解</h1>
+            <p>深入了解6大AI Agent如何帮你提升销售业绩</p>
+        </section>
+
+        <section class="detail-content">
+            <div class="section-container">
+                <div class="detail-grid">
+                    <div class="detail-text">
+                        <h3>🎯 市场调研Agent</h3>
+                        <p>AI每天自动从全网挖掘100+优质潜在客户，基于工商信息、招标公告、招聘需求等多维度数据，智能分析客户画像，自动评估线索价值并评分排序。</p>
+                        <ul class="detail-list">
+                            <li>天眼查/企查查API实时对接</li>
+                            <li>招标信息实时抓取与推送</li>
+                            <li>招聘需求智能分析判断公司动态</li>
+                            <li>8因子AI线索评分模型</li>
+                            <li>自动去重与相似线索合并</li>
+                        </ul>
+                    </div>
+                    <div class="detail-image">🎯 市场调研Agent 演示图</div>
+                </div>
+
+                <div class="detail-grid reverse">
+                    <div class="detail-text">
+                        <h3>🤝 售后跟进Agent</h3>
+                        <p>销售跟进靠人工提醒总是遗漏？Agent帮你自动执行多步触达序列。定义触发条件、触达方式、跟进节奏，系统自动执行，逾期自动提醒，漏跟自动回收。</p>
+                        <ul class="detail-list">
+                            <li>可视化跟进规则配置</li>
+                            <li>多渠道自动触达（微信/短信/邮件）</li>
+                            <li>逾期未跟进自动提醒</li>
+                            <li>长周期未成交线索自动回收</li>
+                            <li>跟进效果实时分析</li>
+                        </ul>
+                    </div>
+                    <div class="detail-image">🤝 售后跟进Agent 演示图</div>
+                </div>
+
+                <div class="detail-grid">
+                    <div class="detail-text">
+                        <h3>📊 运营决策Agent</h3>
+                        <p>凭经验做决策？AI帮你用数据说话。销售预测准确率90%+，风险预警提前识别，数据看板实时洞察，让管理层决策有据可依。</p>
+                        <ul class="detail-list">
+                            <li>AI成交概率预测（精确到单）</li>
+                            <li>月度/季度业绩预测</li>
+                            <li>流失风险/竞品风险/价格风险预警</li>
+                            <li>实时数据看板</li>
+                            <li>自定义报表与导出</li>
+                        </ul>
+                    </div>
+                    <div class="detail-image">📊 运营决策Agent 演示图</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">常见问题</h2>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">数据安全保障有哪些？<span class="faq-toggle">+</span></div>
+                        <div class="faq-answer">我们采用业界领先的安全技术，包括全程HTTPS加密传输、AES-256加密存储、基于角色的细粒度访问控制、完整的审计日志，以及多地容灾备份。所有数据存储在中华人民共和国境内。</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">和现有CRM系统能对接吗？<span class="faq-toggle">+</span></div>
+                        <div class="faq-answer">支持API对接，可与Salesforce、纷享销客、销售易等主流CRM系统对接，同时支持Webhooks、企业微信、钉钉等第三方应用集成。</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">AI模型是如何训练的？<span class="faq-toggle">+</span></div>
+                        <div class="faq-answer">我们承诺不会将您的原始业务数据用于模型训练。AI模型使用脱敏后的公开数据进行训练，并持续优化以提升预测准确性。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="page-about" class="page">
+        <section class="about-hero">
+            <h1>关于销售宗师</h1>
+            <p>AI驱动的新一代销售自动化平台，让每一笔成交都可预测、可控制</p>
+        </section>
+
+        <section class="about-mission">
+            <div class="section-container">
+                <div class="mission-content">
+                    <p class="mission-quote">"我们相信，AI不是替代销售，而是让销售变得更专业、更高效"</p>
+                    <p class="mission-author">—— 销售宗师团队</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-values">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">我们的价值观</h2>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🎯</div>
+                        <h3 class="value-title">客户成功</h3>
+                        <p class="value-desc">客户的成功是我们的成功。我们的一切努力都围绕着帮助客户提升销售业绩。</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">💡</div>
+                        <h3 class="value-title">创新驱动</h3>
+                        <p class="value-desc">持续探索AI与销售的深度融合，用创新技术解决传统销售痛点。</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🔒</div>
+                        <h3 class="value-title">安全可信</h3>
+                        <p class="value-desc">数据安全是生命线。我们承诺保护客户数据，绝不滥用客户信息。</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h3 class="value-title">开放透明</h3>
+                        <p class="value-desc">坦诚沟通，信守承诺。让客户了解我们如何工作，如何保护他们的数据。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-team">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">核心团队</h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-avatar">张</div>
+                        <h3 class="team-name">张明</h3>
+                        <p class="team-title">创始人 & CEO</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">李</div>
+                        <h3 class="team-name">李华</h3>
+                        <p class="team-title">CTO</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">王</div>
+                        <h3 class="team-name">王芳</h3>
+                        <p class="team-title">产品负责人</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-avatar">陈</div>
+                        <h3 class="team-name">陈强</h3>
+                        <p class="team-title">AI研发负责人</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-timeline">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">发展历程</h2>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content"><h4>2024年1月</h4><p>销售宗师正式成立，启动产品研发</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content"><h4>2024年6月</h4><p>完成核心功能开发，开启内测</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content"><h4>2024年9月</h4><p>首批100家企业入驻，获得天使轮融资</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content"><h4>2025年</h4><p>服务企业超过1000家，持续产品迭代</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- HELP PAGE -->
+    <div id="page-help" class="page">
+        <section class="help-hero">
+            <h1>帮助中心</h1>
+            <p>快速找到你需要的问题答案</p>
+        </section>
+
+        <section class="help-categories">
+            <div class="section-container">
+                <div class="help-grid">
+                    <div class="help-card">
+                        <div class="help-icon">🚀</div>
+                        <h3 class="help-title">快速入门</h3>
+                        <p class="help-desc">新用户必看，从注册到首次开单的全流程指南</p>
+                        <span class="help-count">12篇文章</span>
+                    </div>
+                    <div class="help-card">
+                        <div class="help-icon">🎯</div>
+                        <h3 class="help-title">智能寻客</h3>
+                        <p class="help-desc">如何配置线索来源、设置评分规则、自动挖掘客户</p>
+                        <span class="help-count">8篇文章</span>
+                    </div>
+                    <div class="help-card">
+                        <div class="help-icon">🤝</div>
+                        <h3 class="help-title">销售跟进</h3>
+                        <p class="help-desc">配置跟进规则、设置自动化流程、管理待办任务</p>
+                        <span class="help-count">15篇文章</span>
+                    </div>
+                    <div class="help-card">
+                        <div class="help-icon">📊</div>
+                        <h3 class="help-title">数据分析</h3>
+                        <p class="help-desc">查看销售报表、分析业绩数据、导出分析报告</p>
+                        <span class="help-count">10篇文章</span>
+                    </div>
+                    <div class="help-card">
+                        <div class="help-icon">⚙️</div>
+                        <h3 class="help-title">系统设置</h3>
+                        <p class="help-desc">账户管理、权限配置、集成第三方应用</p>
+                        <span class="help-count">18篇文章</span>
+                    </div>
+                    <div class="help-card">
+                        <div class="help-icon">💬</div>
+                        <h3 class="help-title">常见问题</h3>
+                        <p class="help-desc">关于产品功能、计费、发票等常见问题解答</p>
+                        <span class="help-count">20篇文章</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="help-articles">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">热门文章</h2>
+                </div>
+                <div class="articles-list">
+                    <div class="article-item">
+                        <h3 class="article-title">如何设置自动跟进规则？</h3>
+                        <p class="article-preview">本文详细介绍如何在销售宗师中配置自动跟进规则，包括触发条件、执行动作、跟进序列等核心设置...</p>
+                        <div class="article-meta"><span>阅读 2,345 次</span><span>更新于 2024-12-15</span></div>
+                    </div>
+                    <div class="article-item">
+                        <h3 class="article-title">AI线索评分是如何工作的？</h3>
+                        <p class="article-preview">了解销售宗师的8因子AI评分模型如何评估线索价值，帮助您优先跟进高潜力客户...</p>
+                        <div class="article-meta"><span>阅读 1,892 次</span><span>更新于 2024-12-10</span></div>
+                    </div>
+                    <div class="article-item">
+                        <h3 class="article-title">如何对接企业微信？</h3>
+                        <p class="article-preview">一步步教你完成企业微信的集成配置，实现客户消息的自动同步和回复...</p>
+                        <div class="article-meta"><span>阅读 1,567 次</span><span>更新于 2024-12-05</span></div>
+                    </div>
+                    <div class="article-item">
+                        <h3 class="article-title">销售预测准确率如何提升？</h3>
+                        <p class="article-preview">通过优化数据质量、调整预测模型参数，提高AI销售预测的准确性...</p>
+                        <div class="article-meta"><span>阅读 1,234 次</span><span>更新于 2024-11-28</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="page-contact" class="page">
+        <section class="contact-hero">
+            <h1>联系我们</h1>
+            <p>有任何问题或建议？我们随时为你服务</p>
+        </section>
+
+        <section class="contact-content">
+            <div class="section-container">
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <h3 class="form-title">发送消息</h3>
+                        <div class="form-group">
+                            <label class="form-label">姓名</label>
+                            <input type="text" class="form-input" placeholder="请输入你的姓名">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">邮箱</label>
+                            <input type="email" class="form-input" placeholder="请输入你的邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">公司</label>
+                            <input type="text" class="form-input" placeholder="请输入你的公司">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">留言</label>
+                            <textarea class="form-input form-textarea" placeholder="请输入你想咨询的内容..."></textarea>
+                        </div>
+                        <a href="#" class="btn btn-primary btn-lg form-submit">发送消息</a>
+                    </div>
+                    <div class="contact-info">
+                        <h3>联系方式</h3>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div><h4>电子邮件</h4><p>contact@salesmaster.com</p></div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div><h4>联系电话</h4><p>400-XXX-XXXX (工作日 9:00-18:00)</p></div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">💬</div>
+                            <div><h4>在线客服</h4><p>点击右侧在线咨询，7×24小时为你服务</p></div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div><h4>公司地址</h4><p>北京市海淀区中关村科技园</p></div>
+                        </div>
+                        <div class="contact-map">🗺️ 地图占位</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a class="logo"><span class="logo-icon">🤖</span> 销售宗师</a>
+                    <p>AI驱动的新一代销售自动化平台，让每一笔成交都可预测、可控制。</p>
+                </div>
+                <div><h4 class="footer-title">产品</h4><ul class="footer-links"><li><span onclick="showPage('features')">功能介绍</span></li><li><span onclick="showPage('home')">定价方案</span></li><li><span onclick="showPage('home')">客户案例</span></li><li><span onclick="showPage('help')">帮助文档</span></li></ul></div>
+                <div><h4 class="footer-title">公司</h4><ul class="footer-links"><li><span onclick="showPage('about')">关于我们</span></li><li><span onclick="showPage('contact')">联系我们</span></li><li><span>加入我们</span></li><li><span>新闻动态</span></li></ul></div>
+                <div><h4 class="footer-title">支持</h4><ul class="footer-links"><li><span onclick="showPage('help')">帮助中心</span></li><li><span>服务条款</span></li><li><span>隐私政策</span></li><li><span>ICP备案</span></li></ul></div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2024 销售宗师. All rights reserved.</span>
+                <div class="footer-legal"><a href="#">服务条款</a><a href="#">隐私政策</a><a href="#">ICP备案号</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById('page-' + pageName).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.textContent.includes(pageName === 'home' ? '首页' : pageName === 'features' ? '功能' : pageName === 'about' ? '关于我们' : pageName === 'help' ? '帮助' : '联系')) {
+                    link.classList.add('active');
+                }
+            });
+            window.scrollTo(0, 0);
+        }
+
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        function toggleFaq(element) {
+            element.classList.toggle('open');
+            element.querySelector('.faq-toggle').textContent = element.classList.contains('open') ? '−' : '+';
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .help-card, .value-card, .team-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

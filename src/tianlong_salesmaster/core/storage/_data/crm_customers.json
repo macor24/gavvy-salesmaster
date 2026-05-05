@@ -1,0 +1,92 @@
+[
+  {
+    "id": "cust_dee3bf84fb92",
+    "name": "张三",
+    "company": "测试科技",
+    "industry": "IT",
+    "source": "manual",
+    "stage": "lead",
+    "tags": [
+      "VIP",
+      "热线索"
+    ],
+    "phone": "13800138000",
+    "email": "zhang@test.com",
+    "address": "",
+    "website": "",
+    "notes": "",
+    "score": 0,
+    "created_at": "2026-05-03T00:02:05.481674",
+    "updated_at": "2026-05-03T00:02:05.481674"
+  },
+  {
+    "id": "cust_81bafd2a50fa",
+    "name": "李四",
+    "company": "电商有限公司",
+    "industry": "电商",
+    "source": "manual",
+    "stage": "lead",
+    "tags": [],
+    "phone": "",
+    "email": "",
+    "address": "",
+    "website": "",
+    "notes": "",
+    "score": 0,
+    "created_at": "2026-05-03T00:02:05.515167",
+    "updated_at": "2026-05-03T00:02:05.515167"
+  },
+  {
+    "id": "cust_4aca432e60f3",
+    "name": "测试客户",
+    "company": "科技公司",
+    "industry": "IT",
+    "source": "manual",
+    "stage": "lead",
+    "tags": [
+      "VIP"
+    ],
+    "phone": "13888888888",
+    "email": "test@co.com",
+    "address": "",
+    "website": "",
+    "notes": "重要客户",
+    "score": 0,
+    "created_at": "2026-05-03T00:06:12.241898",
+    "updated_at": "2026-05-03T00:06:12.241898"
+  },
+  {
+    "id": "cust_9447542fa0c6",
+    "name": "测试科技",
+    "company": "",
+    "industry": "AI",
+    "source": "",
+    "stage": "lead",
+    "tags": [],
+    "phone": "",
+    "email": "",
+    "address": "",
+    "website": "",
+    "notes": "",
+    "score": 0,
+    "created_at": "2026-05-04T21:39:17.465283",
+    "updated_at": "2026-05-04T21:39:17.465283"
+  },
+  {
+    "id": "cust_68d6fe36aadb",
+    "name": "测试科技",
+    "company": "",
+    "industry": "AI",
+    "source": "",
+    "stage": "lead",
+    "tags": [],
+    "phone": "",
+    "email": "",
+    "address": "",
+    "website": "",
+    "notes": "",
+    "score": 0,
+    "created_at": "2026-05-04T21:39:40.963999",
+    "updated_at": "2026-05-04T21:39:40.963999"
+  }
+]

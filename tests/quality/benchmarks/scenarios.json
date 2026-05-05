@@ -1,0 +1,38 @@
+[
+  {
+    "id": "BENCH-001",
+    "scenario": "金融科技公司AI安全审计需求",
+    "lead_info": {
+      "company": "XX金融科技",
+      "size": "50人",
+      "pain_point": "AI Agent安全审计缺失, LangChain生产环境无监控",
+      "budget": "10万/年"
+    },
+    "expected_output_elements": ["行业", "金融科技", "安全", "切入点"],
+    "forbidden_words": ["保证成交", "绝对"]
+  },
+  {
+    "id": "BENCH-002",
+    "scenario": "制造业数字化转型方案",
+    "lead_info": {
+      "company": "某制造企业",
+      "size": "500人",
+      "pain_point": "销售团队管理混乱",
+      "budget": "20万/年"
+    },
+    "expected_output_elements": ["ROI计算", "POC建议", "实施周期"],
+    "forbidden_words": ["免费"]
+  },
+  {
+    "id": "BENCH-003",
+    "scenario": "电商平台违禁词检测",
+    "lead_info": {
+      "company": "某电商平台",
+      "size": "200人",
+      "pain_point": "商品上架违规频繁被罚",
+      "budget": "5万/年"
+    },
+    "expected_output_elements": ["违禁词", "合规", "审核"],
+    "forbidden_words": ["保证", "第一"]
+  }
+]

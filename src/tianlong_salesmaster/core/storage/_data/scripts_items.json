@@ -1,0 +1,226 @@
+[
+  {
+    "id": "sp_ceb68db72a",
+    "scenario": "first_contact",
+    "title": "开场白 — 价值前置",
+    "content": "您好，我是{company}的{name}。了解到您在{industry}行业深耕多年，我们在帮助同类型企业{benefit}方面有丰富的经验。想占用您3分钟，介绍一下我们的解决方案，看是否对您有帮助？",
+    "tags": [
+      "开场白",
+      "价值前置"
+    ],
+    "tips": "开场要突出对客户的价值而非介绍自己",
+    "scenario_name": "首次接触",
+    "avg_rating": 5.0,
+    "rating_count": 1,
+    "created_at": "2026-05-03T00:20:46.844967",
+    "updated_at": "2026-05-03T00:20:46.844967"
+  },
+  {
+    "id": "sp_be32035e12",
+    "scenario": "first_contact",
+    "title": "开场白 — 痛点切入",
+    "content": "您好，我是{company}的{name}。最近和不少{industry}行业的同行交流，他们普遍反映{pain_point}是最大的痛点。您这边是否也有类似的困扰？",
+    "tags": [
+      "开场白",
+      "痛点切入"
+    ],
+    "tips": "用行业共性痛点建立共鸣，降低客户防备",
+    "scenario_name": "首次接触",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845068",
+    "updated_at": "2026-05-03T00:20:46.845068"
+  },
+  {
+    "id": "sp_734df9f51d",
+    "scenario": "need_discovery",
+    "title": "需求探索 — SPIN追问法",
+    "content": "您刚才提到的这个问题，目前是怎么处理的？\n\n（倾听后追问）如果这个问题持续存在，对您团队的影响有多大？\n\n假如有一个方案能解决这个问题，您最看重哪些方面？",
+    "tags": [
+      "SPIN",
+      "需求深入"
+    ],
+    "tips": "遵循 现状→问题→影响→需求 的提问逻辑",
+    "scenario_name": "需求挖掘",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845107",
+    "updated_at": "2026-05-03T00:20:46.845107"
+  },
+  {
+    "id": "sp_722fb1c008",
+    "scenario": "need_discovery",
+    "title": "预算探测",
+    "content": "像这样体量的项目，您预期的投入大概在什么范围？我这边可以根据预算为您匹配最合适的产品方案。",
+    "tags": [
+      "预算",
+      "需求确认"
+    ],
+    "tips": "先提供价值再问预算，不要让客户觉得你在试探",
+    "scenario_name": "需求挖掘",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845136",
+    "updated_at": "2026-05-03T00:20:46.845136"
+  },
+  {
+    "id": "sp_f0e3686f92",
+    "scenario": "objection_handling",
+    "title": "价格异议 — 价值对比",
+    "content": "我理解您的顾虑。表面上看我们的价格比同类高一些，但实际上我们的产品包含了{a}、{b}、{c}三项独家功能。按年计算，每天的成本其实只有{price_per_day}元，而它能帮您每天节省{time_save}小时的工作量。",
+    "tags": [
+      "价格异议",
+      "价值量化"
+    ],
+    "tips": "将年费拆解到天，让数字无感化；强调ROI而非价格",
+    "scenario_name": "异议处理",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845162",
+    "updated_at": "2026-05-03T00:20:46.845162"
+  },
+  {
+    "id": "sp_4a7144ff1d",
+    "scenario": "objection_handling",
+    "title": "竞品对比 — 差异化优势",
+    "content": "您提到的{competitor}确实是一个不错的选择。我帮您客观分析一下两者的差异：他们有{a}方面的优势，而我们强在{b}。考虑到您的核心需求是{need}，我们的方案匹配度会更高。",
+    "tags": [
+      "竞品",
+      "对比话术"
+    ],
+    "tips": "先肯定竞品建立信任，再用差异化匹配客户需求",
+    "scenario_name": "异议处理",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845191",
+    "updated_at": "2026-05-03T00:20:46.845191"
+  },
+  {
+    "id": "sp_1030a61fe6",
+    "scenario": "objection_handling",
+    "title": "推迟处理的应对",
+    "content": "完全理解您现在手头事情多。不过根据我们服务过的同类型企业来看，早一个月处理这个问题的客户，平均多创造了{revenue}的收益。我可以先发一份资料给您，5分钟就能看完，不影响您的工作节奏。",
+    "tags": [
+      "推迟",
+      "紧迫感"
+    ],
+    "tips": "不要催客户，用数据说明尽早行动的价值",
+    "scenario_name": "异议处理",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845219",
+    "updated_at": "2026-05-03T00:20:46.845219"
+  },
+  {
+    "id": "sp_13585f2359",
+    "scenario": "closing",
+    "title": "假设成交法",
+    "content": "如果我们要开始合作的话，您这边希望我们什么时候完成部署？是选择月度方案还是年度方案？",
+    "tags": [
+      "逼单",
+      "假设成交"
+    ],
+    "tips": "跳过\"要不要\"，直接问\"怎么做\"，引导客户进入决策后的场景",
+    "scenario_name": "逼单成交",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845246",
+    "updated_at": "2026-05-03T00:20:46.845246"
+  },
+  {
+    "id": "sp_916d3994d5",
+    "scenario": "closing",
+    "title": "限时优惠逼单",
+    "content": "这个优惠方案是到{deadline}截止的。如果今天确定的话，我还能额外帮您申请一个{bonus}。错过的话下次活动可能要等{next_time}了。",
+    "tags": [
+      "逼单",
+      "限时优惠"
+    ],
+    "tips": "优惠要真实有据，不要虚假紧迫感",
+    "scenario_name": "逼单成交",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845277",
+    "updated_at": "2026-05-03T00:20:46.845277"
+  },
+  {
+    "id": "sp_6db945c317",
+    "scenario": "closing",
+    "title": "风险逆转法",
+    "content": "我建议您可以先试用{free_trial_period}，试用期内不满意随时可以取消。这期间我全程陪跑，确保您快速看到效果。您看这样风险是不是就小很多了？",
+    "tags": [
+      "逼单",
+      "风险逆转"
+    ],
+    "tips": "降低客户的决策风险是最高效的成交方式",
+    "scenario_name": "逼单成交",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845306",
+    "updated_at": "2026-05-03T00:20:46.845306"
+  },
+  {
+    "id": "sp_63dd880d68",
+    "scenario": "after_sales",
+    "title": "活跃跟进 — 价值确认",
+    "content": "您好，我们的产品使用得还顺利吗？最近我们有新的{new_feature}功能上线，对{benefit}非常有帮助，我给您做个简短的演示？",
+    "tags": [
+      "售后",
+      "复购"
+    ],
+    "tips": "定期回顾价值，让客户感受到持续服务",
+    "scenario_name": "售后维护",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845335",
+    "updated_at": "2026-05-03T00:20:46.845335"
+  },
+  {
+    "id": "sp_aee103fa98",
+    "scenario": "after_sales",
+    "title": "复购引导",
+    "content": "看到您对我们的产品体验不错，目前有一个升级方案，在现有功能基础上增加了{a}和{b}，很多老客户升级后效率提升了{c}%。作为老客户，您可以享受{d}的专属优惠。",
+    "tags": [
+      "复购",
+      "升级"
+    ],
+    "tips": "用老客户案例数据说话，专属优惠增强信任",
+    "scenario_name": "售后维护",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845364",
+    "updated_at": "2026-05-03T00:20:46.845364"
+  },
+  {
+    "id": "sp_29bcf58d56",
+    "scenario": "churn_recovery",
+    "title": "流失原因了解",
+    "content": "您好，看到您最近没有继续使用我们的产品了。非常希望能了解一下原因，是我们做得不够好，还是产品不适合您的需求？您的反馈对我们改进非常重要。",
+    "tags": [
+      "流失",
+      "原因了解"
+    ],
+    "tips": "态度真诚，不要辩驳，先收集真实反馈",
+    "scenario_name": "流失挽回",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845401",
+    "updated_at": "2026-05-03T00:20:46.845401"
+  },
+  {
+    "id": "sp_532d757087",
+    "scenario": "churn_recovery",
+    "title": "挽回方案",
+    "content": "基于您的使用情况，我这边有一个针对性的方案。之前您遇到{issue}的问题，我们已经做了优化。另外我们新增了{new_feature}功能，应该正好能解决您的需求。我给您免费开通试用一个月，您看是否方便我给您演示一下？",
+    "tags": [
+      "流失",
+      "挽回"
+    ],
+    "tips": "先解决问题再推方案，挽回比新客成本低5倍",
+    "scenario_name": "流失挽回",
+    "avg_rating": 0.0,
+    "rating_count": 0,
+    "created_at": "2026-05-03T00:20:46.845427",
+    "updated_at": "2026-05-03T00:20:46.845427"
+  }
+]

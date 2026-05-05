@@ -1,0 +1,506 @@
+[
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "3774ffac26f9",
+    "id": "604b9f689a76",
+    "created_at": "2026-05-02T15:54:05.085106",
+    "updated_at": "2026-05-02T15:54:05.085129",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "9387202b223a",
+    "id": "bd9fdb6c740e",
+    "created_at": "2026-05-02T15:54:05.097112",
+    "updated_at": "2026-05-02T15:54:05.097148",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T15:54:05.126823",
+    "updated_at": "2026-05-02T15:54:05.126839",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T15:54:05.140028",
+    "updated_at": "2026-05-02T15:54:05.140043",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "236093211a2f",
+    "id": "38f365144fef",
+    "created_at": "2026-05-02T15:54:05.151948",
+    "updated_at": "2026-05-02T15:54:05.151963",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "3774ffac26f9",
+    "id": "604b9f689a76",
+    "created_at": "2026-05-02T16:29:17.395818",
+    "updated_at": "2026-05-02T16:29:17.395837",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "9387202b223a",
+    "id": "bd9fdb6c740e",
+    "created_at": "2026-05-02T16:29:17.415425",
+    "updated_at": "2026-05-02T16:29:17.415444",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T16:29:17.429183",
+    "updated_at": "2026-05-02T16:29:17.429198",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T16:29:17.440118",
+    "updated_at": "2026-05-02T16:29:17.440133",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "236093211a2f",
+    "id": "38f365144fef",
+    "created_at": "2026-05-02T16:29:17.452953",
+    "updated_at": "2026-05-02T16:29:17.452968",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "3774ffac26f9",
+    "id": "604b9f689a76",
+    "created_at": "2026-05-02T17:24:57.722272",
+    "updated_at": "2026-05-02T17:24:57.722295",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "9387202b223a",
+    "id": "bd9fdb6c740e",
+    "created_at": "2026-05-02T17:24:57.733834",
+    "updated_at": "2026-05-02T17:24:57.733854",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T17:24:57.764639",
+    "updated_at": "2026-05-02T17:24:57.764673",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T17:24:57.784549",
+    "updated_at": "2026-05-02T17:24:57.784603",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "236093211a2f",
+    "id": "38f365144fef",
+    "created_at": "2026-05-02T17:24:57.795249",
+    "updated_at": "2026-05-02T17:24:57.795267",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "a5250ed801cf",
+    "id": "e10f821f2297",
+    "created_at": "2026-05-02T17:24:57.806271",
+    "updated_at": "2026-05-02T17:24:57.806289",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "8ccb948284d1",
+    "id": "155f8843b8e3",
+    "created_at": "2026-05-02T17:24:57.817065",
+    "updated_at": "2026-05-02T17:24:57.817084",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "3774ffac26f9",
+    "id": "604b9f689a76",
+    "created_at": "2026-05-02T19:26:41.004521",
+    "updated_at": "2026-05-02T19:26:41.004539",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "9387202b223a",
+    "id": "bd9fdb6c740e",
+    "created_at": "2026-05-02T19:26:41.019713",
+    "updated_at": "2026-05-02T19:26:41.019734",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T19:26:41.034689",
+    "updated_at": "2026-05-02T19:26:41.034708",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理测试的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "e4a9aaa6eac2",
+    "id": "1ae4e4344ea9",
+    "created_at": "2026-05-02T19:26:41.049885",
+    "updated_at": "2026-05-02T19:26:41.049922",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "236093211a2f",
+    "id": "38f365144fef",
+    "created_at": "2026-05-02T19:26:41.064150",
+    "updated_at": "2026-05-02T19:26:41.064167",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "a5250ed801cf",
+    "id": "e10f821f2297",
+    "created_at": "2026-05-02T19:26:41.079412",
+    "updated_at": "2026-05-02T19:26:41.079429",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "8ccb948284d1",
+    "id": "155f8843b8e3",
+    "created_at": "2026-05-02T19:26:41.091076",
+    "updated_at": "2026-05-02T19:26:41.091092",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "410b5ab58bf5",
+    "id": "85a6283d205a",
+    "created_at": "2026-05-02T19:26:41.103615",
+    "updated_at": "2026-05-02T19:26:41.103639",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理z的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "25027e8fc8c4",
+    "id": "8591949340f3",
+    "created_at": "2026-05-02T19:26:41.114963",
+    "updated_at": "2026-05-02T19:26:41.114978",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理在线客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "c7178ac0e075",
+    "id": "0d2700d5c78c",
+    "created_at": "2026-05-02T19:26:41.131035",
+    "updated_at": "2026-05-02T19:26:41.131051",
+    "title": "presales_agent 成功策略 (v1)"
+  },
+  {
+    "name": "presales_agent 成功策略 (v1)",
+    "agent": "presales_agent",
+    "type": "strategy",
+    "content": "处理张测试客户的售前咨询 — success",
+    "version": 1,
+    "score": 0.8,
+    "use_count": 0,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "source_insight_id": "d29f1c8e899a",
+    "id": "05e8b0f81bd5",
+    "created_at": "2026-05-02T19:26:41.142351",
+    "updated_at": "2026-05-02T19:26:41.142367",
+    "title": "presales_agent 成功策略 (v1)"
+  }
+]

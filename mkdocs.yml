@@ -1,0 +1,13 @@
+site_name: 销售宗师 SalesMaster
+site_description: 开源销售引擎 — CRM + AI销售团队 + 自动化Pipeline
+repo_url: https://github.com/
+theme: material
+nav:
+  - 首页: index.md
+  - 快速开始: quickstart.md
+  - CLI命令: cli.md
+  - API文档: api.md
+  - 功能模块: modules.md
+  - 部署指南: deploy.md
+  - 企业版: enterprise.md
+  - 进化闭环: evolve.md

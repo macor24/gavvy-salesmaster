@@ -1,0 +1,28 @@
+[
+  {
+    "id": "cont_600f828732",
+    "customer_id": "cust_81bafd2a50fa",
+    "name": "李经理",
+    "role": "采购总监",
+    "phone": "13900139000",
+    "email": "",
+    "wechat": "",
+    "is_primary": true,
+    "notes": "",
+    "created_at": "2026-05-03T00:02:05.547919",
+    "updated_at": "2026-05-03T00:02:05.547919"
+  },
+  {
+    "id": "cont_6b98217426",
+    "customer_id": "cust_4aca432e60f3",
+    "name": "王经理",
+    "role": "技术总监",
+    "phone": "13999999999",
+    "email": "",
+    "wechat": "",
+    "is_primary": true,
+    "notes": "",
+    "created_at": "2026-05-03T00:06:12.285708",
+    "updated_at": "2026-05-03T00:06:12.285708"
+  }
+]

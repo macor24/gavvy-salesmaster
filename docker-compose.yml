@@ -1,0 +1,25 @@
+services:
+  salesmaster:
+    build: .
+    image: tianlong-salesmaster:latest
+    ports:
+      - "8877:8877"
+    environment:
+      - SALES_API_KEY=${SALES_API_KEY:-dev-key}
+      - TIANLONG_API_URL=${TIANLONG_API_URL:-}
+    volumes:
+      - sales_data:/app/src/tianlong_salesmaster/storage/_data
+      - sales_memory:/app/src/tianlong_salesmaster/storage/_memory
+      - sales_messages:/app/src/tianlong_salesmaster/web/_messages
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8877/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  sales_data:
+  sales_memory:
+  sales_messages:

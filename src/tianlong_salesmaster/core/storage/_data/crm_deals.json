@@ -1,0 +1,28 @@
+[
+  {
+    "id": "deal_703030006b",
+    "customer_id": "cust_81bafd2a50fa",
+    "title": "专业版年度合同",
+    "stage": "discovery",
+    "amount": 5999,
+    "probability": 70,
+    "expected_close": "",
+    "product_info": "",
+    "notes": "",
+    "created_at": "2026-05-03T00:02:05.565212",
+    "updated_at": "2026-05-03T00:02:05.565212"
+  },
+  {
+    "id": "deal_c20ec0830c",
+    "customer_id": "cust_4aca432e60f3",
+    "title": "企业版年度合同",
+    "stage": "closed_won",
+    "amount": 19999,
+    "probability": 80,
+    "expected_close": "",
+    "product_info": "",
+    "notes": "",
+    "created_at": "2026-05-03T00:06:12.303436",
+    "updated_at": "2026-05-03T00:06:21.227806"
+  }
+]

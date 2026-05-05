@@ -1,0 +1,1362 @@
+[
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理测试客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "测试客户",
+      "message": "这个产品多少钱"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "3774ffac26f9",
+    "timestamp": "2026-05-02T12:45:45.261621",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理在线客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "在线客户",
+      "message": "你好"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "9387202b223a",
+    "timestamp": "2026-05-02T12:47:45.694334",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理测试的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "测试",
+      "message": "你好"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "e4a9aaa6eac2",
+    "timestamp": "2026-05-02T13:35:16.398183",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理测试的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "测试",
+      "message": "你好"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "e4a9aaa6eac2",
+    "timestamp": "2026-05-02T13:52:52.833823",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理在线客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "在线客户",
+      "message": "hi"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "236093211a2f",
+    "timestamp": "2026-05-02T14:50:18.102699",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理在线客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "在线客户",
+      "message": "你好，我想了解一下产品价格"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "a5250ed801cf",
+    "timestamp": "2026-05-02T17:21:50.289027",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理在线客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "在线客户",
+      "message": "测试消息发送"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "8ccb948284d1",
+    "timestamp": "2026-05-02T17:22:09.719220",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理在线客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "在线客户",
+      "message": "测试消息，API是否正常返回？"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "410b5ab58bf5",
+    "timestamp": "2026-05-02T18:57:02.557792",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理z的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "z",
+      "message": "你好"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "25027e8fc8c4",
+    "timestamp": "2026-05-02T18:59:55.402120",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理在线客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "在线客户",
+      "message": "这个方案很不错，我们能约个时间详谈吗？"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "c7178ac0e075",
+    "timestamp": "2026-05-02T19:09:24.360902",
+    "hit_count": 0
+  },
+  {
+    "agent": "presales_agent",
+    "category": "success_pattern",
+    "title": "presales_agent 成功策略",
+    "content": "处理张测试客户的售前咨询 — success",
+    "action": "售前对话处理",
+    "context_snapshot": {
+      "product": "",
+      "customer": "张测试客户",
+      "message": "您好，我是张测试客户，13800000001，想咨询产品信息"
+    },
+    "score": 0.8,
+    "tags": [
+      "presales_agent",
+      "success"
+    ],
+    "id": "d29f1c8e899a",
+    "timestamp": "2026-05-02T19:14:28.825831",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成未名客户的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "test",
+      "customer": "",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "e45c69bbd779",
+    "timestamp": "2026-05-02T23:10:26.476495",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:11:10.186284",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:11:10.231066",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:11:10.281560",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:11:10.343581",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:11:26.932357",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:11:26.988736",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:11:27.035009",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:11:27.084458",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:31:15.429282",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:31:15.503028",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:31:15.578743",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:31:15.652401",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:33:39.795081",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:33:39.954159",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:33:40.040699",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:33:40.156476",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:34:16.968261",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:34:17.012246",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:34:17.067493",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:34:17.120747",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:36:21.110513",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:36:21.145259",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:36:21.181441",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:36:21.225328",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:37:10.377902",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:37:10.418929",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:37:10.482989",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:37:10.522850",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:41:58.953463",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:41:58.974478",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:41:58.997462",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:41:59.010986",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:42:30.283020",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:42:30.340463",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:42:30.384007",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:42:30.428957",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:45:32.555557",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:45:32.595707",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:45:32.639749",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:45:32.701626",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:51:55.877287",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:51:55.940223",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:51:56.007862",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:51:56.062888",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:52:39.191722",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:52:39.233483",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:52:39.276509",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:52:39.351434",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T12:58:14.547821",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T12:58:14.620170",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T12:58:14.692780",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T12:58:14.747866",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现4个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户H",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "eb5bfdaea30a",
+    "timestamp": "2026-05-03T13:02:06.253285",
+    "hit_count": 0
+  },
+  {
+    "agent": "market_research_agent",
+    "category": "success_pattern",
+    "title": "market_research_agent 成功策略",
+    "content": "完成AI行业调研，发现5个潜在客户",
+    "action": "市场调研与线索挖掘",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新客户",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "market_research_agent",
+      "success"
+    ],
+    "id": "c38678da5415",
+    "timestamp": "2026-05-03T13:02:06.327814",
+    "hit_count": 0
+  },
+  {
+    "agent": "platform_ops_agent",
+    "category": "success_pattern",
+    "title": "platform_ops_agent 成功策略",
+    "content": "京东发布检查完成 — 通过",
+    "action": "商品发布上架审核",
+    "context_snapshot": {
+      "product": "",
+      "customer": "新品上架",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "platform_ops_agent",
+      "success"
+    ],
+    "id": "f988e7febe3a",
+    "timestamp": "2026-05-03T13:02:06.381649",
+    "hit_count": 0
+  },
+  {
+    "agent": "competitor_intel_agent",
+    "category": "success_pattern",
+    "title": "competitor_intel_agent 成功策略",
+    "content": "完成客户F的竞品差异化分析",
+    "action": "竞品对标分析",
+    "context_snapshot": {
+      "product": "",
+      "customer": "客户F",
+      "message": ""
+    },
+    "score": 0.8,
+    "tags": [
+      "competitor_intel_agent",
+      "success"
+    ],
+    "id": "227665fd710e",
+    "timestamp": "2026-05-03T13:02:06.454536",
+    "hit_count": 0
+  }
+]

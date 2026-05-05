@@ -1,0 +1,53 @@
+[
+  {
+    "id": "0d7b3eaf-654",
+    "quote_number": "Q20260503-0D7B",
+    "title": "客户A企业方案",
+    "description": "",
+    "customer_id": "",
+    "customer_name": "客户A科技有限公司",
+    "customer_email": "",
+    "salesperson": "销售员A",
+    "items": [
+      {
+        "id": "25b3cdf8",
+        "product_id": "08769c42-48e",
+        "product_name": "企业版套餐",
+        "quantity": 2,
+        "unit_price": 50000.0,
+        "discount_percent": 10.0,
+        "tax_percent": 13.0,
+        "notes": ""
+      }
+    ],
+    "notes": "",
+    "terms": "",
+    "status": "accepted",
+    "created_at": "2026-05-03 00:02:23",
+    "updated_at": "2026-05-03 00:02:23",
+    "valid_until": "2026-06-02",
+    "sent_at": "",
+    "accepted_at": "2026-05-03 00:02:23",
+    "related_lead_id": ""
+  },
+  {
+    "id": "460a2e4a-971",
+    "quote_number": "Q20260504-460A",
+    "title": "安全审计服务",
+    "description": "",
+    "customer_id": "cust_68d6fe36aadb",
+    "customer_name": "",
+    "customer_email": "",
+    "salesperson": "",
+    "items": [],
+    "notes": "",
+    "terms": "",
+    "status": "draft",
+    "created_at": "2026-05-04 21:39:41",
+    "updated_at": "2026-05-04 21:39:41",
+    "valid_until": "2026-06-03",
+    "sent_at": "",
+    "accepted_at": "",
+    "related_lead_id": ""
+  }
+]

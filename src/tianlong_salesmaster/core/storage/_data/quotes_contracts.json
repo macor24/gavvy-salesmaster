@@ -1,0 +1,70 @@
+[
+  {
+    "id": "d768ea7c-d3e",
+    "contract_number": "C20260503-D768",
+    "title": "客户A技术服务合同",
+    "description": "",
+    "customer_id": "",
+    "customer_name": "客户A科技有限公司",
+    "customer_email": "",
+    "salesperson": "销售员A",
+    "items": [
+      {
+        "id": "d7006f82",
+        "product_id": "08769c42-48e",
+        "product_name": "企业版套餐",
+        "quantity": 2,
+        "unit_price": 50000.0,
+        "description": ""
+      }
+    ],
+    "payment_plans": [
+      {
+        "id": "e8a34277",
+        "payment_number": 1,
+        "description": "首期付款",
+        "amount": 30000.0,
+        "due_date": "",
+        "status": "pending",
+        "paid_at": ""
+      },
+      {
+        "id": "a650f051",
+        "payment_number": 2,
+        "description": "中期付款",
+        "amount": 30000.0,
+        "due_date": "",
+        "status": "pending",
+        "paid_at": ""
+      },
+      {
+        "id": "bc70f27f",
+        "payment_number": 3,
+        "description": "后期货款",
+        "amount": 30000.0,
+        "due_date": "",
+        "status": "pending",
+        "paid_at": ""
+      },
+      {
+        "id": "0a11a47e",
+        "payment_number": 4,
+        "description": "质保金",
+        "amount": 10000.0,
+        "due_date": "",
+        "status": "pending",
+        "paid_at": ""
+      }
+    ],
+    "terms": "",
+    "notes": "",
+    "status": "draft",
+    "created_at": "2026-05-03 00:02:23",
+    "updated_at": "2026-05-03 00:02:23",
+    "signed_at": "",
+    "effective_date": "",
+    "end_date": "",
+    "related_quote_id": "0d7b3eaf-654",
+    "related_lead_id": ""
+  }
+]

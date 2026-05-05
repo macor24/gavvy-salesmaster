@@ -1,0 +1,24 @@
+[
+  {
+    "id": "act_c481a3c3f0",
+    "customer_id": "cust_81bafd2a50fa",
+    "contact_id": "",
+    "deal_id": "",
+    "type": "call",
+    "title": "首次电话沟通",
+    "content": "客户对专业版感兴趣，约定下周演示",
+    "created_by": "system",
+    "created_at": "2026-05-03T00:02:05.605267"
+  },
+  {
+    "id": "act_d4795acd28",
+    "customer_id": "cust_4aca432e60f3",
+    "contact_id": "",
+    "deal_id": "",
+    "type": "meeting",
+    "title": "产品演示会议",
+    "content": "客户确认购买意向",
+    "created_by": "system",
+    "created_at": "2026-05-03T00:06:12.332494"
+  }
+]

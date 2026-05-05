@@ -1,0 +1,378 @@
+{
+  "presales_agent": {
+    "total": 11,
+    "success": 11,
+    "fail": 0,
+    "blocked": 0,
+    "rate": 1.0,
+    "history": [
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理测试客户的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理在线客户的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理测试的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理测试的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理在线客户的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理在线客户的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理在线客户的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理在线客户的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理z的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理在线客户的售前咨询 — success"
+      },
+      {
+        "result": "success",
+        "action": "售前对话处理",
+        "summary": "处理张测试客户的售前咨询 — success"
+      }
+    ]
+  },
+  "competitor_intel_agent": {
+    "total": 15,
+    "success": 15,
+    "fail": 0,
+    "blocked": 0,
+    "rate": 1.0,
+    "history": [
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成未名客户的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      },
+      {
+        "result": "success",
+        "action": "竞品对标分析",
+        "summary": "完成客户F的竞品差异化分析"
+      }
+    ]
+  },
+  "market_research_agent": {
+    "total": 28,
+    "success": 28,
+    "fail": 0,
+    "blocked": 0,
+    "rate": 1.0,
+    "history": [
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现4个潜在客户"
+      },
+      {
+        "result": "success",
+        "action": "市场调研与线索挖掘",
+        "summary": "完成AI行业调研，发现5个潜在客户"
+      }
+    ]
+  },
+  "platform_ops_agent": {
+    "total": 14,
+    "success": 14,
+    "fail": 0,
+    "blocked": 0,
+    "rate": 1.0,
+    "history": [
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      },
+      {
+        "result": "success",
+        "action": "商品发布上架审核",
+        "summary": "京东发布检查完成 — 通过"
+      }
+    ]
+  }
+}
