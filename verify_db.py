@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """验证数据库迁移结果"""
 
-from tianlong_salesmaster.storage import get_db_context
-from tianlong_salesmaster.storage.db_sqlite import Customer, Lead, Deal, Quote, Contract
+from SentriKit_salesmaster.storage import get_db_context
+from SentriKit_salesmaster.storage.db_sqlite import Customer, Lead, Deal, Quote, Contract
 
 print("=" * 60)
 print("数据库验证")

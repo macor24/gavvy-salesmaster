@@ -1,4 +1,4 @@
-"""tianlong.sales.multithread — 拆分自 master.py"""
+"""SentriKit.sales.multithread — 拆分自 master.py"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict

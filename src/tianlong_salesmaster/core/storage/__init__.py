@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage — 统一数据库抽象层
+"""SentriKit_salesmaster.core.storage — 统一数据库抽象层
 
 支持多种数据库后端：
 - SQLite (默认，开发/测试用)
@@ -6,7 +6,7 @@
 - MySQL
 
 使用方法:
-    from tianlong_salesmaster.core.storage import get_db, get_db_context, init_database
+    from SentriKit_salesmaster.core.storage import get_db, get_db_context, init_database
     # 自动选择可用的数据库
 """
 

@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.team_pkg.llm.deepseek — DeepSeek API 调用引擎
+"""SentriKit_salesmaster.team_pkg.llm.deepseek — DeepSeek API 调用引擎
 
 零外部依赖（使用 urllib）。
 支持 DeepSeek / OpenAI 兼容 API。

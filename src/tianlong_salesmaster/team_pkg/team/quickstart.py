@@ -1,14 +1,14 @@
-"""tianlong_salesmaster.team_pkg.team.quickstart — 快速启动引导
+"""SentriKit_salesmaster.team_pkg.team.quickstart — 快速启动引导
 
 社区版：内置基础行业模板
-企业版：调用服务端获取定制化模板（需 TIANLONG_API_KEY）
+企业版：调用服务端获取定制化模板（需 SentriKit_API_KEY）
 """
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from tianlong_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig
+from SentriKit_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig
 
 
 QUICKSTART_INDUSTRIES = {

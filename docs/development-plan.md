@@ -1,7 +1,7 @@
 # 销售宗师 v2.0 开发计划
 
 > **界面设计:** `/mnt/c/XSZS/`（9 个功能页面）
-> **代码目录:** `tianlong-salesmaster/src/tianlong_salesmaster/`
+> **代码目录:** `SentriKit-salesmaster/src/SentriKit_salesmaster/`
 > **技术栈:** 纯标准库 Python（后端）+ HTML/CSS/JS（前端）
 
 ---

@@ -1,1 +1,1 @@
-"""tianlong_salesmaster.core"""
+"""SentriKit_salesmaster.core"""

@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.quotes.db — 报价与合同存储接口
+"""SentriKit_salesmaster.crm_pkg.quotes.db — 报价与合同存储接口
 
 封装对数据库的访问，提供统一的存储接口。
 """
@@ -61,7 +61,7 @@ def get_quotes_kernel(storage_dir: Optional[str] = None) -> QuotesStorage:
     """获取报价与合同存储内核"""
     global _global_quotes_storage
     if _global_quotes_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_quotes_storage = QuotesStorage(kernel)
     return _global_quotes_storage

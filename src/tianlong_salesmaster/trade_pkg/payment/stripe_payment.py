@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.trade_pkg.payment.stripe — Stripe 支付集成
+"""SentriKit_salesmaster.trade_pkg.payment.stripe — Stripe 支付集成
 
 真实 Stripe 支付集成，支持：
 - 信用卡支付

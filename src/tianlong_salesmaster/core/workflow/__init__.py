@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.workflow — 事件驱动流程引擎
+"""SentriKit_salesmaster.core.workflow — 事件驱动流程引擎
 
 核心能力：
 - 事件定义与发布订阅

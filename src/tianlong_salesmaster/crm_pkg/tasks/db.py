@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.tasks.db — 任务与审批存储接口
+"""SentriKit_salesmaster.crm_pkg.tasks.db — 任务与审批存储接口
 
 封装对数据库的访问，提供统一的存储接口。
 """
@@ -80,7 +80,7 @@ def get_tasks_kernel(storage_dir: Optional[str] = None) -> TasksStorage:
     """获取任务存储内核"""
     global _global_tasks_storage
     if _global_tasks_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_tasks_storage = TasksStorage(kernel)
     return _global_tasks_storage
@@ -90,7 +90,7 @@ def get_approval_kernel(storage_dir: Optional[str] = None) -> ApprovalStorage:
     """获取审批存储内核"""
     global _global_approval_storage
     if _global_approval_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_approval_storage = ApprovalStorage(kernel)
     return _global_approval_storage
@@ -100,7 +100,7 @@ def get_notification_kernel(storage_dir: Optional[str] = None) -> NotificationSt
     """获取通知存储内核"""
     global _global_notification_storage
     if _global_notification_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_notification_storage = NotificationStorage(kernel)
     return _global_notification_storage

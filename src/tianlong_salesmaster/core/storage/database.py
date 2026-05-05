@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage.database — PostgreSQL 数据库层
+"""SentriKit_salesmaster.core.storage.database — PostgreSQL 数据库层
 
 支持：
 - SQLAlchemy ORM 模型
@@ -28,7 +28,7 @@ Base = declarative_base()
 
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
-    "postgresql://salesadmin:password@localhost:5432/tianlong_sales"
+    "postgresql://salesadmin:password@localhost:5432/SentriKit_sales"
 )
 
 engine = create_engine(

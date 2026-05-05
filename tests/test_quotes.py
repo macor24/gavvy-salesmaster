@@ -18,7 +18,7 @@ def test_quotes_and_contracts():
 
     try:
         # 导入模块
-        from tianlong_salesmaster.crm_pkg.quotes import (
+        from SentriKit_salesmaster.crm_pkg.quotes import (
             ProductManager,
             QuoteManager,
             ContractManager,

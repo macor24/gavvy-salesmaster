@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.knowledge.db — 知识库存储接口
+"""SentriKit_salesmaster.crm_pkg.knowledge.db — 知识库存储接口
 
 封装对数据库的访问，提供统一的存储接口。
 """
@@ -50,7 +50,7 @@ def get_kb_kernel(storage_dir: Optional[str] = None):
     """获取知识库存储内核"""
     global _global_storage
     if _global_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_storage = KnowledgeStorage(kernel)
     return _global_storage

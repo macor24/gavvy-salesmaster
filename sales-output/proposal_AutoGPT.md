@@ -9,7 +9,7 @@
 2. 🟡 合规压力 — OWASP LLM Top 10 审计要求
 3. 🟢 效率提升 — 测试产品提供完整解决方案。
 
-### 3. 天龙工具箱价值主张
+### 3. SentriKit 价值主张
 | 特性 | 测试产品 | 通用方案 |
 |------|-----------|-------------|
 | AI Agent专用 | ✅ 专用规则 | ❌ 通用 |
@@ -19,9 +19,9 @@
 | 价格 | 🆓 MIT免费 | 💰 付费 |
 
 ### 4. 推荐方案
-Step 1: pip install tianlong-toolkit
-Step 2: tianlong-uxu scan . --severity high
-Step 3: 集成到CI — tianlong-audit -d .
+Step 1: pip install SentriKit-toolkit
+Step 2: SentriKit-uxu scan . --severity high
+Step 3: 集成到CI — SentriKit-audit -d .
 全程免费开源，5分钟完成安全审计。
 
 ### 5. 联系策略
@@ -35,4 +35,4 @@ Day 14: 推进合作
 
 ---
 
-*由天龙1号 Sales Agent 自动生成 | 2026-05-01 08:01*
+*由 SentriKit Sales Agent 自动生成 | 2026-05-01 08:01*

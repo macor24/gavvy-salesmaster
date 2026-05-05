@@ -272,19 +272,19 @@ Step 5: 点击"启动" → AI 团队开始工作
 
 ## 六、产品边界
 
-### 销售宗师 vs 天龙工具箱
+### 销售宗师 vs SentriKit
 
-| 维度 | 销售宗师 | 天龙工具箱 |
+| 维度 | 销售宗师 | SentriKit |
 |------|---------|-----------|
 | 定位 | AI 销售智能体团队 | Agent 安全运维工具箱 |
 | 市场 | 销售/业务人员 | 开发者/运维 |
-| 安装 | pip install tianlong-salesmaster | pip install tianlong-toolkit |
-| 依赖关系 | **独立运行，无需天龙工具箱** | 无直接关系 |
-| 可选集成 | 装天龙工具箱后可导入安全审计/竞品数据 | 不装不影响 |
+| 安装 | pip install SentriKit-salesmaster | pip install SentriKit-toolkit |
+| 依赖关系 | **独立运行，无需 SentriKit** | 无直接关系 |
+| 可选集成 | 装 SentriKit 后可导入安全审计/竞品数据 | 不装不影响 |
 
-**核心原则：销售宗师是独立产品，不依赖天龙工具箱就能完整运行。**
-装了天龙工具箱 → 提案中自动包含安全审计数据，锦上添花。
-没装天龙工具箱 → 所有功能正常，内置轻量版竞品情报和搜索能力。
+**核心原则：销售宗师是独立产品，不依赖 SentriKit 就能完整运行。**
+装了 SentriKit → 提案中自动包含安全审计数据，锦上添花。
+没装 SentriKit → 所有功能正常，内置轻量版竞品情报和搜索能力。
 
 ---
 
@@ -332,7 +332,7 @@ Step 5: 点击"启动" → AI 团队开始工作
 ### 首次使用（5 步启动）
 
 ```
-Step 1: pip install tianlong-salesmaster && tianlong-sales-web
+Step 1: pip install SentriKit-salesmaster && SentriKit-sales-web
 Step 2: 选择行业（自动加载预置模板）→ 填写产品名称/描述/价格范围
 Step 3: 输入目标关键词（可选，如"AI Agent 安全"）
 Step 4: 选择安全模式（默认保守模式）
@@ -370,7 +370,7 @@ Step 5: 点击"启动"
 ### 配置文件位置
 
 ```
-tianlong-salesmaster/src/tianlong_salesmaster/product/pricing.json
+SentriKit-salesmaster/src/SentriKit_salesmaster/product/pricing.json
 ```
 
 修改后重启服务生效。

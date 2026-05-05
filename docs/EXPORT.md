@@ -28,8 +28,8 @@
 ### 基础使用
 
 ```python
-from tianlong_salesmaster.export import ExportManager
-from tianlong_salesmaster.quotes import QuoteManager
+from SentriKit_salesmaster.export import ExportManager
+from SentriKit_salesmaster.quotes import QuoteManager
 
 # 创建导出管理器
 exporter = ExportManager()
@@ -75,7 +75,7 @@ exporter.export_contract_to_excel(contract, "合同.csv")
 ### 导出产品目录
 
 ```python
-from tianlong_salesmaster.quotes import ProductManager
+from SentriKit_salesmaster.quotes import ProductManager
 
 pm = ProductManager()
 products = pm.get_products()
@@ -162,12 +162,12 @@ exporter.export_quote(quote, "output", format="html")
 ## 完整示例
 
 ```python
-from tianlong_salesmaster.quotes import (
+from SentriKit_salesmaster.quotes import (
     ProductManager,
     QuoteManager,
     ContractManager,
 )
-from tianlong_salesmaster.export import ExportManager
+from SentriKit_salesmaster.export import ExportManager
 
 # 创建管理器
 pm = ProductManager()

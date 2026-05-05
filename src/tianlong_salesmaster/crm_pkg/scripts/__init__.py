@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.scripts — 话术训练系统
+"""SentriKit_salesmaster.crm_pkg.scripts — 话术训练系统
 
 销售话术训练引擎，包含：
 
@@ -21,7 +21,7 @@ from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 
-from tianlong_salesmaster.core.storage.db import get_kernel
+from SentriKit_salesmaster.core.storage.db import get_kernel
 
 # ── 集合名称 ──────────────────────────────────────
 

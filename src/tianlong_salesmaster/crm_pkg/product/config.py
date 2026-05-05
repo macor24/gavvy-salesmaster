@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.product.config — 商品资料与定价配置
+"""SentriKit_salesmaster.crm_pkg.product.config — 商品资料与定价配置
 
 用户通过 Web 后台输入，存储在 JSON 文件中。
 所有信息仅内部使用，不展示给客户。

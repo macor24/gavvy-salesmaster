@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.rbac.audit — 审计日志系统
+"""SentriKit_salesmaster.crm_pkg.rbac.audit — 审计日志系统
 
 完整的操作审计功能：
 - 操作日志记录

@@ -29,13 +29,13 @@
 确保已安装销售宗师：
 
 ```bash
-pip install tianlong-salesmaster
+pip install SentriKit-salesmaster
 ```
 
 ### 基础使用
 
 ```python
-from tianlong_salesmaster.knowledge import KnowledgeBase
+from SentriKit_salesmaster.knowledge import KnowledgeBase
 
 # 创建知识库实例
 kb = KnowledgeBase()
@@ -265,9 +265,9 @@ kb.batch_add_items([
 
 ### 存储位置
 知识库数据默认存储在：
-- `tianlong_salesmaster/storage/knowledge_items.json` - 知识条目
-- `tianlong_salesmaster/storage/knowledge_faqs.json` - FAQ
-- `tianlong_salesmaster/storage/knowledge_categories.json` - 分类
+- `SentriKit_salesmaster/storage/knowledge_items.json` - 知识条目
+- `SentriKit_salesmaster/storage/knowledge_faqs.json` - FAQ
+- `SentriKit_salesmaster/storage/knowledge_categories.json` - 分类
 
 ### 自定义存储路径
 
@@ -354,7 +354,7 @@ def init_sales_kb():
 ```python
 def agent_with_kb():
     """Agent 集成知识库示例"""
-    from tianlong_salesmaster.knowledge import get_knowledge_base
+    from SentriKit_salesmaster.knowledge import get_knowledge_base
 
     kb = get_knowledge_base()
 
@@ -373,7 +373,7 @@ def agent_with_kb():
 ## 常见问题
 
 ### Q: 知识库数据存在哪里？
-A: 默认存储在 `tianlong_salesmaster/storage/` 目录下，可通过 `storage_dir` 参数自定义。
+A: 默认存储在 `SentriKit_salesmaster/storage/` 目录下，可通过 `storage_dir` 参数自定义。
 
 ### Q: 如何迁移知识库数据？
 A: 使用 `kb.export_all()` 和 `kb.import_all()` 导出和导入数据。

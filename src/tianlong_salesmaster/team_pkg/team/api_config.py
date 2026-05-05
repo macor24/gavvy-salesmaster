@@ -1,7 +1,7 @@
-"""tianlong_salesmaster.team_pkg.team.api_config — API 配置管理器
+"""SentriKit_salesmaster.team_pkg.team.api_config — API 配置管理器
 
 社区版：本地配置管理
-企业版：调用服务端获取动态配置（需 TIANLONG_API_KEY）
+企业版：调用服务端获取动态配置（需 SentriKit_API_KEY）
 """
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from typing import Any, Dict, Optional
 
-from tianlong_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig
+from SentriKit_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig
 
 
 class APIConfigManager:

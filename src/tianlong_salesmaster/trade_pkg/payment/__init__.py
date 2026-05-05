@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.trade_pkg.payment — 支付收款模块
+"""SentriKit_salesmaster.trade_pkg.payment — 支付收款模块
 
 支持多种支付渠道：支付宝、微信支付、银行转账等。
 """

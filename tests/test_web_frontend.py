@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from tianlong_salesmaster.core.app import app
+from SentriKit_salesmaster.core.app import app
 
 
 def _get_free_port():
@@ -139,7 +139,7 @@ class TestFrontendRendering(unittest.TestCase):
         cls.port = _get_free_port()
         try:
             import uvicorn
-            from tianlong_salesmaster.core.app import app
+            from SentriKit_salesmaster.core.app import app
             cfg = uvicorn.Config(app, host="127.0.0.1", port=cls.port, log_level="error")
             cls.server = uvicorn.Server(cfg)
             cls.thread = threading.Thread(target=cls.server.run, daemon=True)
@@ -196,7 +196,7 @@ class TestHTMLStructure(unittest.TestCase):
 
     def setUp(self):
         self.web_dir = Path(__file__).resolve().parent.parent / \
-                       "src" / "tianlong_salesmaster" / "core" / "web"
+                       "src" / "SentriKit_salesmaster" / "core" / "web"
 
     def test_index_html_is_valid(self):
         path = self.web_dir / "index.html"

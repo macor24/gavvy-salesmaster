@@ -453,15 +453,48 @@ class FollowupService:
     def trigger_event(self, event_type: EventType, **context):
         """触发事件"""
         event = {"type": event_type.value, "timestamp": datetime.now(), **context}
-        
+
         for sequence in self.sequences:
             if not sequence.enabled:
                 continue
-            
+
             for step in sequence.steps:
                 if step.trigger.type == TriggerType.EVENT and \
                    step.trigger.event_type == event_type:
                     self._execute_step(step, context)
+
+        # 桥接到 WorkflowEngine EventBus
+        self._bridge_to_workflow(event_type, context)
+
+    def _bridge_to_workflow(self, event_type: EventType, context: Dict) -> None:
+        """将 followup 事件桥接到 WorkflowEngine EventBus"""
+        try:
+            from SentriKit_salesmaster.core.workflow import (
+                WorkflowEvent, EventType as WFEventType, get_event_bus,
+            )
+            wf_event_type = self._map_to_workflow_event(event_type)
+            if wf_event_type:
+                bus = get_event_bus()
+                event = WorkflowEvent(
+                    type=wf_event_type,
+                    source="followup",
+                    data=context,
+                )
+                bus.publish(event)
+        except Exception:
+            pass  # WorkflowEngine 不可用时静默降级
+
+    @staticmethod
+    def _map_to_workflow_event(fup_event: EventType) -> Optional[str]:
+        """映射 followup EventType 到 WorkflowEventType"""
+        mapping = {
+            EventType.LEAD_CREATED: "lead.created",
+            EventType.DEAL_WON: "deal.won",
+            EventType.DEAL_LOST: "deal.lost",
+            EventType.TASK_COMPLETED: "task.completed",
+            EventType.CONTACT_MADE: "contact.made",
+        }
+        return mapping.get(fup_event)
     
     def _execute_step(self, step: FollowupStep, context: Dict):
         """执行步骤"""

@@ -11,8 +11,8 @@ sys.path.insert(0, str(root_dir / "src"))
 def test_import():
     """测试 SaaS 模块可以被导入"""
     try:
-        from tianlong_salesmaster.crm_pkg.saas import Tenant, TenantUser, TenantContext, JWTToken, RateLimiter, PlanType
-        from tianlong_salesmaster.crm_pkg.saas.manager import SaaSManager, TenantStore, get_saas_manager
+        from SentriKit_salesmaster.crm_pkg.saas import Tenant, TenantUser, TenantContext, JWTToken, RateLimiter, PlanType
+        from SentriKit_salesmaster.crm_pkg.saas.manager import SaaSManager, TenantStore, get_saas_manager
         print("✅ SaaS core modules: OK")
         return True
     except Exception as e:
@@ -21,7 +21,7 @@ def test_import():
 
 def test_app_file_exists():
     """测试 app.py 文件和内容检查"""
-    app_path = root_dir / "src" / "tianlong_salesmaster" / "app.py"
+    app_path = root_dir / "src" / "SentriKit_salesmaster" / "app.py"
     if not app_path.exists():
         print(f"❌ app.py not found: {app_path}")
         return False
@@ -45,8 +45,8 @@ def test_app_file_exists():
 def test_saas_basic():
     """测试 SaaS 基础功能（无 FastAPI）"""
     try:
-        from tianlong_salesmaster.crm_pkg.saas import Tenant, TenantUser, Subscription
-        from tianlong_salesmaster.crm_pkg.saas.manager import get_saas_manager
+        from SentriKit_salesmaster.crm_pkg.saas import Tenant, TenantUser, Subscription
+        from SentriKit_salesmaster.crm_pkg.saas.manager import get_saas_manager
 
         # 创建测试租户
         tenant = Tenant.create("测试公司", "test-company", "科技有限公司")
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         print("\n✅ All integration tests passed!")
         print("\n📋 Usage:")
         print("  Enable SaaS: set SALES_USE_SAAS=true")
-        print("  Start: python -m tianlong_salesmaster.app")
+        print("  Start: python -m SentriKit_salesmaster.app")
         print("  API docs: http://localhost:8877/docs")
         sys.exit(0)
     else:

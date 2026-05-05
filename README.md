@@ -1,7 +1,7 @@
 # 销售宗师 · SalesMaster
 
 > 开源销售引擎 — CRM + AI 虚拟销售团队 + 自动化 Pipeline  
-> `pip install tianlong-salesmaster` 即用，零外部依赖跑通全流程
+> `pip install SentriKit-salesmaster` 即用，零外部依赖跑通全流程
 
 ---
 
@@ -9,10 +9,10 @@
 
 ```bash
 # 1. 安装
-pip install tianlong-salesmaster
+pip install SentriKit-salesmaster
 
 # 2. 启动 Web 管理后台（带 API）
-tianlong-sales-fastapi
+SentriKit-sales-fastapi
 
 # 3. 浏览器打开
 open http://localhost:8877
@@ -63,23 +63,23 @@ open http://localhost:8877
 
 | 命令 | 说明 |
 |------|------|
-| `tianlong-sales-fastapi` | **推荐** 统一 API + Web 服务（8877端口） |
-| `tianlong-sales-api` | 纯 API 服务（已弃用，建议用 FastAPI） |
+| `SentriKit-sales-fastapi` | **推荐** 统一 API + Web 服务（8877端口） |
+| `SentriKit-sales-api` | 纯 API 服务（已弃用，建议用 FastAPI） |
 
 ### 安装可选依赖
 
 ```bash
 # 激活 AI 销售引擎（企业版闭源）
-pip install tianlong-salesmaster[enterprise]
+pip install SentriKit-salesmaster[enterprise]
 
-# 激活天龙1号进化闭环集成
-pip install tianlong-salesmaster[tianlong]
+# 激活 SentriKit 进化闭环集成
+pip install SentriKit-salesmaster[SentriKit]
 
 # 使用 FastAPI（推荐）
-pip install tianlong-salesmaster[fastapi]
+pip install SentriKit-salesmaster[fastapi]
 
 # 全部装齐
-pip install tianlong-salesmaster[all]
+pip install SentriKit-salesmaster[all]
 ```
 
 ---
@@ -161,12 +161,12 @@ docker compose up -d
 
 ---
 
-## 与天龙1号集成
+## 与 SentriKit 集成
 
-销售宗师可与天龙1号（tianlong-toolkit）集成，获得完整的自进化闭环能力：
+销售宗师可与 SentriKit（SentriKit-toolkit）集成，获得完整的自进化闭环能力：
 
-1. 启动天龙1号 API：`tianlong-api --port 8899`
-2. 设置环境变量：`export TIANLONG_API_URL=http://127.0.0.1:8899`
+1. 启动 SentriKit API：`SentriKit-api --port 8899`
+2. 设置环境变量：`export SentriKit_API_URL=http://127.0.0.1:8899`
 3. 销售宗师自动检测并激活进化闭环
 
 可调用：退化检测 → 提案评分 → 完整进化闭环（学习→分析→判断→进化→验证→反射→清理）
@@ -176,11 +176,11 @@ docker compose up -d
 ## 项目结构
 
 ```
-tianlong-salesmaster/
-├── src/tianlong_salesmaster/
+SentriKit-salesmaster/
+├── src/SentriKit_salesmaster/
 │   ├── app.py              # FastAPI 统一服务（2485行，160路由）
 │   ├── master.py           # SalesMaster 六维引擎
-│   ├── tianlong_client.py  # 天龙1号 API 客户端
+│   ├── SentriKit_client.py  # SentriKit API 客户端
 │   ├── team/               # (shim) AI 销售团队 ← 指向企业版
 │   ├── memory/             # (shim) 学习记忆库 ← 指向企业版
 │   ├── web/                # 前端 SPA（index.html+script.js+styles.css）
@@ -195,5 +195,5 @@ tianlong-salesmaster/
 ## 许可
 
 - **开源模块**: MIT License
-- **AI 销售引擎**: 企业版闭源（`tianlong-sales-enterprise`）
+- **AI 销售引擎**: 企业版闭源（`SentriKit-sales-enterprise`）
 - **联系方式**: [GitHub Issues](https://github.com/)

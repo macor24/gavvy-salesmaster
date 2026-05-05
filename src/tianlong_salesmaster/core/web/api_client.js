@@ -510,16 +510,16 @@ const SalesAPI = (function() {
       }, { status: 'ok', name: name });
     },
 
-    // ========== 天龙1号集成 ==========
+    // ========== SentriKit 集成 ==========
 
-    /** 获取天龙1号状态 */
-    getTianlongStatus() {
-      return _fetchWithFallback('/api/tianlong/status', {}, { available: false, enabled: false, active: false });
+    /** 获取 SentriKit 状态 */
+    getSentriKitStatus() {
+      return _fetchWithFallback('/api/SentriKit/status', {}, { available: false, enabled: false, active: false });
     },
 
-    /** 切换天龙1号集成 */
-    toggleTianlong(enabled) {
-      return _fetchWithFallback('/api/tianlong/toggle', {
+    /** 切换 SentriKit 集成 */
+    toggleSentriKit(enabled) {
+      return _fetchWithFallback('/api/SentriKit/toggle', {
         method: 'POST',
         body: JSON.stringify({ enabled: enabled })
       }, { enabled: enabled });

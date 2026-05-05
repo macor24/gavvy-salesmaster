@@ -1,10 +1,10 @@
 include LICENSE
 include README.md
-recursive-include src/tianlong_salesmaster/web *.html *.js *.css *.json
-recursive-include src/tianlong_salesmaster/storage/_data *.json
-recursive-include src/tianlong_salesmaster/storage/_memory *.json
-recursive-include src/tianlong_salesmaster/team *.json
-recursive-include src/tianlong_salesmaster/product *.json
-graft src/tianlong_salesmaster/web
+recursive-include src/SentriKit_salesmaster/web *.html *.js *.css *.json
+recursive-include src/SentriKit_salesmaster/storage/_data *.json
+recursive-include src/SentriKit_salesmaster/storage/_memory *.json
+recursive-include src/SentriKit_salesmaster/team *.json
+recursive-include src/SentriKit_salesmaster/product *.json
+graft src/SentriKit_salesmaster/web
 global-exclude __pycache__
 global-exclude *.pyc

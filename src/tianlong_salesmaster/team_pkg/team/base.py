@@ -1,7 +1,7 @@
-"""tianlong_salesmaster.team_pkg.team.base — AI Agent 基类体系（社区版实现）
+"""SentriKit_salesmaster.team_pkg.team.base — AI Agent 基类体系（社区版实现）
 
 提供 Agent 基类、上下文、结果、私有输入、四维内核等核心类型。
-企业版能力通过服务端 API（TIANLONG_API_KEY）提供。
+企业版能力通过服务端 API（SentriKit_API_KEY）提供。
 
 社区版限制（MIT）：
 - Agent 执行限 1 个 Lead（演示模式）
@@ -51,7 +51,7 @@ COMMUNITY_UPGRADE_HINT = (
     "- ✅ 无限 Lead 管理与多 Agent 编排\n"
     "- ✅ 跨 Agent 数据总线与自动销售闭环\n"
     "- ✅ 记忆库-销售学习进化\n"
-    "申请：https://tianlong.ai/pricing"
+    "申请：https://SentriKit.ai/pricing"
 )
 
 
@@ -172,18 +172,6 @@ class AgentResult:
 
 
 @dataclass
-class LeadScore:
-    """线索评分"""
-    score: float = 0.0                  # 0.0 ~ 1.0
-    confidence: float = 0.0             # 置信度
-    factors: Dict[str, float] = field(default_factory=dict)  # 评分因子
-    summary: str = ""
-
-
-# ── 四维内核 ─────────────────────────────────────
-
-
-@dataclass
 class Kernels:
     """四维内核 — 每个 Agent 携带的心理/战略/分析/谈判维度"""
     psychologist: str = ""   # 心理博弈能力描述
@@ -249,59 +237,6 @@ class BaseAgent(ABC):
 
 
 # ── 线索评分器 ───────────────────────────────────
-
-
-class LeadScorer:
-    """线索评分器"""
-
-    @staticmethod
-    def score(lead_info: Dict) -> LeadScore:
-        """对线索进行评分"""
-        score_val = 0.0
-        factors = {}
-
-        industry = lead_info.get("industry", "")
-        description = lead_info.get("description", "")
-        source = lead_info.get("source", "manual")
-
-        # 行业匹配度
-        high_value = ["AI Agent", "LLM", "大模型", "金融科技", "医疗AI",
-                       "FinTech", "智能驾驶", "机器人", "人工智能"]
-        medium_value = ["电商", "SaaS", "企业服务", "教育", "制造"]
-        for hv in high_value:
-            if hv in industry:
-                factors["industry_match"] = 0.3
-                score_val += 0.3
-                break
-        for mv in medium_value:
-            if mv in industry:
-                score_val += 0.15
-                factors.setdefault("industry_match", 0.15)
-                break
-
-        # 描述详细度
-        desc_len = len(description)
-        if desc_len > 100:
-            factors["description_detail"] = 0.2
-            score_val += 0.2
-        elif desc_len > 50:
-            factors["description_detail"] = 0.1
-            score_val += 0.1
-
-        # 来源可信度
-        source_scores = {"web_search": 0.15, "manual": 0.1, "preset": 0.05}
-        factors["source"] = source_scores.get(source, 0.05)
-        score_val += factors["source"]
-
-        score_val = min(score_val, 1.0)
-
-        return LeadScore(
-            score=score_val,
-            confidence=0.6 + score_val * 0.3,
-            factors=factors,
-            summary=f"行业匹配度{'高' if score_val > 0.5 else '中' if score_val > 0.2 else '低'}，"
-                    f"综合评分 {score_val:.1%}",
-        )
 
 
 # ── 会话记忆 ─────────────────────────────────────

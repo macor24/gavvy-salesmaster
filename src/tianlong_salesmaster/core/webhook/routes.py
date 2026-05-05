@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.webhook.routes — Webhook API 路由
+"""SentriKit_salesmaster.core.webhook.routes — Webhook API 路由
 
 提供 Webhook 回调接收端点，用于接收支付和电子签服务的通知。
 """

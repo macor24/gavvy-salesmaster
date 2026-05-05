@@ -75,8 +75,8 @@ def create_html_report(output_path):
             </ol>
         </div>
         <h2 id="structure">一、项目整体结构</h2>
-        <pre>tianlong-salesmaster/
-├── src/tianlong_salesmaster/
+        <pre>SentriKit-salesmaster/
+├── src/SentriKit_salesmaster/
 │   ├── __init__.py
 │   ├── master.py
 │   ├── team/

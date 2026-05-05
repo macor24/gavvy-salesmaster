@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-pip install tianlong-salesmaster[enterprise]
+pip install SentriKit-salesmaster[enterprise]
 export SALES_ENTERPRISE=1
 ```
 
@@ -15,7 +15,7 @@ export SALES_ENTERPRISE=1
 |------|------|
 | 环境变量 | `export SALES_ENTERPRISE=1` |
 | License Key | `export SALES_ENTERPRISE_KEY=SALES-XXXX-XXXX-XXXX` |
-| License 文件 | 写入 `~/.tianlong/license.key` |
+| License 文件 | 写入 `~/.SentriKit/license.key` |
 
 ## 功能对比
 

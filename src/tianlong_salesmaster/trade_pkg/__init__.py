@@ -1,1 +1,1 @@
-"""tianlong_salesmaster.trade_pkg"""
+"""SentriKit_salesmaster.trade_pkg"""

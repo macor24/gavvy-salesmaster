@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage.migration — JSON → Database 数据迁移工具
+"""SentriKit_salesmaster.core.storage.migration — JSON → Database 数据迁移工具
 
 支持：
 - PostgreSQL

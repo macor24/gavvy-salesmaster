@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'settings':
                 loadSafetyStatus();
-                loadTianlongStatus();
+                loadSentriKitStatus();
                 break;
         }
     }
@@ -872,19 +872,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }).catch(() => {});
     }
 
-    // 加载天龙1号集成状态
-    function loadTianlongStatus() {
-        SalesAPI.getTianlongStatus().then(data => {
-            const badge = document.getElementById('tianlong-badge');
-            const toggle = document.getElementById('tianlong-toggle');
-            const desc = document.getElementById('tianlong-desc');
+    // 加载 SentriKit 集成状态
+    function loadSentriKitStatus() {
+        SalesAPI.getSentriKitStatus().then(data => {
+            const badge = document.getElementById('SentriKit-badge');
+            const toggle = document.getElementById('SentriKit-toggle');
+            const desc = document.getElementById('SentriKit-desc');
             if (badge) {
                 if (data.available) {
                     badge.textContent = data.enabled ? '已接入' : '已关闭';
-                    badge.className = data.enabled ? 'tianlong-badge connected' : 'tianlong-badge disabled';
+                    badge.className = data.enabled ? 'SentriKit-badge connected' : 'SentriKit-badge disabled';
                 } else {
                     badge.textContent = '未安装';
-                    badge.className = 'tianlong-badge missing';
+                    badge.className = 'SentriKit-badge missing';
                 }
             }
             if (toggle) {
@@ -893,12 +893,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             if (desc) {
                 if (data.active) {
-                    desc.textContent = '天龙1号 Reporter 已集成，销售策略报告自动同步';
+                    desc.textContent = 'SentriKit Reporter 已集成，销售策略报告自动同步';
                     refreshEvolveStatus();
                 } else if (data.available && !data.enabled) {
-                    desc.textContent = '天龙1号已安装但集成已关闭，可手动开启';
+                    desc.textContent = 'SentriKit 已安装但集成已关闭，可手动开启';
                 } else {
-                    desc.textContent = '未检测到天龙1号（tianlong-toolkit）';
+                    desc.textContent = '未检测到 SentriKit（SentriKit-toolkit）';
                 }
             }
         }).catch(() => {});
@@ -906,11 +906,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 进化闭环
     function refreshEvolveStatus() {
-        SalesAPI.getTianlongStatus().then(data => {
+        SalesAPI.getSentriKitStatus().then(data => {
             if (!data.available) return;
             const section = document.getElementById('evolve-section');
             if (section) section.style.display = '';
-            // 调用后端 /api/tianlong/evolve-status（如果存在）或从本地状态推断
+            // 调用后端 /api/SentriKit/evolve-status（如果存在）或从本地状态推断
             fetch('/api/orchestrator/summary').then(r => r.json()).catch(() => ({})).then(summary => {
                 const badge = document.getElementById('evolve-status-badge');
                 const rate = document.getElementById('evolve-success-rate');
@@ -955,18 +955,18 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // 天龙1号开关
+    // SentriKit 开关
     document.addEventListener('change', function(e) {
-        if (e.target && e.target.id === 'tianlong-toggle') {
+        if (e.target && e.target.id === 'SentriKit-toggle') {
             const enabled = e.target.checked;
-            SalesAPI.toggleTianlong(enabled).then(() => {
-                loadTianlongStatus();
-                const badge = document.getElementById('tianlong-badge');
+            SalesAPI.toggleSentriKit(enabled).then(() => {
+                loadSentriKitStatus();
+                const badge = document.getElementById('SentriKit-badge');
                 if (badge) {
                     badge.textContent = enabled ? '已接入' : '已关闭';
-                    badge.className = enabled ? 'tianlong-badge connected' : 'tianlong-badge disabled';
+                    badge.className = enabled ? 'SentriKit-badge connected' : 'SentriKit-badge disabled';
                 }
-                showToast(enabled ? '天龙1号集成已开启' : '天龙1号集成已关闭', 'success');
+                showToast(enabled ? 'SentriKit 集成已开启' : 'SentriKit 集成已关闭', 'success');
             }).catch(() => showToast('设置保存失败', 'fail'));
         }
     });
@@ -1145,7 +1145,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAgents();
     loadCustomerList();
     loadSafetyStatus();
-    loadTianlongStatus();
+    loadSentriKitStatus();
     loadMemoryStats();
     loadMemorySkills();
     loadMemoryEvolution();
@@ -1156,14 +1156,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 统一定时刷新（合并5个定时器为1个，每30秒触发一次）
     // loadSummary/loadSafetyStatus: 每轮刷新
-    // loadTianlongStatus/loadFlowToggles/loadRecentActivity: 每2轮刷新
+    // loadSentriKitStatus/loadFlowToggles/loadRecentActivity: 每2轮刷新
     var _tick = 0;
     setInterval(function() {
         _tick++;
         loadSummary();
         loadSafetyStatus();
         if (_tick % 2 === 0) {
-            loadTianlongStatus();
+            loadSentriKitStatus();
             loadFlowToggles();
             loadRecentActivity();
         }
@@ -1305,7 +1305,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAgents();
     loadCustomerList();
     loadSafetyStatus();
-    loadTianlongStatus();
+    loadSentriKitStatus();
     loadMemoryStats();
     if (typeof window.loadMemorySkills === 'function') window.loadMemorySkills();
     if (typeof window.loadMemoryEvolution === 'function') window.loadMemoryEvolution();
@@ -1319,7 +1319,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 已合并到页面启动处，此处不再重复注册
     // setInterval(loadSummary, 30000);
     // setInterval(loadSafetyStatus, 30000);
-    // setInterval(loadTianlongStatus, 60000);
+    // setInterval(loadSentriKitStatus, 60000);
     // setInterval(loadRecentActivity, 60000);
 
     // ── 页面入场动画 ────────────────────────

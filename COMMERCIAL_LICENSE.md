@@ -1,4 +1,4 @@
-# 销售宗师 · 商业授权
+# Gavvy（销售宗师）· 商业授权
 
 ## 核心理念
 
@@ -6,7 +6,9 @@
 **企业版** 的能力不在闭源代码中，而在**服务端 LLM API** 中。
 
 > 核心 Prompt 工程和模型权重保留在服务端，通过 HTTP API 对外提供服务。
-> 社区版 pip 包内置 HTTP API 客户端，设置 TIANLONG_API_KEY 即可激活企业版能力。
+> 社区版 pip 包内置 HTTP API 客户端，设置 `SENTRIKIT_API_KEY` 即可激活企业版能力。
+>
+> 企业版能力与 SentriKit（天龙工具箱）共用同一套 API Key 认证体系。
 
 ## 版本对比
 
@@ -41,10 +43,10 @@
 
 ```bash
 # 社区版（免费 — pip install 即用）
-pip install tianlong-salesmaster
+pip install sentrikit-salesmaster
 
 # 企业版（设置 API Key 即激活，无需安装额外包）
-export TIANLONG_API_KEY=tl-xxxxxxxxxxxx
+export SENTRIKIT_API_KEY=***
 # 或运行时传入
 ```
 
@@ -54,9 +56,9 @@ export TIANLONG_API_KEY=tl-xxxxxxxxxxxx
 
 | 方式 | 说明 |
 |------|------|
-| 环境变量 | `export TIANLONG_API_KEY=tl-xxxxxxxxxxxx` |
+| 环境变量 | `export SENTRIKIT_API_KEY=***` |
 | 运行时配置 | `EnterpriseConfig(api_key="...")` |
-| 获取 Key | https://tianlong.ai |
+| 获取 Key | https://sentrikit.ai |
 
 ## 架构优势
 
@@ -72,7 +74,7 @@ export TIANLONG_API_KEY=tl-xxxxxxxxxxxx
 ## 定价
 
 - **社区版**: 永久免费（MIT License）
-- **企业版**: 按 API 调用量 / Lead 数量计费，详见 https://tianlong.ai/pricing
+- **企业版**: 按 API 调用量 / Lead 数量计费，详见 https://sentrikit.ai/pricing
 
 ## 商业价值分布
 
@@ -88,6 +90,3 @@ export TIANLONG_API_KEY=tl-xxxxxxxxxxxx
    价值: 基础设施信任          价值: 核心生产力
    作用: 获客+降低门槛          作用: 直接变现
 ```
-
-> 88% 代码量开源，但 12% 的服务端资产承载了 80% 以上的商业价值。
-> 这是帕累托分布——开源的是"苦力活"，服务端是"脑力活"。

@@ -1,7 +1,7 @@
-"""tianlong_salesmaster.team_pkg.team.safety — 安全守卫
+"""SentriKit_salesmaster.team_pkg.team.safety — 安全守卫
 
 社区版：基础本地关键词过滤
-企业版：调用服务端 LLM API 智能安全检查（需 TIANLONG_API_KEY）
+企业版：调用服务端 LLM API 智能安全检查（需 SentriKit_API_KEY）
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from tianlong_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig, UPGRADE_HINT
+from SentriKit_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig, UPGRADE_HINT
 
 
 class SafetyMode(Enum):

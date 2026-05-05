@@ -1,9 +1,9 @@
-"""tianlong_salesmaster.core.storage.db_mysql — MySQL 数据库层
+"""SentriKit_salesmaster.core.storage.db_mysql — MySQL 数据库层
 
 支持 MySQL 作为生产数据库，保持与 PostgreSQL 层相同的接口。
 
 使用方法:
-    from tianlong_salesmaster.core.storage.db_mysql import init_database, get_db_context
+    from SentriKit_salesmaster.core.storage.db_mysql import init_database, get_db_context
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ Base = declarative_base()
 
 DATABASE_URL = os.environ.get(
     "MYSQL_URL",
-    "mysql+pymysql://salesadmin:sales123@localhost:3306/tianlong_sales"
+    "mysql+pymysql://salesadmin:sales123@localhost:3306/SentriKit_sales"
 )
 
 engine = create_engine(

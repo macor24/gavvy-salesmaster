@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.crm_pkg.calls.db — 通话与录音存储接口"""
+"""SentriKit_salesmaster.crm_pkg.crm_pkg.calls.db — 通话与录音存储接口"""
 
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ def get_calls_kernel(storage_dir: Optional[str] = None) -> CallsStorage:
     """获取通话与录音存储内核"""
     global _global_calls_storage
     if _global_calls_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_calls_storage = CallsStorage(kernel)
     return _global_calls_storage

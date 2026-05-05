@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.trade_pkg.esign — 电子签模块
+"""SentriKit_salesmaster.trade_pkg.esign — 电子签模块
 
 支持多种电子签服务商：字节跳动电子签、腾讯电子签、阿里云电子签等。
 """

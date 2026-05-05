@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.channels_pkg.channels.dingtalk — 钉钉官方 API 通信渠道
+"""SentriKit_salesmaster.channels_pkg.channels.dingtalk — 钉钉官方 API 通信渠道
 
 基于钉钉开放平台官方 API：
 - 群机器人 webhook 消息推送

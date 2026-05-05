@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.trade_pkg.payment.chinese — 支付宝/微信支付集成
+"""SentriKit_salesmaster.trade_pkg.payment.chinese — 支付宝/微信支付集成
 
 真实国内支付集成，支持：
 - 支付宝当面付

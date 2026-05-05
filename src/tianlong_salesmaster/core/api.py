@@ -1,18 +1,18 @@
-"""tianlong_salesmaster.core.api — [已弃用] SalesMaster HTTP API 服务
+"""SentriKit_salesmaster.core.api — [已弃用] SalesMaster HTTP API 服务
 
 ⚠️ 此文件已弃用，请使用 app.py（FastAPI 统一服务）。
     保留以兼容旧版调用，新代码请使用:
     
-    from tianlong_salesmaster.core.app import app, start_app
+    from SentriKit_salesmaster.core.app import app, start_app
     
-    CLI: tianlong-sales-fastapi
+    CLI: SentriKit-sales-fastapi
     
 纯标准库实现（零外部依赖），基于 http.server。
 通过 API Key 认证对外提供销售引擎能力。
 
 用法:
     # CLI 启动（默认 0.0.0.0:8877）
-    tianlong-sales-api
+    SentriKit-sales-api
 
     # 环境变量配置
     export SALES_API_KEY=my-secret-key   # 自定义 API Key（默认自动生成随机 key）
@@ -20,7 +20,7 @@
     export SALES_API_HOST=0.0.0.0        # 监听地址（可选）
 
     # Python 直接使用
-    from tianlong_salesmaster.core.api import start_sales_api
+    from SentriKit_salesmaster.core.api import start_sales_api
     start_sales_api(host="0.0.0.0", port=8877)
 
 API 端点:
@@ -138,7 +138,7 @@ class _Handler(BaseHTTPRequestHandler):
         # GET / — 服务信息（无需认证）
         if method == "GET" and path == "":
             return self._json_ok({
-                "service": "tianlong-sales-api",
+                "service": "SentriKit-sales-api",
                 "version": "2.5.0",
                 "status": "running",
                 "auth_required": True,
@@ -180,7 +180,7 @@ class _Handler(BaseHTTPRequestHandler):
         if method == "GET" and path == "/health":
             return self._json_ok({
                 "status": "ok",
-                "service": "tianlong-sales-api",
+                "service": "SentriKit-sales-api",
             })
 
         # ── 以下端点均需认证 ──
@@ -359,7 +359,7 @@ class _Handler(BaseHTTPRequestHandler):
     def _ensure_pipeline(self, body: Dict) -> Any:
         """获取或创建 SalesPipeline 实例。"""
         project_dir = body.get("project_dir", ".")
-        product_name = body.get("product_name", "天龙工具箱")
+        product_name = body.get("product_name", "SentriKit")
         product_tagline = body.get("product_tagline", "AI Agent 安全运维工具箱")
         product_description = body.get("product_description", "")
 
@@ -1059,12 +1059,12 @@ def start_sales_api(
 # ── CLI 入口 ─────────────────────────────────────────
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """CLI 入口: tianlong-sales-api"""
+    """CLI 入口: SentriKit-sales-api"""
     import argparse
 
     parser = argparse.ArgumentParser(
-        prog="tianlong-sales-api",
-        description="天龙销售引擎 — SalesMaster HTTP API 服务",
+        prog="SentriKit-sales-api",
+        description="Gavvy 销售引擎 — SalesMaster HTTP API 服务",
     )
     parser.add_argument("--host", type=str, default=None,
                         help=f"监听地址 (默认: {DEFAULT_HOST}，也可通过 SALES_API_HOST 环境变量设置)")

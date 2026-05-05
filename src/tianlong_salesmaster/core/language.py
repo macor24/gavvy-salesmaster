@@ -1,4 +1,4 @@
-"""tianlong.sales.language — 拆分自 master.py"""
+"""SentriKit.sales.language — 拆分自 master.py"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict

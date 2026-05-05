@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.team_pkg.llm — SalesMaster LLM 驱动引擎
+"""SentriKit_salesmaster.team_pkg.llm — SalesMaster LLM 驱动引擎
 
 通过 HTTP API 调用 LLM，零外部依赖（使用 urllib）。
 不强制依赖任何 LLM 库。无 Key 时自动降级。
@@ -46,7 +46,7 @@ class SalesLLMConfig:
     def from_config(cls) -> "SalesLLMConfig":
         """从项目 config 加载"""
         try:
-            from tianlong import config
+            from SentriKit import config
             cfg = config.ensure_config()
             key = cfg.get("deepseek_key", "") or cfg.get("openai_key", "") or os.environ.get("DEEPSEEK_API_KEY", "")
             return cls(api_key=key)

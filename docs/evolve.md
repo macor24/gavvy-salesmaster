@@ -1,15 +1,15 @@
 # 进化闭环
 
-销售宗师可通过天龙1号（tianlong-toolkit）获得完整的自进化能力。
+销售宗师可通过 SentriKit（SentriKit-toolkit）获得完整的自进化能力。
 
 ## 前提
 
 ```bash
-# 启动天龙1号 API 服务
-tianlong-api --port 8899
+# 启动 SentriKit API 服务
+SentriKit-api --port 8899
 
 # 设置环境变量
-export TIANLONG_API_URL=http://127.0.0.1:8899
+export SentriKit_API_URL=http://127.0.0.1:8899
 ```
 
 ## API 端点

@@ -25,7 +25,7 @@ def main():
 
     try:
         # 导入模块
-        from tianlong_salesmaster.knowledge import KnowledgeBase
+        from SentriKit_salesmaster.knowledge import KnowledgeBase
 
         # 创建知识库实例
         print("👉 1. 初始化知识库...")

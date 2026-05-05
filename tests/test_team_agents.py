@@ -9,14 +9,14 @@ import uuid
 
 import pytest
 
-from tianlong_salesmaster.team_pkg.team.base import (
+from SentriKit_salesmaster.team_pkg.team.base import (
     BaseAgent, AgentContext, AgentResult, PrivateInput, Kernels,
     AgentRole, LeadScorer, SafetyGuard, SafetyMode, QuickstartGuide,
 )
-from tianlong_salesmaster.team_pkg.team.coordinator import (
+from SentriKit_salesmaster.team_pkg.team.coordinator import (
     SalesOrchestrator, PipelineTrigger, STAGES, STAGE_LABELS,
 )
-from tianlong_salesmaster.team_pkg.team.agents import (
+from SentriKit_salesmaster.team_pkg.team.agents import (
     MarketResearchAgent, CompetitorIntelAgent, PresalesAgent,
 )
 

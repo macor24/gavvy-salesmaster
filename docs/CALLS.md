@@ -36,7 +36,7 @@
 ### 基础使用
 
 ```python
-from tianlong_salesmaster.calls import (
+from SentriKit_salesmaster.calls import (
     CallManager,
     RecordingManager,
     ScriptManager,
@@ -205,7 +205,7 @@ for s in scripts:
 ### 添加自定义话术
 
 ```python
-from tianlong_salesmaster.calls import CallScript
+from SentriKit_salesmaster.calls import CallScript
 
 custom = sm.add_script(CallScript(
     name="预约面谈",
@@ -291,7 +291,7 @@ cm.update_call_score(call.id, analysis.deal_probability * 100)
 ## 完整示例
 
 ```python
-from tianlong_salesmaster.calls import (
+from SentriKit_salesmaster.calls import (
     CallManager,
     RecordingManager,
     ScriptManager,

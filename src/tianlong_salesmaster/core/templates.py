@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.templates — 销售提案和调研模板
+"""SentriKit_salesmaster.core.templates — 销售提案和调研模板
 
 所有模板中的 {product_name} 由 SalesPipeline 传入。
 """

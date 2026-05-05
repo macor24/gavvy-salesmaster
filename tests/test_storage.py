@@ -15,10 +15,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from tianlong_salesmaster.core.storage import (
+from SentriKit_salesmaster.core.storage import (
     DatabaseKernel, DataRepository, StatsEngine, get_repository, get_storage_dir,
 )
-from tianlong_salesmaster.core.storage.db import _COLLECTIONS as COLL_DEFS
+from SentriKit_salesmaster.core.storage.db import _COLLECTIONS as COLL_DEFS
 
 
 # 阻止全局迁移影响测试 — 在每个测试开始时恢复

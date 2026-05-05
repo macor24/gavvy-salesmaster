@@ -1,1 +1,1 @@
-"""tianlong_salesmaster.channels_pkg.channels_pkg"""
+"""SentriKit_salesmaster.channels_pkg.channels_pkg"""

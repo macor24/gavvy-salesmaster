@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.team_pkg.llm — LLM 集成模块
+"""SentriKit_salesmaster.team_pkg.llm — LLM 集成模块
 
 支持多 LLM 提供商：OpenAI GPT、DeepSeek、Claude、智谱 GLM、通义千问等。
 """
@@ -744,7 +744,7 @@ __all__ = [
     "FallbackChain",
 ]
 
-from tianlong_salesmaster.core.llm_engine import (
+from SentriKit_salesmaster.core.llm_engine import (
     SalesLLM,
     SalesLLMConfig,
     get_sales_llm,

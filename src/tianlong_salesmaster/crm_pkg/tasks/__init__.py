@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.tasks — 任务与审批流程系统
+"""SentriKit_salesmaster.crm_pkg.tasks — 任务与审批流程系统
 
 完整的任务管理和审批流程系统，包含：
 - 任务管理（创建/分配/跟踪/完成）
@@ -7,7 +7,7 @@
 - 消息通知
 
 使用方法：
-    from tianlong_salesmaster.crm_pkg.tasks import TaskManager, ApprovalManager
+    from SentriKit_salesmaster.crm_pkg.tasks import TaskManager, ApprovalManager
 
     # 任务管理
     tm = TaskManager()

@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.routers.crm — CRM 路由
+"""SentriKit_salesmaster.core.routers.crm — CRM 路由
 
 从 app.py 拆分而来。保持 100% 兼容。
 """

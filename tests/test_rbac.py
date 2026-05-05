@@ -18,7 +18,7 @@ def test_rbac():
 
     try:
         # 导入模块
-        from tianlong_salesmaster.crm_pkg.rbac import (
+        from SentriKit_salesmaster.crm_pkg.rbac import (
             RoleManager,
             UserManager,
             AuthManager,

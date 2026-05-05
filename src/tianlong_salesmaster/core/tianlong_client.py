@@ -1,11 +1,11 @@
-"""tianlong_salesmaster.core.tianlong_client — 天龙1号 API 客户端
+"""SentriKit_salesmaster.core.SentriKit_client — SentriKit API 客户端
 
 为销售宗师提供完整的进化闭环 API 调用能力。
-可直接通过 pip install tianlong-toolkit 本地调用，
-也可通过 HTTP 远程调天龙1号 api.py 服务。
+可直接通过 pip install SentriKit-toolkit 本地调用，
+也可通过 HTTP 远程调 SentriKit api.py 服务。
 
 用法:
-    client = TianlongAPIClient(api_url=\"http://127.0.0.1:8899\", api_key=\"...\")
+    client = SentriKitAPIClient(api_url=\"http://127.0.0.1:8899\", api_key=\"...\")
     
     # 健康检查
     status = client.health()
@@ -45,8 +45,8 @@ import urllib.error
 from typing import Any, Dict, List, Optional
 
 
-class TianlongAPIClient:
-    """天龙1号 API 客户端，支持本地/远程双模式。"""
+class SentriKitAPIClient:
+    """SentriKit API 客户端，支持本地/远程双模式。"""
 
     def __init__(
         self,
@@ -81,7 +81,7 @@ class TianlongAPIClient:
         except Exception as e:
             return {"error": str(e)}
 
-    # ── 本地调用（不走 HTTP，直接 import tianlong）──
+    # ── 本地调用（不走 HTTP，直接 import SentriKit）──
 
     def _local_evolve_script(self) -> dict:
         """本地执行 evolve_loop.py"""
@@ -89,10 +89,10 @@ class TianlongAPIClient:
         scripts_dir = os.path.join(self.project_dir, "scripts")
         script = os.path.join(scripts_dir, "evolve_loop.py")
         if not os.path.exists(script):
-            # 尝试从 tianlong-toolkit 根目录找
+            # 尝试从 SentriKit-toolkit 根目录找
             try:
-                import tianlong
-                tl_dir = os.path.dirname(os.path.dirname(tianlong.__file__))
+                import SentriKit
+                tl_dir = os.path.dirname(os.path.dirname(SentriKit.__file__))
                 script = os.path.join(tl_dir, "scripts", "evolve_loop.py")
             except (ImportError, AttributeError):
                 pass
@@ -107,7 +107,7 @@ class TianlongAPIClient:
         return {"error": "evolve_loop.py not found"}
 
     def _local_import(self, module_path: str, names: list) -> Optional[Any]:
-        """本地 import tianlong 模块"""
+        """本地 import SentriKit 模块"""
         try:
             sys.path.insert(0, os.path.join(self.project_dir, "src"))
             sys.path.insert(0, self.project_dir)
@@ -133,19 +133,19 @@ class TianlongAPIClient:
         """GET /health — 服务健康检查"""
         def _local():
             try:
-                modules = self._local_import("tianlong", ["__version__"])
+                modules = self._local_import("SentriKit", ["__version__"])
                 ver = modules[0] if modules else "unknown"
-                return {"status": "ok", "service": "tianlong-local", "version": ver}
+                return {"status": "ok", "service": "SentriKit-local", "version": ver}
             except Exception:
-                return {"status": "ok", "service": "tianlong-local"}
+                return {"status": "ok", "service": "SentriKit-local"}
         return self._call("GET", "/health", local_fn=_local)
 
     def status(self) -> dict:
         """GET /api/status — 模块状态"""
         def _local():
             try:
-                from tianlong.selfmodel import SelfModel
-                from tianlong.metacog import MetaCogTrigger
+                from SentriKit.selfmodel import SelfModel
+                from SentriKit.metacog import MetaCogTrigger
                 sm = SelfModel(project_dir=self.project_dir)
                 mc = MetaCogTrigger()
                 report = mc.evaluate()
@@ -167,7 +167,7 @@ class TianlongAPIClient:
         }
         def _local():
             try:
-                from tianlong.reporter import Reporter
+                from SentriKit.reporter import Reporter
                 r = Reporter()
                 r.report_highlight(title=title, body=body, highlights=highlights or [], action_items=action_items or [])
                 return {"status": "ok", "reported": True}
@@ -179,7 +179,7 @@ class TianlongAPIClient:
         """POST /api/judge — 评估进化方向"""
         def _local():
             try:
-                from tianlong.judge import RuleBasedJudge, Proposal
+                from SentriKit.judge import RuleBasedJudge, Proposal
                 judge = RuleBasedJudge()
                 import time
                 p = Proposal(id=f"local_{int(time.time())}", summary=summary)
@@ -203,7 +203,7 @@ class TianlongAPIClient:
         """GET /api/evolve/status — 进化状态"""
         def _local():
             try:
-                from tianlong.selfmodel import SelfModel
+                from SentriKit.selfmodel import SelfModel
                 sm = SelfModel(project_dir=self.project_dir)
                 history = sm.get_history()
                 snapshot = history.get("latest_snapshot", {})
@@ -235,7 +235,7 @@ class TianlongAPIClient:
         }
         def _local():
             try:
-                from tianlong.metacog import MetaCogTrigger
+                from SentriKit.metacog import MetaCogTrigger
                 t = MetaCogTrigger()
                 r = t.evaluate(**body)
                 return {
@@ -256,7 +256,7 @@ class TianlongAPIClient:
         body = {"summary": summary, "id": proposal_id or f"api_{int(__import__('time').time())}"}
         def _local():
             try:
-                from tianlong.judge import RuleBasedJudge, Proposal
+                from SentriKit.judge import RuleBasedJudge, Proposal
                 judge = RuleBasedJudge()
                 p = Proposal(id=body["id"], summary=summary)
                 result = judge.evaluate(p)
@@ -273,7 +273,7 @@ class TianlongAPIClient:
         """GET /api/selfmodel/snapshot — 自我模型快照"""
         def _local():
             try:
-                from tianlong.selfmodel import SelfModel
+                from SentriKit.selfmodel import SelfModel
                 sm = SelfModel(project_dir=self.project_dir)
                 sm.take_snapshot()
                 snapshot = sm.get_history().get("latest_snapshot", {})

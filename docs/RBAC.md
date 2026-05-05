@@ -33,7 +33,7 @@ RBAC 权限系统
 ### 基础使用
 
 ```python
-from tianlong_salesmaster.rbac import (
+from SentriKit_salesmaster.rbac import (
     RoleManager,
     UserManager,
     AuthManager,
@@ -252,7 +252,7 @@ if perm_mgr.can_access_customer(user.id, customer_id):
 ## 完整示例
 
 ```python
-from tianlong_salesmaster.rbac import (
+from SentriKit_salesmaster.rbac import (
     RoleManager,
     UserManager,
     AuthManager,

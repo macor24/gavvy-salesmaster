@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.team_pkg.llm.fallback — 规则引擎降级
+"""SentriKit_salesmaster.team_pkg.llm.fallback — 规则引擎降级
 
 当 DeepSeek API 不可用时，使用规则引擎提供基础能力。
 """

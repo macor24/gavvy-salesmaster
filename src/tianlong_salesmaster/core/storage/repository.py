@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage.repository — 数据仓库层
+"""SentriKit_salesmaster.core.storage.repository — 数据仓库层
 
 统一管理销售宗师所有数据的 CRUD 操作。
 建立在对 DatabaseKernel 之上，提供高层语义接口。

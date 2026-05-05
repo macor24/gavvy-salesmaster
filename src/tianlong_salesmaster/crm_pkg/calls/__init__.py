@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.crm_pkg.calls — 通话与录音系统
+"""SentriKit_salesmaster.crm_pkg.crm_pkg.calls — 通话与录音系统
 
 完整的通话管理、录音系统、通话分析功能。
 """

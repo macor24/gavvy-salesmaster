@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.knowledge — 产品知识库系统
+"""SentriKit_salesmaster.crm_pkg.knowledge — 产品知识库系统
 
 完整的产品知识库系统，包含：
 - 知识条目管理（新增、编辑、删除）
@@ -9,7 +9,7 @@
 - 版本历史记录
 
 使用方法：
-    from tianlong_salesmaster.crm_pkg.knowledge import KnowledgeBase
+    from SentriKit_salesmaster.crm_pkg.knowledge import KnowledgeBase
 
     kb = KnowledgeBase()
 

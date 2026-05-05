@@ -19,7 +19,7 @@ def test_task_and_approval():
 
     try:
         # 导入模块
-        from tianlong_salesmaster.crm_pkg.tasks import (
+        from SentriKit_salesmaster.crm_pkg.tasks import (
             TaskManager, ApprovalManager, NotificationManager
         )
 

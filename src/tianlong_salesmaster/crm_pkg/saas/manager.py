@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.saas.manager — SaaS 管理器
+"""SentriKit_salesmaster.crm_pkg.saas.manager — SaaS 管理器
 
 租户管理、用户认证、订阅计费的核心实现。
 """
@@ -21,7 +21,7 @@ from . import (
 )
 
 
-_TENANT_SECRET = os.environ.get("SALES_TENANT_SECRET", "tianlong-sales-secret-key-2024")
+_TENANT_SECRET = os.environ.get("SALES_TENANT_SECRET", "SentriKit-sales-secret-key-2024")
 
 DEFAULT_RATE_LIMIT_FREE = 60
 DEFAULT_RATE_LIMIT_PAID = 300

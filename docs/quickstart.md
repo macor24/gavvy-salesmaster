@@ -3,13 +3,13 @@
 ## 安装
 
 ```bash
-pip install tianlong-salesmaster
+pip install SentriKit-salesmaster
 ```
 
 启动 Web 管理后台：
 
 ```bash
-tianlong-sales-fastapi
+SentriKit-sales-fastapi
 ```
 
 浏览器打开 http://localhost:8877。
@@ -17,9 +17,9 @@ tianlong-sales-fastapi
 ## 激活 AI 销售团队（企业版）
 
 ```bash
-pip install tianlong-salesmaster[enterprise]
+pip install SentriKit-salesmaster[enterprise]
 export SALES_ENTERPRISE=1
-tianlong-sales-fastapi
+SentriKit-sales-fastapi
 ```
 
 ## Docker 部署

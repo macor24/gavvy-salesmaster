@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.routers.scripts — 话术训练路由
+"""SentriKit_salesmaster.core.routers.scripts — 话术训练路由
 
 从 app.py 拆分。保持 100% 兼容。
 """

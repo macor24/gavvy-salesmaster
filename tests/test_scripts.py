@@ -12,12 +12,12 @@ def test_scripts():
     print(f"   存储目录: {temp_dir}")
 
     try:
-        from tianlong_salesmaster.core.storage.db import set_storage_dir, get_kernel
+        from SentriKit_salesmaster.core.storage.db import set_storage_dir, get_kernel
         set_storage_dir(temp_dir)
-        import tianlong_salesmaster.core.storage.db as db
+        import SentriKit_salesmaster.core.storage.db as db
         db._global_kernel = None
 
-        from tianlong_salesmaster.crm_pkg.scripts import (
+        from SentriKit_salesmaster.crm_pkg.scripts import (
             ScriptsEngine, Script, TrainingSession, Rating,
         )
 

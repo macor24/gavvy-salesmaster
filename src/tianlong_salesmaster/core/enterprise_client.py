@@ -1,6 +1,8 @@
 """SentriKit_salesmaster.core.enterprise_client — 企业版 SaaS API 客户端
 
-所有调用服务端 AI 能力的模块，通过此客户端实现。
+统一转发到 SentriKit 的 enterprise_client。
+
+所有调用服务端 AI 能力的模块，通过 SentriKit 的统一客户端实现。
 
 社区版（无 API Key）：返回模板/空结果 + 升级提示
 企业版（有 API Key）：HTTP 调用服务端 API
@@ -12,15 +14,24 @@ from __future__ import annotations
 
 import json
 import os
-import time
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
+# ── 统一引用 SentriKit 的企业版客户端 ─────────────
 
-# ── 企业版 API 配置 ─────────────────────────────
+_HAS_SENTRIKIT_CLIENT = False
+try:
+    from tianlong.enterprise_client import (
+        SentriKitEnterprise,
+        is_enterprise as _sk_is_enterprise,
+        detect_api_key as _sk_detect_api_key,
+    )
+    _HAS_SENTRIKIT_CLIENT = True
+except ImportError:
+    pass
 
-ENTERPRISE_API_BASE = "https://api.sentrikit.com/v1"
-ENTERPRISE_API_KEY_ENV = "SENTRIKIT_API_KEY"  # 优先，fallback TIANLONG_API_KEY
+
+# ── 升级提示（保持自包含） ───────────────────────
 
 UPGRADE_HINT = (
     "\n\n---\n💡 **需要企业版解锁完整 AI 智能能力？**\n"
@@ -34,12 +45,30 @@ UPGRADE_HINT = (
 )
 
 
-def _detect_api_key() -> str:
-    """检测 API Key：SENTRIKIT_API_KEY > TIANLONG_API_KEY > 空"""
+# ── API Key 检测 ────────────────────────────────
+
+def detect_api_key() -> str:
+    """检测 API Key：优先用 SentriKit 的检测，否则自己查"""
+    if _HAS_SENTRIKIT_CLIENT:
+        key = _sk_detect_api_key()
+        if key:
+            return key
     key = os.environ.get("SENTRIKIT_API_KEY")
     if key:
         return key
     return os.environ.get("TIANLONG_API_KEY", "")
+
+
+def is_enterprise() -> bool:
+    """检查是否为企业版"""
+    if _HAS_SENTRIKIT_CLIENT:
+        return _sk_is_enterprise()
+    return bool(detect_api_key())
+
+
+# ── 配置 ─────────────────────────────────────────
+
+ENTERPRISE_API_BASE = "https://api.sentrikit.com/v1"
 
 
 @dataclass
@@ -56,14 +85,14 @@ class EnterpriseConfig:
     @classmethod
     def from_env(cls) -> "EnterpriseConfig":
         return cls(
-            api_key=_detect_api_key(),
+            api_key=detect_api_key(),
             api_base=os.environ.get("SENTRIKIT_API_BASE", ENTERPRISE_API_BASE),
         )
 
     @classmethod
     def from_config(cls, api_key: str = "", api_base: str = "") -> "EnterpriseConfig":
         return cls(
-            api_key=api_key or _detect_api_key(),
+            api_key=api_key or detect_api_key(),
             api_base=api_base or os.environ.get("SENTRIKIT_API_BASE", ENTERPRISE_API_BASE),
         )
 
@@ -72,10 +101,23 @@ class EnterpriseConfig:
 
 
 class EnterpriseAPIClient:
-    """企业版 API 客户端（社区版返回模板降级结果）"""
+    """企业版 API 客户端（社区版返回模板降级结果）
+
+    如果 SentriKit 已安装，代理其 SentriKitEnterprise 客户端；
+    否则使用本地简化实现。
+    """
 
     def __init__(self, config: Optional[EnterpriseConfig] = None):
         self.config = config or EnterpriseConfig.from_env()
+        self._sk_client: Optional[SentriKitEnterprise] = None
+        if _HAS_SENTRIKIT_CLIENT and self.config.is_enterprise:
+            try:
+                self._sk_client = SentriKitEnterprise(
+                    api_key=self.config.api_key,
+                    api_base=self.config.api_base,
+                )
+            except Exception:
+                pass
 
     # ── 洞察引擎 ───────────────────────────────
 
@@ -124,27 +166,30 @@ class EnterpriseAPIClient:
     def score_lead(self, lead_info: Dict[str, Any]) -> Dict[str, Any]:
         """智能线索评分"""
         if not self.config.is_enterprise:
-            score = 0.3
-            industry = lead_info.get("industry", "")
-            high_value = ["AI Agent", "LLM", "金融科技", "医疗AI", "人工智能", "机器人"]
-            for hv in high_value:
-                if hv in industry:
-                    score = 0.5
-                    break
-            return {
-                "score": score,
-                "confidence": 0.6 + score * 0.3,
-                "factors": {"industry_match": score - 0.3 if score > 0.3 else 0},
-                "summary": f"综合评分 {score:.0%}（模板）",
-                "mode": "template",
-                "hint": UPGRADE_HINT,
-            }
+            return self._local_score(lead_info)
         return self._call_api("/scorer/lead", {"lead_info": lead_info})
+
+    @staticmethod
+    def _local_score(lead_info: Dict) -> Dict:
+        score = 0.3
+        industry = lead_info.get("industry", "")
+        high_value = ["AI Agent", "LLM", "金融科技", "医疗AI", "人工智能", "机器人"]
+        for hv in high_value:
+            if hv in industry:
+                score = 0.5
+                break
+        return {
+            "score": score,
+            "confidence": 0.6 + score * 0.3,
+            "factors": {"industry_match": score - 0.3 if score > 0.3 else 0},
+            "summary": f"综合评分 {score:.0%}（模板）",
+            "mode": "template",
+            "hint": UPGRADE_HINT,
+        }
 
     # ── 会话记忆 ───────────────────────────────
 
     def get_session_memory(self, session_id: str) -> Dict[str, Any]:
-        """获取会话记忆"""
         if not self.config.is_enterprise:
             return {"data": [], "mode": "template"}
         return self._call_api("/session/memory", {"session_id": session_id})
@@ -195,7 +240,6 @@ class EnterpriseAPIClient:
             import httpx
         except ImportError:
             return {"error": "请安装 httpx: pip install httpx", "mode": "error"}
-
         try:
             url = f"{self.config.api_base.rstrip('/')}{path}"
             headers = {

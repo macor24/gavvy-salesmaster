@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.quotes — 报价与合同管理系统
+"""SentriKit_salesmaster.crm_pkg.quotes — 报价与合同管理系统
 
 完整的报价管理、合同管理、产品配置功能。
 """

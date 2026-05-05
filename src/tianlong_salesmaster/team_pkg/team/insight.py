@@ -1,14 +1,14 @@
-"""tianlong_salesmaster.team_pkg.team.insight — 销售洞察引擎
+"""SentriKit_salesmaster.team_pkg.team.insight — 销售洞察引擎
 
 社区版：本地模板输出
-企业版：调用服务端 LLM API（需 TIANLONG_API_KEY）
+企业版：调用服务端 LLM API（需 SentriKit_API_KEY）
 """
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from tianlong_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig
+from SentriKit_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig
 
 
 class InsightEngine:

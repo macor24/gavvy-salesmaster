@@ -6,7 +6,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from tianlong_salesmaster.trade_pkg.esign import (
+from SentriKit_salesmaster.trade_pkg.esign import (
     ESignProvider, SignStatus, Signer, SignDocument, SignFlow,
     ESignConfig, ByteDanceConfig, TencentConfig,
 )

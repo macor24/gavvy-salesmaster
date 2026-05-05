@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.crm — CRM 系统集成
+"""SentriKit_salesmaster.crm_pkg.crm — CRM 系统集成
 
 客户关系管理核心模块，包含：
 
@@ -22,7 +22,7 @@ from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from tianlong_salesmaster.core.storage.db import get_kernel
+from SentriKit_salesmaster.core.storage.db import get_kernel
 
 # ── 集合名称 ──────────────────────────────────────
 

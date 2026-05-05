@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.crm_pkg.analytics — 数据分析与智能决策系统
+"""SentriKit_salesmaster.crm_pkg.crm_pkg.analytics — 数据分析与智能决策系统
 
 完整的销售数据统计、仪表盘、客户分析、智能预测等功能。
 """

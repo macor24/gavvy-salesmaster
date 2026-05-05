@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.channels_pkg.channels.wework — 企业微信官方 API 通信渠道
+"""SentriKit_salesmaster.channels_pkg.channels.wework — 企业微信官方 API 通信渠道
 
 基于企业微信官方 API 实现，支持：
   1. 获取 access_token（缓存自动刷新）

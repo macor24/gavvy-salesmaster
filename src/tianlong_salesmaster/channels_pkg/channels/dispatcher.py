@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.channels_pkg.channels.dispatcher — 多渠道消息调度引擎
+"""SentriKit_salesmaster.channels_pkg.channels.dispatcher — 多渠道消息调度引擎
 
 统一注册、路由、发送所有渠道的消息。
 支持单发、群发、按规则路由。
@@ -203,12 +203,61 @@ class MessageDispatcher:
             if len(self._history) > 2000:
                 self._history = self._history[-1000:]
 
+    # ── 外部消息入口（渠道 → Orchestrator） ──
+
+    def on_incoming_message(self, channel: str, sender: str,
+                            body: str, metadata: Optional[Dict] = None) -> None:
+        """处理来自外部渠道的消息，路由到 SalesOrchestrator
+
+        当 WeChat/DingTalk/Email 等渠道收到外部消息时调用此方法。
+        自动匹配已有 Lead 或创建新 Lead，然后调度对应 Agent 处理。
+        """
+        try:
+            from SentriKit_salesmaster.team_pkg.team.coordinator import (
+                SalesOrchestrator,
+            )
+            orch = SalesOrchestrator()
+
+            # 在已有 Lead 中查找匹配的（按名称/渠道标识）
+            matched_lead_id = None
+            lead_name = sender
+            for lid, lead in orch.get_leads().items():
+                if lead.name == sender or lead.context_extra.get("channel_id") == sender:
+                    matched_lead_id = lid
+                    break
+
+            if matched_lead_id:
+                # 更新已有 Lead 的消息历史
+                orch.update_lead(matched_lead_id, {
+                    "context_extra": {
+                        "last_message": body[:200],
+                        "last_channel": channel,
+                        "last_contact": datetime.now().isoformat(),
+                    }
+                })
+                # 触发 Agent 处理
+                orch.assign_task(matched_lead_id)
+            else:
+                # 创建新 Lead
+                lid = orch.add_lead(f"lead_{uuid.uuid4().hex[:8]}", {
+                    "name": sender,
+                    "stage": "contact",
+                    "extra": {
+                        "channel_id": sender,
+                        "source_channel": channel,
+                        "first_message": body[:200],
+                    },
+                })
+                orch.assign_task(lid)
+        except Exception:
+            pass
+
     # ── 配置持久化 ──
 
     def _load_config(self) -> None:
         """从存储层加载渠道配置并自动注册"""
         try:
-            from tianlong_salesmaster.core.storage.db import get_kernel
+            from SentriKit_salesmaster.core.storage.db import get_kernel
             configs = get_kernel().get("channel_configs")
             if configs and isinstance(configs, dict):
                 for name, cfg in configs.items():
@@ -221,7 +270,7 @@ class MessageDispatcher:
     def save_config(self, name: str, config: Dict) -> bool:
         """保存渠道配置到存储层"""
         try:
-            from tianlong_salesmaster.core.storage.db import get_kernel
+            from SentriKit_salesmaster.core.storage.db import get_kernel
             configs = get_kernel().get("channel_configs") or {}
             configs[name] = config
             get_kernel().write("channel_configs", configs)
@@ -232,7 +281,7 @@ class MessageDispatcher:
     def delete_config(self, name: str) -> bool:
         """删除渠道配置"""
         try:
-            from tianlong_salesmaster.core.storage.db import get_kernel
+            from SentriKit_salesmaster.core.storage.db import get_kernel
             configs = get_kernel().get("channel_configs") or {}
             configs.pop(name, None)
             get_kernel().write("channel_configs", configs)

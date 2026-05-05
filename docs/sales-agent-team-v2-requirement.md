@@ -2,7 +2,7 @@
 
 > **版本:** v2.0（草稿）
 > **状态:** 需求定义阶段
-> **基于:** tianlong-salesmaster v1.0.0（现有 SalesPipeline + SalesMaster 六维引擎）
+> **基于:** SentriKit-salesmaster v1.0.0（现有 SalesPipeline + SalesMaster 六维引擎）
 
 ---
 
@@ -146,7 +146,7 @@
 
 ### 架构说明
 
-- **不依赖外部框架**：优先纯标准库（参考天龙工具箱风格）
+- **不依赖外部框架**：优先纯标准库（参考 SentriKit 风格）
 - **模块化**：每个 Agent 独立文件，可单独启用/禁用
 - **降级设计**：DeepSeek 不可用时回退规则引擎
 - **可扩展**：新增平台/Agent 只需添加对应模块
@@ -156,7 +156,7 @@
 ## 五、文件结构（草案）
 
 ```
-tianlong-salesmaster/src/tianlong_salesmaster/
+SentriKit-salesmaster/src/SentriKit_salesmaster/
 ├── __init__.py              # 现有：SalesPipeline + SalesMaster
 ├── api.py                   # 现有：HTTP API 服务
 ├── master.py                # 现有：六维引擎
@@ -225,8 +225,8 @@ tianlong-salesmaster/src/tianlong_salesmaster/
 
 ## 七、待确认问题
 
-1. **Web 后台技术选型**：纯标准库 http.server（和天龙工具箱一致）还是 Flask/FastAPI？
-2. **部署方式**：销售宗师独立服务？还是作为天龙工具箱的子模块？
+1. **Web 后台技术选型**：纯标准库 http.server（和 SentriKit 一致）还是 Flask/FastAPI？
+2. **部署方式**：销售宗师独立服务？还是作为 SentriKit 的子模块？
 3. **数据存储**：文件 JSON（和现有一致）还是 SQLite？
 4. **多用户**：销售团队多人使用，是否需要用户/权限管理？
 5. **"自主成交"的资金流**：销售宗师只出订单/合同，还是需要对接支付？

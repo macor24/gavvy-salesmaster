@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.channels_pkg.channels.base — 通信基类
+"""SentriKit_salesmaster.channels_pkg.channels.base — 通信基类
 
 所有平台通信渠道的抽象基类。
 """

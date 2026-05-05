@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage.pgrepo — PostgreSQL Repository 层
+"""SentriKit_salesmaster.core.storage.pgrepo — PostgreSQL Repository 层
 
 基于 SQLAlchemy 的 Repository 实现，支持：
 - 自动 RLS 租户隔离

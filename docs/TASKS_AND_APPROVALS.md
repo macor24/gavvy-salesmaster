@@ -36,13 +36,13 @@
 确保已安装销售宗师：
 
 ```bash
-pip install tianlong-salesmaster
+pip install SentriKit-salesmaster
 ```
 
 ### 基础使用
 
 ```python
-from tianlong_salesmaster.tasks import (
+from SentriKit_salesmaster.tasks import (
     TaskManager, ApprovalManager, NotificationManager
 )
 
@@ -241,7 +241,7 @@ for rule in rules:
     print(f"{rule.name}: 阈值{rule.threshold}, 自动审批{rule.auto_approve}")
 
 # 添加自定义规则
-from tianlong_salesmaster.tasks import ApprovalRule
+from SentriKit_salesmaster.tasks import ApprovalRule
 
 rule = ApprovalRule(
     name="超大额订单需CEO审批",
@@ -369,7 +369,7 @@ nm.delete_notification("notification_id")
 ### 示例 1: 完整的销售流程
 
 ```python
-from tianlong_salesmaster.tasks import (
+from SentriKit_salesmaster.tasks import (
     TaskManager, ApprovalManager
 )
 from datetime import datetime, timedelta
@@ -423,7 +423,7 @@ tm.complete_task(quote_task.id)
 ### 示例 2: 审批规则配置
 
 ```python
-from tianlong_salesmaster.tasks import ApprovalManager, ApprovalRule
+from SentriKit_salesmaster.tasks import ApprovalManager, ApprovalRule
 
 am = ApprovalManager()
 

@@ -79,8 +79,8 @@
 | /api/memory/insights | 200 | ✅ |
 | /api/safety/status | 200 | ✅ |
 | /api/safety/mode | 200 | ✅ |
-| /api/tianlong/status | 200 | ✅ |
-| /api/tianlong/toggle | 200 | ✅ |
+| /api/SentriKit/status | 200 | ✅ |
+| /api/SentriKit/toggle | 200 | ✅ |
 | /api/settings | 200 | ✅ |
 | /api/leads | 200 | ✅ |
 | /api/leads/dispatch | 200 | ✅ |

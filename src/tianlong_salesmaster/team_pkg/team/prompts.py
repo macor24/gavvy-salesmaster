@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.team_pkg.team.prompts — Agent 提示词（v2 精修版）
+"""SentriKit_salesmaster.team_pkg.team.prompts — Agent 提示词（v2 精修版）
 
 每个 Agent 的 system prompt 80-150 行，含：
 - 角色定义与核心使命

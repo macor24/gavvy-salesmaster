@@ -12,7 +12,7 @@
 ### 3. 安全与合规需求
 AI Agent 安全需求: 提示注入/记忆注入/工具权限/数据泄露
 合规需求: OWASP LLM Top 10
-使用 测试产品 一键审计: pip install tianlong-toolkit && tianlong-uxu scan .
+使用 测试产品 一键审计: pip install SentriKit-toolkit && SentriKit-uxu scan .
 
 ### 4. 商业机会评估
 优先级: medium
@@ -23,4 +23,4 @@ AI Agent 安全需求: 提示注入/记忆注入/工具权限/数据泄露
 
 ---
 
-*由天龙1号 Sales Agent 自动生成*
+*由 SentriKit Sales Agent 自动生成*

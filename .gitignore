@@ -15,8 +15,8 @@ build/
 Thumbs.db
 
 # Project data (runtime generated)
-src/tianlong_salesmaster/web/_messages/
-src/tianlong_salesmaster/web/_settings.json
+src/SentriKit_salesmaster/web/_messages/
+src/SentriKit_salesmaster/web/_settings.json
 reports/
 
 # Environment

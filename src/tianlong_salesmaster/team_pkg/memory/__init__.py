@@ -138,13 +138,56 @@ class Learner:
             stats[agent_name]["failed"] += 1
         self._kernel.write("agent_stats", stats)
 
+        # 桥接到 StrategyEvolver（发现隐藏模式）
+        episode = {
+            "agent": agent_name,
+            "timestamp": now,
+            "status": status,
+            "input_summary": input_data.get("message", "")[:60],
+            "output_summary": output_data.get("summary", "")[:60],
+            "action": output_data.get("action", ""),
+        }
+        hidden_pattern = self._bridge_to_evolver(episode)
+
+        # 回写 lead_gen 评分权重（寻客反馈闭环）
+        self._feedback_to_lead_scoring(status, agent_name)
+
         return {
             "learned": True,
             "episode_count": len(episodes),
             "agent": agent_name,
             "status": status,
+            "hidden_pattern": hidden_pattern,
             "hint": "" if _HAS_ENTERPRISE else UPGRADE_HINT.strip()[:50] + "...",
         }
+
+    def _bridge_to_evolver(self, episode: Dict) -> Optional[str]:
+        """桥接 episode 到 StrategyEvolver"""
+        try:
+            from SentriKit_salesmaster.core.evolver import learn_to_evolver
+            return learn_to_evolver(episode)
+        except Exception:
+            return None
+
+    @staticmethod
+    def _feedback_to_lead_scoring(status: str, agent_name: str) -> None:
+        """根据执行反馈回写 lead_gen 评分权重"""
+        try:
+            from SentriKit_salesmaster.crm_pkg.lead_gen.scoring import (
+                get_lead_scoring_service,
+            )
+            service = get_lead_scoring_service()
+
+            # 成功：增加 industry_match 权重（验证了行业选择正确）
+            # 失败：减少 industry_match 权重（行业筛选不准）
+            if status in ("success", "completed"):
+                service.model.adjust_weight("industry_match", 0.01)
+                service.model.adjust_weight("engagement", 0.005)
+            elif status in ("failed", "blocked"):
+                service.model.adjust_weight("industry_match", -0.01)
+                service.model.adjust_weight("engagement", -0.005)
+        except Exception:
+            pass
 
 
 class SkillEvolver:

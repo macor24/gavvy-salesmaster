@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.rbac.db — RBAC 存储接口"""
+"""SentriKit_salesmaster.crm_pkg.rbac.db — RBAC 存储接口"""
 
 from __future__ import annotations
 
@@ -44,7 +44,7 @@ def get_rbac_kernel(storage_dir: Optional[str] = None) -> RBACStorage:
     """获取 RBAC 存储内核"""
     global _global_rbac_storage
     if _global_rbac_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_rbac_storage = RBACStorage(kernel)
     return _global_rbac_storage

@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.team_pkg.team — AI 销售智能体团队
+"""SentriKit_salesmaster.team_pkg.team — AI 销售智能体团队
 
 包含：
 - Agent 基类和核心类型（base.py）
@@ -6,7 +6,7 @@
 - 3个核心 Agent 实现（agents.py）
 - 企业版 API 客户端代理（insight/safety/scorer/session 等）
 
-企业版能力通过服务端 API 提供，需设置 TIANLONG_API_KEY 环境变量。
+企业版能力通过服务端 API 提供，需设置 SentriKit_API_KEY 环境变量。
 社区版使用本地模板输出，离线可用。
 """
 

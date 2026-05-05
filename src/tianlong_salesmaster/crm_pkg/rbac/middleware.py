@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.rbac.middleware — RBAC FastAPI 中间件
+"""SentriKit_salesmaster.crm_pkg.rbac.middleware — RBAC FastAPI 中间件
 
 提供：
 - 权限检查装饰器

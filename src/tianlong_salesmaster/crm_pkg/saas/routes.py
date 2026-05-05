@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.saas.routes — SaaS API 路由
+"""SentriKit_salesmaster.crm_pkg.saas.routes — SaaS API 路由
 
 提供租户注册、用户认证、订阅管理等API。
 """
@@ -134,7 +134,7 @@ async def demo_trial(req: DemoTrialRequest):
     saas._store.create_user(user)
 
     # 生成访问凭证
-    token = JWTToken.generate(tenant_id, user.id, "tianlong-sales-secret-key-2024")
+    token = JWTToken.generate(tenant_id, user.id, "SentriKit-sales-secret-key-2024")
 
     return {
         "success": True,

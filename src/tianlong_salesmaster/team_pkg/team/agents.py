@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.team_pkg.team.agents — AI 销售 Agent 实现（社区版）
+"""SentriKit_salesmaster.team_pkg.team.agents — AI 销售 Agent 实现（社区版）
 
 包含3个核心 Agent 的完整实现：
 - MarketResearchAgent（市场调研官）

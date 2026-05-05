@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.rbac — 角色权限管理系统
+"""SentriKit_salesmaster.crm_pkg.rbac — 角色权限管理系统
 
 完整的 RBAC（基于角色的访问控制）系统。
 """

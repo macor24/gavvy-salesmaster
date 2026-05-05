@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.channels_pkg.channels — 消息触达模块
+"""SentriKit_salesmaster.channels_pkg.channels — 消息触达模块
 
 支持多种消息渠道：邮件、短信、企业微信、钉钉等。
 """

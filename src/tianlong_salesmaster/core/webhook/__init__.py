@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.webhook — Webhook 处理器
+"""SentriKit_salesmaster.core.webhook — Webhook 处理器
 
 统一处理来自支付和电子签服务的回调通知：
 - Stripe Webhooks

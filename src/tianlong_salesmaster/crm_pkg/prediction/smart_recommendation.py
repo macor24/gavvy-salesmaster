@@ -396,23 +396,43 @@ class SmartRecommendationService:
     def get_all_recommendations(self, context: Dict) -> List[Recommendation]:
         """获取所有推荐"""
         recommendations = []
-        
+
         # 最佳时机推荐
         timing_rec = self.recommend_best_time(context)
         recommendations.append(timing_rec)
-        
+
         # 话术推荐
         script_recs = self.recommend_script(context)
         recommendations.extend(script_recs)
-        
+
         # 交叉销售推荐
         cross_sell_recs = self.recommend_cross_sell(context)
         recommendations.extend(cross_sell_recs)
-        
+
         # 按优先级排序
         recommendations.sort(key=lambda r: r.priority)
-        
+
+        # 桥接到 SalesOrchestrator（注入推荐到 Lead 上下文）
+        self._bridge_to_orchestrator(context, recommendations)
+
         return recommendations
+
+    def _bridge_to_orchestrator(self, context: Dict, recommendations: List[Recommendation]) -> None:
+        """将推荐注入到 SalesOrchestrator 的 Lead 上下文"""
+        deal_id = context.get("deal_id", "")
+        if not deal_id:
+            return
+        try:
+            from SentriKit_salesmaster.team_pkg.team.coordinator import SalesOrchestrator
+            orch = SalesOrchestrator()
+            recs_dict = [
+                {"type": r.type.value, "content": r.content,
+                 "confidence": r.confidence, "priority": r.priority}
+                for r in recommendations
+            ]
+            orch.update_lead(deal_id, {"recommendations": recs_dict})
+        except Exception:
+            pass  # Orchestrator 不可用时静默降级
 
 # 全局实例
 smart_recommendation_service = SmartRecommendationService()

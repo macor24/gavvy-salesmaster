@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.workflow.routes — 工作流 API 路由
+"""SentriKit_salesmaster.core.workflow.routes — 工作流 API 路由
 
 提供工作流和事件的 REST API：
 - 工作流模板管理

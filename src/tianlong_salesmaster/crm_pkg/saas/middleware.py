@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.saas.middleware — FastAPI SaaS 中间件
+"""SentriKit_salesmaster.crm_pkg.saas.middleware — FastAPI SaaS 中间件
 
 提供：
 - JWT认证中间件

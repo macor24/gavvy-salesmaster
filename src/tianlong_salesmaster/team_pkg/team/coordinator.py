@@ -1,7 +1,7 @@
-"""tianlong_salesmaster.team_pkg.team.coordinator — SalesOrchestrator 编排器（社区版实现）
+"""SentriKit_salesmaster.team_pkg.team.coordinator — SalesOrchestrator 编排器（社区版实现）
 
 多 Agent 任务调度、状态管理、安全门控、跨 Agent 数据总线。
-企业版能力通过服务端 API（TIANLONG_API_KEY）提供。
+企业版能力通过服务端 API（SentriKit_API_KEY）提供。
 """
 
 from __future__ import annotations

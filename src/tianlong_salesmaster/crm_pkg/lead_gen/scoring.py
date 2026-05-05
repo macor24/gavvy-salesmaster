@@ -254,9 +254,26 @@ class LeadScoringModel:
             lead.company_size,
             lead.revenue,
         ]
-        
+
         filled_count = sum(1 for f in fields if f)
         return filled_count / len(fields)
+
+    def adjust_weight(self, factor_name: str, delta: float) -> None:
+        """根据执行反馈调整评分因子权重
+
+        当 Learner 发现某些评分维度与实际成交率不匹配时，
+        通过此方法微调权重，形成反馈闭环。
+
+        delta: 正数增加权重，负数减少，范围 -0.05 ~ +0.05
+        """
+        if factor_name in self.factor_weights:
+            old = self.factor_weights[factor_name]
+            new = max(0.03, min(0.40, old + delta))  # 权重范围 3%~40%
+            self.factor_weights[factor_name] = new
+
+    def get_weights(self) -> Dict[str, float]:
+        """获取当前权重配置"""
+        return dict(self.factor_weights)
     
     def score(self, lead: LeadInfo, activity_data: Dict = None, **context) -> LeadScoreResult:
         """计算线索评分"""

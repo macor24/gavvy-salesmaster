@@ -32,7 +32,7 @@
 ### 基础使用
 
 ```python
-from tianlong_salesmaster.analytics import (
+from SentriKit_salesmaster.analytics import (
     DashboardManager,
     KPICalculator,
     PredictionEngine,
@@ -56,7 +56,7 @@ print(f"未来3个月预测营收: ¥{dashboard.predictions.predicted_revenue:,.
 ### 获取完整仪表盘数据
 
 ```python
-from tianlong_salesmaster.analytics import DashboardManager
+from SentriKit_salesmaster.analytics import DashboardManager
 
 dashboard_mgr = DashboardManager()
 dashboard = dashboard_mgr.get_dashboard_data()
@@ -80,7 +80,7 @@ print(f"任务完成率: {dashboard.kpis.completion_rate:.1%}")
 ### 计算销售 KPI
 
 ```python
-from tianlong_salesmaster.analytics import KPICalculator
+from SentriKit_salesmaster.analytics import KPICalculator
 
 kpi_calc = KPICalculator()
 
@@ -100,7 +100,7 @@ yearly_kpis = kpi_calc.calculate_kpis(start_date, end_date)
 ### 营收趋势分析
 
 ```python
-from tianlong_salesmaster.analytics import TrendAnalyzer
+from SentriKit_salesmaster.analytics import TrendAnalyzer
 
 trend_analyzer = TrendAnalyzer()
 
@@ -128,7 +128,7 @@ print(f"\n12个月趋势数据: {len(long_trend)} 条")
 ### 客户分层分析
 
 ```python
-from tianlong_salesmaster.analytics import CustomerAnalyzer
+from SentriKit_salesmaster.analytics import CustomerAnalyzer
 
 customer_analyzer = CustomerAnalyzer()
 segments = customer_analyzer.analyze_customer_segments()
@@ -156,7 +156,7 @@ print(f"整体平均: ¥{avg_order:,.0f}")
 ### 分析销售漏斗
 
 ```python
-from tianlong_salesmaster.analytics import FunnelAnalyzer
+from SentriKit_salesmaster.analytics import FunnelAnalyzer
 
 funnel_analyzer = FunnelAnalyzer()
 funnel = funnel_analyzer.analyze_sales_funnel()
@@ -185,7 +185,7 @@ print(f"漏斗总价值: ¥{total_value:,.0f}")
 ### 销售预测
 
 ```python
-from tianlong_salesmaster.analytics import PredictionEngine
+from SentriKit_salesmaster.analytics import PredictionEngine
 
 prediction_engine = PredictionEngine()
 prediction = prediction_engine.predict_sales()
@@ -239,7 +239,7 @@ for rec in recommendations:
 ### 销售人员排名
 
 ```python
-from tianlong_salesmaster.analytics import RankingGenerator
+from SentriKit_salesmaster.analytics import RankingGenerator
 
 ranking_generator = RankingGenerator()
 
@@ -275,7 +275,7 @@ for prod in top_products:
 ### 生成 HTML 报告
 
 ```python
-from tianlong_salesmaster.analytics import ReportGenerator
+from SentriKit_salesmaster.analytics import ReportGenerator
 
 report_generator = ReportGenerator()
 
@@ -305,7 +305,7 @@ webbrowser.open("sales_report.html")
 ## 完整示例
 
 ```python
-from tianlong_salesmaster.analytics import DashboardManager
+from SentriKit_salesmaster.analytics import DashboardManager
 
 print("="*60)
 print("📊 销售仪表盘 - 完整数据报告")

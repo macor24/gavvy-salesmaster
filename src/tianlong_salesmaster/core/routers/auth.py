@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.routers.auth — 认证路由
+"""SentriKit_salesmaster.core.routers.auth — 认证路由
 
 用户注册、登录、登出、会话管理。
 认证端点在 API Key 中间件之前注册，允许未认证访问。

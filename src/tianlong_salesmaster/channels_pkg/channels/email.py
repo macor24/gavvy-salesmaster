@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.channels_pkg.channels.email — 邮件通信渠道
+"""SentriKit_salesmaster.channels_pkg.channels.email — 邮件通信渠道
 
 基于 smtplib 的邮件发送和 IMAP 接收。
 """

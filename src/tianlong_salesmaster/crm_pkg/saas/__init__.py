@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.saas — SaaS 多租户系统
+"""SentriKit_salesmaster.crm_pkg.saas — SaaS 多租户系统
 
 提供完整的多租户支持：
 - 租户管理：注册、开通、计费

@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.workflow.listeners — 工作流事件监听器
+"""SentriKit_salesmaster.core.workflow.listeners — 工作流事件监听器
 
 监听各种事件并触发相应的工作流：
 - 报价单事件 → 合同签署

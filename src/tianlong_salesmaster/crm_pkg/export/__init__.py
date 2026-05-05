@@ -1,9 +1,9 @@
-"""tianlong_salesmaster.crm_pkg.export — 高级导出功能
+"""SentriKit_salesmaster.crm_pkg.export — 高级导出功能
 
 支持将报价单、合同等导出为 Excel/Word/HTML/PDF 格式。
 
 使用方法：
-    from tianlong_salesmaster.crm_pkg.export import ExportManager
+    from SentriKit_salesmaster.crm_pkg.export import ExportManager
 
     exporter = ExportManager()
 

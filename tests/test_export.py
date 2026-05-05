@@ -18,8 +18,8 @@ def test_export():
 
     try:
         # 导入模块
-        from tianlong_salesmaster.crm_pkg.export import ExportManager
-        from tianlong_salesmaster.crm_pkg.quotes import (
+        from SentriKit_salesmaster.crm_pkg.export import ExportManager
+        from SentriKit_salesmaster.crm_pkg.quotes import (
             ProductManager,
             QuoteManager,
             ContractManager,

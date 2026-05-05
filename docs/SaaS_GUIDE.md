@@ -17,10 +17,10 @@ export SALES_USE_SAAS=true
 
 ```bash
 # 使用命令行工具
-tianlong-sales-fastapi
+SentriKit-sales-fastapi
 
 # 或直接运行模块
-python -m tianlong_salesmaster.app
+python -m SentriKit_salesmaster.app
 ```
 
 启动时会看到：
@@ -117,7 +117,7 @@ curl http://localhost:8877/api/saas/tenant \
 ## 目录结构
 
 ```
-tianlong_salesmaster/
+SentriKit_salesmaster/
 ├── saas/
 │   ├── __init__.py          # 数据模型：Tenant, TenantUser, JWT, RateLimiter
 │   ├── manager.py           # SaaS管理器
@@ -143,7 +143,7 @@ tianlong_salesmaster/
 Token格式：`tenant_id.user_id.expires.signature`
 
 ```python
-from tianlong_salesmaster.saas import JWTToken
+from SentriKit_salesmaster.saas import JWTToken
 token = JWTToken.generate(tenant_id, user_id, secret, expires_in=86400)
 payload = JWTToken.verify(token, secret)
 ```
@@ -151,7 +151,7 @@ payload = JWTToken.verify(token, secret)
 ## 配额检查
 
 ```python
-from tianlong_salesmaster.saas.manager import get_saas_manager
+from SentriKit_salesmaster.saas.manager import get_saas_manager
 saas = get_saas_manager()
 quota = saas.check_quota(tenant_id)
 # {

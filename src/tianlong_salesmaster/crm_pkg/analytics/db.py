@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.crm_pkg.crm_pkg.analytics.db — 分析数据存储接口"""
+"""SentriKit_salesmaster.crm_pkg.crm_pkg.analytics.db — 分析数据存储接口"""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ def get_analytics_kernel(storage_dir: Optional[str] = None) -> AnalyticsStorage:
     """获取分析数据存储内核"""
     global _global_analytics_storage
     if _global_analytics_storage is None:
-        from tianlong_salesmaster.core.storage.db import get_kernel
+        from SentriKit_salesmaster.core.storage.db import get_kernel
         kernel = get_kernel(storage_dir)
         _global_analytics_storage = AnalyticsStorage(kernel)
     return _global_analytics_storage

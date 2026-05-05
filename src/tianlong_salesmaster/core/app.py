@@ -1,10 +1,10 @@
-"""tianlong_salesmaster.core.app — FastAPI 统一 API + Web 服务
+"""SentriKit_salesmaster.core.app — FastAPI 统一 API + Web 服务
 
-合并 tianlong-sales-api（8877端口）和 Web 管理后台（8878端口）
+合并 SentriKit-sales-api（8877端口）和 Web 管理后台（8878端口）
 为一个 FastAPI 应用，统一监听 8877 端口。
 
 依赖: pip install fastapi uvicorn
-用法: tianlong-sales-fastapi
+用法: SentriKit-sales-fastapi
 """
 
 from __future__ import annotations
@@ -32,8 +32,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # ── SaaS 多租户 ─────────────────────────────────────
 try:
-    from tianlong_salesmaster.crm_pkg.saas.middleware import SaaSAuthMiddleware, TenantDataMiddleware
-    from tianlong_salesmaster.crm_pkg.saas.routes import router as saas_router
+    from SentriKit_salesmaster.crm_pkg.saas.middleware import SaaSAuthMiddleware, TenantDataMiddleware
+    from SentriKit_salesmaster.crm_pkg.saas.routes import router as saas_router
     _HAS_SAAS = True
 except ImportError:
     _HAS_SAAS = False
@@ -90,23 +90,23 @@ app.include_router(payment_router)
 
 @app.post("/api/evolve/run")
 async def api_evolve_run():
-    """触发天龙1号完整进化闭环"""
-    from .master import tianlong_run_evolve
-    return tianlong_run_evolve()
+    """触发 SentriKit 完整进化闭环"""
+    from .master import SentriKit_run_evolve
+    return SentriKit_run_evolve()
 
 
 @app.get("/api/evolve/status")
 async def api_evolve_status():
-    """天龙1号进化状态"""
-    from .master import tianlong_evolve_status
-    return tianlong_evolve_status()
+    """SentriKit 进化状态"""
+    from .master import SentriKit_evolve_status
+    return SentriKit_evolve_status()
 
 
 @app.post("/api/evolve/metacog")
 async def api_evolve_metacog(body: dict):
     """退化检测"""
-    from .master import tianlong_evaluate_metacog
-    return tianlong_evaluate_metacog(
+    from .master import SentriKit_evaluate_metacog
+    return SentriKit_evaluate_metacog(
         success_rate_7d=body.get("success_rate_7d", 0.85),
         days_since_last_improvement=body.get("days_since_last_improvement", 0),
         repeat_error_count=body.get("repeat_error_count", 0),
@@ -116,15 +116,15 @@ async def api_evolve_metacog(body: dict):
 @app.post("/api/evolve/judge")
 async def api_evolve_judge(body: dict):
     """提案评分"""
-    from .master import tianlong_evaluate_judge
-    return tianlong_evaluate_judge(summary=body.get("summary", ""))
+    from .master import SentriKit_evaluate_judge
+    return SentriKit_evaluate_judge(summary=body.get("summary", ""))
 
 
 @app.post("/api/evolve/auto-check")
 async def api_evolve_auto_check():
     """自动检查+触发进化"""
-    from .master import tianlong_auto_check
-    return tianlong_auto_check()
+    from .master import SentriKit_auto_check
+    return SentriKit_auto_check()
 
 # CORS 配置 - 生产环境建议限制来源
 _CORS_ORIGINS = os.environ.get("SALES_CORS_ORIGINS", "").split(",")
@@ -281,7 +281,7 @@ _pipeline_cls: Any = None
 def _get_orch():
     global _orchestrator_instance
     if _orchestrator_instance is None:
-        from tianlong_salesmaster.team_pkg.team.coordinator import SalesOrchestrator
+        from SentriKit_salesmaster.team_pkg.team.coordinator import SalesOrchestrator
         _orchestrator_instance = SalesOrchestrator()
     return _orchestrator_instance
 
@@ -336,7 +336,7 @@ async def root():
     if index_file.exists():
         return FileResponse(str(index_file))
     return JSONResponse({
-        "service": "tianlong-sales-fastapi",
+        "service": "SentriKit-sales-fastapi",
         "version": "2.6.0",
         "docs": "/docs",
     })
@@ -366,7 +366,7 @@ async def demo_page():
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "service": "tianlong-sales-fastapi"}
+    return {"status": "ok", "service": "SentriKit-sales-fastapi"}
 
 
 # ── SalesMaster 六维引擎 ──────────────────────────
@@ -394,7 +394,7 @@ def _ensure_pipeline(body: dict):
     from . import SalesPipeline
     return SalesPipeline(
         project_dir=body.get("project_dir", "."),
-        product_name=body.get("product_name", "天龙工具箱"),
+        product_name=body.get("product_name", "SentriKit"),
         product_tagline=body.get("product_tagline", "AI Agent 安全运维工具箱"),
         product_description=body.get("product_description", ""),
     )
@@ -1085,28 +1085,28 @@ async def api_safety_mode(body: dict):
     raise HTTPException(status_code=400, detail="设置失败")
 
 
-@app.get("/api/tianlong/status")
-async def api_tianlong_status():
-    from .master import get_tianlong_status
-    return get_tianlong_status()
+@app.get("/api/SentriKit/status")
+async def api_SentriKit_status():
+    from .master import get_SentriKit_status
+    return get_SentriKit_status()
 
 
-@app.post("/api/tianlong/toggle")
-async def api_tianlong_toggle(body: dict):
+@app.post("/api/SentriKit/toggle")
+async def api_SentriKit_toggle(body: dict):
     enabled = body.get("enabled", True)
-    from .master import set_tianlong_enabled
-    return {"enabled": set_tianlong_enabled(enabled)}
+    from .master import set_SentriKit_enabled
+    return {"enabled": set_SentriKit_enabled(enabled)}
 
 
 @app.get("/api/memory/stats")
 async def api_memory_stats():
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store
     return get_memory_store().get_stats()
 
 
 @app.get("/api/memory/skills")
 async def api_memory_skills(agent: str = ""):
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store
     store = get_memory_store()
     skills = store.list_skills(agent=agent) if agent else store.list_skills()
     return {"skills": skills}
@@ -1114,7 +1114,7 @@ async def api_memory_skills(agent: str = ""):
 
 @app.get("/api/memory/insights")
 async def api_memory_insights(category: str = ""):
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store
     store = get_memory_store()
     insights = store.list_insights(category=category) if category else store.list_insights()
     return {"insights": insights}
@@ -1122,19 +1122,19 @@ async def api_memory_insights(category: str = ""):
 
 @app.get("/api/memory/evolution")
 async def api_memory_evolution():
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store
     return {"log": get_memory_store().get_evolution_log()}
 
 
 @app.get("/api/memory/performance")
 async def api_memory_performance():
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store
     return {"performance": get_memory_store().get_performance()}
 
 
 @app.post("/api/memory/evolve")
 async def api_memory_evolve():
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store, get_learner, get_evolver
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store, get_learner, get_evolver
     return get_evolver().evolve_all()
 
 
@@ -1174,7 +1174,7 @@ async def api_chat_send(body: dict):
 
     if result and result.status == "success":
         try:
-            from tianlong_salesmaster.team_pkg.memory import get_memory_store, get_learner
+            from SentriKit_salesmaster.team_pkg.memory import get_memory_store, get_learner
             learner = get_learner()
             learner.learn_from_result("presales_agent",
                 {"customer_name": customer, "message": message},
@@ -1390,7 +1390,7 @@ async def api_pipeline_timeouts():
 @app.get("/api/memory/learning-stats")
 async def api_memory_learning_stats():
     """获取记忆库学习统计（洞察数、技能数、模式数、Agent绩效）"""
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store, get_learner, get_evolver
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store, get_learner, get_evolver
     store = get_memory_store()
     stats = store.get_stats()
     perf = {}
@@ -1413,7 +1413,7 @@ async def api_memory_learning_stats():
 @app.post("/api/memory/auto-evolve")
 async def api_memory_auto_evolve():
     """触发记忆库自动进化：洞察→技能、技能优化、低分淘汰"""
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store, get_evolver
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store, get_evolver
     evolver = get_evolver()
     result = evolver.evolve_all()
     return result
@@ -1430,7 +1430,7 @@ async def api_analytics_summary():
     cached = cache.get("analytics_summary")
     if cached is not None:
         return cached
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store
     store = get_memory_store()
     mem_stats = store.get_stats()
     orch = _get_orch()
@@ -1557,7 +1557,7 @@ async def api_settings_save(body: dict):
 @app.get("/api/abilities")
 async def api_abilities():
     """返回系统当前所有能力（种子能力 + 进化技能）"""
-    from tianlong_salesmaster.team_pkg.memory import get_memory_store, get_capabilities
+    from SentriKit_salesmaster.team_pkg.memory import get_memory_store, get_capabilities
     return {"abilities": get_capabilities()}
 
 
@@ -1650,7 +1650,7 @@ async def static_fallback(filename: str):
         index_file = _WEB_DIR / "index.html"
         if index_file.exists():
             return FileResponse(str(index_file))
-        return JSONResponse({"service": "tianlong-sales-fastapi", "version": "2.5.0", "docs": "/docs"})
+        return JSONResponse({"service": "SentriKit-sales-fastapi", "version": "2.5.0", "docs": "/docs"})
     file_path = _WEB_DIR / filename
     if file_path.exists() and file_path.is_file():
         return FileResponse(str(file_path))
@@ -1658,7 +1658,7 @@ async def static_fallback(filename: str):
     not_found = _WEB_DIR / "index.html"
     if not_found.exists():
         return FileResponse(str(not_found), status_code=404)
-    return JSONResponse({"error": "Not Found", "service": "tianlong-sales-fastapi", "version": "2.5.0", "docs": "/docs"}, status_code=404)
+    return JSONResponse({"error": "Not Found", "service": "SentriKit-sales-fastapi", "version": "2.5.0", "docs": "/docs"}, status_code=404)
 
 
 # ── 启动函数与 CLI ────────────────────────────────
@@ -1713,11 +1713,11 @@ def start_app(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> None:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """CLI 入口: tianlong-sales-fastapi"""
+    """CLI 入口: SentriKit-sales-fastapi"""
     import argparse
 
     parser = argparse.ArgumentParser(
-        prog="tianlong-sales-fastapi",
+        prog="SentriKit-sales-fastapi",
         description="Chat Sales FastAPI 统一服务 — API + Web 管理后台",
     )
     parser.add_argument("--host", type=str, default=None,

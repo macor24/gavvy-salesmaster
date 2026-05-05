@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.workflow.engine — 流程引擎
+"""SentriKit_salesmaster.core.workflow.engine — 流程引擎
 
 工作流执行引擎，负责：
 - 流程实例化与执行

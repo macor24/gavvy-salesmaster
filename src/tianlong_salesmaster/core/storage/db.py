@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage.db — 文件数据库内核
+"""SentriKit_salesmaster.core.storage.db — 文件数据库内核
 
 提供线程安全的 JSON 文件存储，支持 CRUD 和索引。
 

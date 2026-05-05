@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.trade_pkg.esign.tencent — 腾讯电子签集成
+"""SentriKit_salesmaster.trade_pkg.esign.tencent — 腾讯电子签集成
 
 真实腾讯电子签 API 集成，支持：
 - 企业实名签署

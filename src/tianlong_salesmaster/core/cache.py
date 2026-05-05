@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.cache — 销售宗师缓存工具
+"""SentriKit_salesmaster.core.cache — 销售宗师缓存工具
 
 基于 LRU 的内存缓存，用于加速频繁的读操作。
 纯标准库，零外部依赖。

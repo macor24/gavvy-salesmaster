@@ -5,11 +5,11 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from tianlong_salesmaster.crm_pkg.saas import (
+from SentriKit_salesmaster.crm_pkg.saas import (
     Tenant, TenantUser, Subscription, PlanType,
     TenantStatus, UserStatus, JWTToken, RateLimiter,
 )
-from tianlong_salesmaster.crm_pkg.saas.manager import TenantStore, SaaSManager
+from SentriKit_salesmaster.crm_pkg.saas.manager import TenantStore, SaaSManager
 
 
 def test_tenant_create():
@@ -62,7 +62,7 @@ def test_saas_manager():
     """测试 SaaS 管理器（使用临时目录）"""
     import tempfile
     with tempfile.TemporaryDirectory() as tmpdir:
-        from tianlong_salesmaster.crm_pkg.saas.manager import TenantStore
+        from SentriKit_salesmaster.crm_pkg.saas.manager import TenantStore
         store = TenantStore(data_dir=tmpdir)
         manager = SaaSManager(store=store)
         result = manager.register_tenant(

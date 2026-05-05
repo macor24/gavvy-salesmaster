@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.trade_pkg.esign.bytedance — 字节跳动电子签集成
+"""SentriKit_salesmaster.trade_pkg.esign.bytedance — 字节跳动电子签集成
 
 真实字节跳动电子签 API 集成，支持：
 - 企业实名签署

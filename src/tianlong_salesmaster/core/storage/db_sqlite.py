@@ -1,10 +1,10 @@
-"""tianlong_salesmaster.core.storage.db_sqlite — SQLite 回退数据库层
+"""SentriKit_salesmaster.core.storage.db_sqlite — SQLite 回退数据库层
 
 当 PostgreSQL 不可用时，使用 SQLite 作为开发/测试数据库。
 保持与 PostgreSQL 层相同的接口设计。
 
 使用方法:
-    from tianlong_salesmaster.core.storage.db_sqlite import init_database, get_db_context
+    from SentriKit_salesmaster.core.storage.db_sqlite import init_database, get_db_context
 
     # 自动使用 SQLite（当 PostgreSQL 不可用时）
 """
@@ -30,7 +30,7 @@ Base = declarative_base()
 SQLITE_DB_PATH = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
     "data",
-    "tianlong_sales.db"
+    "SentriKit_sales.db"
 )
 
 os.makedirs(os.path.dirname(SQLITE_DB_PATH), exist_ok=True)

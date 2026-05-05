@@ -3,8 +3,8 @@
 开源销售引擎 — CRM + AI 虚拟销售团队 + 自动化 Pipeline。
 
 ```
-pip install tianlong-salesmaster
-tianlong-sales-fastapi
+pip install SentriKit-salesmaster
+SentriKit-sales-fastapi
 # 浏览器打开 http://localhost:8877
 ```
 
@@ -21,5 +21,5 @@ tianlong-sales-fastapi
 
 | 版本 | 说明 | 安装 |
 |------|------|------|
-| 社区版 | MIT 开源，20+业务模块 | `pip install tianlong-salesmaster` |
-| 企业版 | 含 AI 销售引擎 | `pip install tianlong-salesmaster[enterprise]` |
+| 社区版 | MIT 开源，20+业务模块 | `pip install SentriKit-salesmaster` |
+| 企业版 | 含 AI 销售引擎 | `pip install SentriKit-salesmaster[enterprise]` |

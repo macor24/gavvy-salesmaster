@@ -35,7 +35,7 @@
 ### 基础使用
 
 ```python
-from tianlong_salesmaster.quotes import (
+from SentriKit_salesmaster.quotes import (
     ProductManager,
     QuoteManager,
     ContractManager,
@@ -302,7 +302,7 @@ cm.mark_payment_paid(contract.id, contract.payment_plans[0].id)
 ### 与任务审批系统集成
 
 ```python
-from tianlong_salesmaster.tasks import ApprovalManager, TaskManager
+from SentriKit_salesmaster.tasks import ApprovalManager, TaskManager
 
 approval_mgr = ApprovalManager()
 task_mgr = TaskManager()
@@ -326,7 +326,7 @@ task = task_mgr.create_task(
 ### 与知识库系统集成
 
 ```python
-from tianlong_salesmaster.knowledge import KnowledgeBase
+from SentriKit_salesmaster.knowledge import KnowledgeBase
 
 kb = KnowledgeBase()
 

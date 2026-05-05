@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage.stats — 统计聚合引擎
+"""SentriKit_salesmaster.core.storage.stats — 统计聚合引擎
 
 从数据仓库中聚合统计信息，支持多维度分析：
 

@@ -1,4 +1,4 @@
-"""tianlong_salesmaster.core.storage.compliance — 数据合规模块
+"""SentriKit_salesmaster.core.storage.compliance — 数据合规模块
 
 《个人信息保护法》合规实现：
   1. 数据分类 — 区分 PII（个人身份信息）和业务数据

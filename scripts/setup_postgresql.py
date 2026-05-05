@@ -3,8 +3,8 @@
 
 使用方法:
     # 1. 启动 PostgreSQL (Docker)
-    docker run -d --name tianlong-postgres \
-        -e POSTGRES_DB=tianlong_sales \
+    docker run -d --name SentriKit-postgres \
+        -e POSTGRES_DB=SentriKit_sales \
         -e POSTGRES_USER=salesadmin \
         -e POSTGRES_PASSWORD=sales123 \
         -p 5432:5432 \
@@ -35,10 +35,10 @@ def init_database():
     print("初始化 PostgreSQL 数据库")
     print("=" * 60)
 
-    os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/tianlong_sales"
+    os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/SentriKit_sales"
 
     try:
-        from tianlong_salesmaster.storage.database import init_database as db_init
+        from SentriKit_salesmaster.storage.database import init_database as db_init
 
         print("\n📦 创建表结构...")
         db_init()
@@ -67,16 +67,16 @@ def migrate_data():
     print("迁移 JSON 数据到 PostgreSQL")
     print("=" * 60)
 
-    os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/tianlong_sales"
+    os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/SentriKit_sales"
 
-    data_dir = PROJECT_ROOT / "src" / "tianlong_salesmaster" / "storage" / "_data"
+    data_dir = PROJECT_ROOT / "src" / "SentriKit_salesmaster" / "storage" / "_data"
     tenant_id = "00000000-0000-0000-0000-000000000001"
 
     print(f"\n📂 数据目录: {data_dir}")
     print(f"🏢 租户ID: {tenant_id}")
 
     try:
-        from tianlong_salesmaster.storage.migration import migrate_to_postgres
+        from SentriKit_salesmaster.storage.migration import migrate_to_postgres
 
         print("\n🚀 开始迁移...")
         results = migrate_to_postgres(data_dir=str(data_dir), tenant_id=tenant_id)
@@ -115,7 +115,7 @@ def verify_data():
     print("验证 PostgreSQL 数据")
     print("=" * 60)
 
-    os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/tianlong_sales"
+    os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/SentriKit_sales"
 
     try:
         from sqlalchemy import create_engine, text
@@ -172,7 +172,7 @@ def show_status():
         from sqlalchemy import create_engine, text
         from sqlalchemy.exc import OperationalError
 
-        os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/tianlong_sales"
+        os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/SentriKit_sales"
         engine = create_engine(os.environ["DATABASE_URL"])
 
         with engine.connect() as conn:
@@ -192,8 +192,8 @@ def show_status():
     except OperationalError:
         print("❌ PostgreSQL 未运行")
         print("\n请先启动 PostgreSQL:")
-        print("  docker run -d --name tianlong-postgres \\")
-        print("    -e POSTGRES_DB=tianlong_sales \\")
+        print("  docker run -d --name SentriKit-postgres \\")
+        print("    -e POSTGRES_DB=SentriKit_sales \\")
         print("    -e POSTGRES_USER=salesadmin \\")
         print("    -e POSTGRES_PASSWORD=sales123 \\")
         print("    -p 5432:5432 \\")
