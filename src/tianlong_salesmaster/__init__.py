@@ -553,7 +553,7 @@ from .crm_pkg.lead_gen import (  # noqa: E402
     DataMiningService, get_data_mining_service,
     LeadScoringService, get_lead_scoring_service,
     LeadAssignmentService, get_lead_assignment_service,
-    Lead, LeadStatus, LeadPriority,
+    ScoredLead, LeadStatus, LeadPriority,
     Salesperson, AssignmentRule, AssignmentStrategy,
     CompanyInfo, TenderInfo, RecruitmentInfo,
 )

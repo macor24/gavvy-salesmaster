@@ -15,7 +15,7 @@ from .data_mining import (
 from .scoring import (
     LeadScoringService,
     get_lead_scoring_service,
-    Lead,
+    ScoredLead,
     LeadStatus,
     LeadPriority,
     LeadScoringModel,

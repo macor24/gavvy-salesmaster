@@ -34,8 +34,8 @@ class LeadPriority(str, Enum):
 
 
 @dataclass
-class Lead:
-    """线索数据结构（兼容旧版）"""
+class ScoredLead:
+    """线索评分数据结构"""
     id: str
     company_name: str
     contact_name: str = ""
@@ -519,7 +519,7 @@ class PrioritySorter:
         scored.sort(key=lambda x: x[1].total_score, reverse=True)
         return [lead for lead, _ in scored]
     
-    def sort_by_priority(self, leads: List[Lead]) -> List[Lead]:
+    def sort_by_priority(self, leads: List[ScoredLead]) -> List[ScoredLead]:
         """按优先级排序"""
         priority_order = {LeadPriority.HIGH: 0, LeadPriority.MEDIUM: 1, LeadPriority.LOW: 2}
         return sorted(leads, key=lambda x: priority_order.get(x.priority, 3))

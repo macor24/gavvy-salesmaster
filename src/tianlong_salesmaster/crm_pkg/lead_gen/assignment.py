@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from enum import Enum
 from abc import ABC, abstractmethod
 
-from .scoring import Lead, LeadPriority, LeadStatus
+from .scoring import ScoredLead, LeadPriority, LeadStatus
 
 class AssignmentStrategy(str, Enum):
     """分配策略"""
@@ -52,7 +52,7 @@ class AssignmentEngine(ABC):
     """分配引擎抽象基类"""
     
     @abstractmethod
-    def assign(self, lead: Lead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
+    def assign(self, lead: ScoredLead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
         """分配线索"""
         pass
 
@@ -62,7 +62,7 @@ class RoundRobinEngine(AssignmentEngine):
     def __init__(self):
         self.last_assigned_index = -1
     
-    def assign(self, lead: Lead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
+    def assign(self, lead: ScoredLead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
         """轮询分配"""
         active_salespersons = [s for s in salespersons if s.active and s.current_leads < s.max_leads]
         
@@ -75,7 +75,7 @@ class RoundRobinEngine(AssignmentEngine):
 class LoadBalanceEngine(AssignmentEngine):
     """负载均衡分配引擎"""
     
-    def assign(self, lead: Lead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
+    def assign(self, lead: ScoredLead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
         """按负载分配"""
         active_salespersons = [s for s in salespersons if s.active and s.current_leads < s.max_leads]
         
@@ -88,7 +88,7 @@ class LoadBalanceEngine(AssignmentEngine):
 class SkillMatchEngine(AssignmentEngine):
     """技能匹配分配引擎"""
     
-    def assign(self, lead: Lead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
+    def assign(self, lead: ScoredLead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
         """按技能匹配分配"""
         active_salespersons = [s for s in salespersons if s.active and s.current_leads < s.max_leads]
         
@@ -107,7 +107,7 @@ class SkillMatchEngine(AssignmentEngine):
         
         return best_match
     
-    def _calculate_match_score(self, lead: Lead, salesperson: Salesperson) -> int:
+    def _calculate_match_score(self, lead: ScoredLead, salesperson: Salesperson) -> int:
         """计算匹配分数"""
         score = 0
         
@@ -137,7 +137,7 @@ class SkillMatchEngine(AssignmentEngine):
 class TerritoryEngine(AssignmentEngine):
     """区域分配引擎"""
     
-    def assign(self, lead: Lead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
+    def assign(self, lead: ScoredLead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
         """按区域分配"""
         active_salespersons = [s for s in salespersons if s.active and s.current_leads < s.max_leads]
         
@@ -157,7 +157,7 @@ class TerritoryEngine(AssignmentEngine):
 class RandomEngine(AssignmentEngine):
     """随机分配引擎"""
     
-    def assign(self, lead: Lead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
+    def assign(self, lead: ScoredLead, salespersons: List[Salesperson]) -> Optional[Salesperson]:
         """随机分配"""
         active_salespersons = [s for s in salespersons if s.active and s.current_leads < s.max_leads]
         
@@ -259,7 +259,7 @@ class LeadAssignmentService:
         """删除分配规则"""
         self.rules = [r for r in self.rules if r.id != rule_id]
     
-    def assign_lead(self, lead: Lead, strategy: Optional[AssignmentStrategy] = None) -> Optional[str]:
+    def assign_lead(self, lead: ScoredLead, strategy: Optional[AssignmentStrategy] = None) -> Optional[str]:
         """分配线索"""
         # 选择分配策略
         if strategy is None:
@@ -285,7 +285,7 @@ class LeadAssignmentService:
         
         return None
     
-    def batch_assign(self, leads: List[Lead], strategy: AssignmentStrategy) -> Dict[str, List[str]]:
+    def batch_assign(self, leads: List[ScoredLead], strategy: AssignmentStrategy) -> Dict[str, List[str]]:
         """批量分配线索"""
         result = {}
         engine = self.engines.get(strategy)
