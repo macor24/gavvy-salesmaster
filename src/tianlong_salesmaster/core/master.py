@@ -1,7 +1,7 @@
-"""tianlong.sales.master — Chat Sales 核心引擎
+"""SentriKit.sales.master — Chat Sales 核心引擎
 
 基于 Chat Sales 六大能力模块（13项技能）的完整实现。
-通过 HTTP API 或 CLI 子进程调用天龙1号，不强制代码级依赖。
+通过 HTTP API 或 CLI 子进程调用 SentriKit，不强制代码级依赖。
 
 能力架构：
   Phase 1: 高阶心理博弈与能量感知（§1-3）
@@ -20,83 +20,83 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
-from .tianlong_client import TianlongAPIClient
+from .tianlong_client import SentriKitAPIClient
 
 
-# ── 天龙1号 API 客户端（轻量） ────────────────
+# ── SentriKit API 客户端（轻量） ────────────────
 
-_TIANLONG_API_URL: Optional[str] = None
-_TIANLONG_AVAILABLE: Optional[bool] = None
-_TIANLONG_ENABLED: bool = True
-_TIANLONG_CLIENT: Optional[TianlongAPIClient] = None
+_SentriKit_API_URL: Optional[str] = None
+_SentriKit_AVAILABLE: Optional[bool] = None
+_SentriKit_ENABLED: bool = True
+_SentriKit_CLIENT: Optional[SentriKitAPIClient] = None
 
 
-def _get_tianlong_client() -> TianlongAPIClient:
-    global _TIANLONG_CLIENT
-    if _TIANLONG_CLIENT is None:
-        url = _TIANLONG_API_URL or os.environ.get("TIANLONG_API_URL", "")
-        _TIANLONG_CLIENT = TianlongAPIClient(
+def _get_SentriKit_client() -> SentriKitAPIClient:
+    global _SentriKit_CLIENT
+    if _SentriKit_CLIENT is None:
+        url = _SentriKit_API_URL or os.environ.get("SentriKit_API_URL", "")
+        _SentriKit_CLIENT = SentriKitAPIClient(
             api_url=url,
             project_dir=os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         )
-    return _TIANLONG_CLIENT
+    return _SentriKit_CLIENT
 
 
-def _get_tianlong_api_url() -> str:
-    return _TIANLONG_API_URL or os.environ.get("TIANLONG_API_URL", "")
+def _get_SentriKit_api_url() -> str:
+    return _SentriKit_API_URL or os.environ.get("SentriKit_API_URL", "")
 
 
-def check_tianlong() -> bool:
-    global _TIANLONG_AVAILABLE
-    if _TIANLONG_AVAILABLE is not None:
-        return _TIANLONG_AVAILABLE
-    client = _get_tianlong_client()
+def check_SentriKit() -> bool:
+    global _SentriKit_AVAILABLE
+    if _SentriKit_AVAILABLE is not None:
+        return _SentriKit_AVAILABLE
+    client = _get_SentriKit_client()
     result = client.health()
     if "status" in result and result["status"] == "ok":
-        _TIANLONG_AVAILABLE = True
+        _SentriKit_AVAILABLE = True
         return True
-    _TIANLONG_AVAILABLE = False
+    _SentriKit_AVAILABLE = False
     return False
 
 
-def is_tianlong_enabled() -> bool:
-    return _TIANLONG_ENABLED and check_tianlong()
+def is_SentriKit_enabled() -> bool:
+    return _SentriKit_ENABLED and check_SentriKit()
 
 
-def set_tianlong_enabled(enabled: bool) -> bool:
-    global _TIANLONG_ENABLED
-    _TIANLONG_ENABLED = enabled
-    return _TIANLONG_ENABLED
+def set_SentriKit_enabled(enabled: bool) -> bool:
+    global _SentriKit_ENABLED
+    _SentriKit_ENABLED = enabled
+    return _SentriKit_ENABLED
 
 
-def get_tianlong_status() -> dict:
-    mode = "http" if _get_tianlong_api_url() else "local"
-    return {"available": check_tianlong(), "enabled": _TIANLONG_ENABLED, "active": is_tianlong_enabled(), "mode": mode}
+def get_SentriKit_status() -> dict:
+    mode = "http" if _get_SentriKit_api_url() else "local"
+    return {"available": check_SentriKit(), "enabled": _SentriKit_ENABLED, "active": is_SentriKit_enabled(), "mode": mode}
 
 
-def _tianlong_report_highlight(title: str, body: str, highlights: list, action_items: list) -> bool:
-    client = _get_tianlong_client()
+def _SentriKit_report_highlight(title: str, body: str, highlights: list, action_items: list) -> bool:
+    client = _get_SentriKit_client()
     result = client.report(title=title, body=body, highlights=highlights, action_items=action_items)
     return result.get("status") == "ok"
 
 
 # ── 进化闭环快捷调用 ──────────────────────────
 
-def tianlong_run_evolve() -> dict:
-    """触发天龙1号完整进化闭环"""
-    client = _get_tianlong_client()
+def SentriKit_run_evolve() -> dict:
+    """触发 SentriKit 完整进化闭环"""
+    client = _get_SentriKit_client()
     return client.run_evolve()
 
 
-def tianlong_evolve_status() -> dict:
-    """天龙1号进化状态"""
-    client = _get_tianlong_client()
+def SentriKit_evolve_status() -> dict:
+    """SentriKit 进化状态"""
+    client = _get_SentriKit_client()
     return client.evolve_status()
 
 
-def tianlong_evaluate_metacog(success_rate_7d: float = 0.85, days_since_last_improvement: int = 0, repeat_error_count: int = 0) -> dict:
+def SentriKit_evaluate_metacog(success_rate_7d: float = 0.85, days_since_last_improvement: int = 0, repeat_error_count: int = 0) -> dict:
     """退化检测"""
-    client = _get_tianlong_client()
+    client = _get_SentriKit_client()
     return client.evaluate_metacog(
         success_rate_7d=success_rate_7d,
         days_since_last_improvement=days_since_last_improvement,
@@ -104,21 +104,21 @@ def tianlong_evaluate_metacog(success_rate_7d: float = 0.85, days_since_last_imp
     )
 
 
-def tianlong_evaluate_judge(summary: str) -> dict:
+def SentriKit_evaluate_judge(summary: str) -> dict:
     """提案评分"""
-    client = _get_tianlong_client()
+    client = _get_SentriKit_client()
     return client.evaluate_judge(summary=summary)
 
 
 # ── 自动调度 ─────────────────────────────────
 
-def tianlong_auto_check() -> dict:
+def SentriKit_auto_check() -> dict:
     """自动检查是否需要进化，需要则触发。返回检查结果。"""
-    client = _get_tianlong_client()
+    client = _get_SentriKit_client()
     
     # 1. 获取指标
     try:
-        from tianlong.selfmodel import SelfModel
+        from SentriKit.selfmodel import SelfModel
         sm = SelfModel(project_dir=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         history = sm.get_history()
         snapshot = history.get("latest_snapshot", {})
@@ -321,7 +321,7 @@ class SalesMaster:
 
         # Reporter 自动汇报（HTTP / CLI 双模式）
         try:
-            _tianlong_report_highlight(
+            _SentriKit_report_highlight(
                 title="销售策略报告: " + (self.company or "未知"),
                 body=text,
                 highlights=[

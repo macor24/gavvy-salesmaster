@@ -1,4 +1,4 @@
-"""tianlong_salesmaster — Chat Sales 开源销售引擎
+"""SentriKit_salesmaster — Chat Sales 开源销售引擎
 
 让任何人都能拥有自己的 Chat Sales。
 全自动化销售Pipeline: Lead → Research → Proposal → Report
@@ -8,7 +8,7 @@
     SalesMaster    — 六维销售能力引擎（心理博弈/多线程谈判/价值量化/风险管控/语言操作/策略进化）
 
 可选集成:
-    如果安装了 tianlong-toolkit，SalesPipeline 自动集成 CodeVigil 安全审计、
+    如果安装了 SentriKit-toolkit，SalesPipeline 自动集成 CodeVigil 安全审计、
     竞品情报、健康监控等数据到销售提案中，大幅提升提案说服力。
     不装也不影响核心功能。
 """
@@ -30,7 +30,7 @@ SALES_EDITION = "community"  # community / enterprise
 _HAS_ENTERPRISE = False
 _ENTERPRISE_IMPORT_ERROR = ""
 
-# 企业版通过 TIANLONG_API_KEY 环境变量激活，不依赖闭源包
+# 企业版通过 SentriKit_API_KEY 环境变量激活，不依赖闭源包
 try:
     from .core.enterprise_client import EnterpriseConfig
     _cfg = EnterpriseConfig.from_env()
@@ -38,18 +38,18 @@ try:
     SALES_EDITION = "enterprise" if _cfg.is_enterprise else "community"
     if not _cfg.is_enterprise:
         _ENTERPRISE_IMPORT_ERROR = (
-            "社区版模式。设置 TIANLONG_API_KEY 环境变量激活企业版 SaaS API。"
+            "社区版模式。设置 SENTRIKIT_API_KEY 环境变量激活企业版 SaaS API。"
         )
 except ImportError:
     _ENTERPRISE_IMPORT_ERROR = "社区版模式"
 
 
-# ── 可选检测 tianlong ─────────────────────────────
+# ── 可选检测 SentriKit ─────────────────────────────
 
-_HAS_TIANLONG = False
+_HAS_SentriKit = False
 try:
-    import tianlong  # noqa: F401
-    _HAS_TIANLONG = True
+    import SentriKit  # noqa: F401
+    _HAS_SentriKit = True
 except ImportError:
     pass
 
@@ -111,7 +111,7 @@ PRESET_COMPANIES: List[Dict] = [
 
 # ── 默认产品信息（用户可替换） ─────────────────
 
-DEFAULT_PRODUCT_NAME = "天龙工具箱"
+DEFAULT_PRODUCT_NAME = "SentriKit"
 DEFAULT_PRODUCT_TAGLINE = "AI Agent 安全运维工具箱"
 DEFAULT_PRODUCT_DESCRIPTION = "开源 AI Agent 安全审计、健康监控、进化评估工具集"
 
@@ -154,9 +154,9 @@ class SalesPipeline:
         self._output_dir.mkdir(parents=True, exist_ok=True)
 
     @property
-    def has_tianlong(self) -> bool:
-        """检查是否安装了 tianlong-toolkit（用于提案中展示安全数据）。"""
-        return _HAS_TIANLONG
+    def has_SentriKit(self) -> bool:
+        """检查是否安装了 SentriKit-toolkit（用于提案中展示安全数据）。"""
+        return _HAS_SentriKit
 
     def run_full_cycle(self) -> SalesReport:
         """执行完整销售周期：搜索 -> 调研 -> 提案 -> 保存"""
@@ -247,7 +247,7 @@ class SalesPipeline:
             product_name=self.product_name,
             basic_info=f"行业: {lead.industry}\n描述: {lead.description}\n来源: {lead.source}",
             ai_maturity=f"初步评估: {lead.ai_readiness or '待评估'}\n(使用 Sales Agent research 获取深度分析)",
-            security_needs="安全需求: 数据安全/合规/权限管控" if not self.has_tianlong else self._tianlong_security_text(),
+            security_needs="安全需求: 数据安全/合规/权限管控" if not self.has_SentriKit else self._SentriKit_security_text(),
             opportunity_assessment=f"优先级: {lead.priority}\n建议: 生成定制化销售提案",
             entry_point=f"通过 {lead.contact or '官网/社区'} 触达",
         )
@@ -344,38 +344,38 @@ class SalesPipeline:
             leads.append(current)
         return leads
 
-    # ── 模板文本生成（根据是否安装了tianlong自动调整） ──
+    # ── 模板文本生成（根据是否安装了SentriKit自动调整） ──
 
-    def _tianlong_security_text(self) -> str:
-        """从 tianlong-toolkit 获取安全能力展示（轻量，不做全量扫描）。"""
+    def _SentriKit_security_text(self) -> str:
+        """从 SentriKit-toolkit 获取安全能力展示（轻量，不做全量扫描）。"""
         try:
             # 检测版本和可用模块（轻量）
-            import tianlong
-            version = getattr(tianlong, '__version__', '?')
+            import SentriKit
+            version = getattr(SentriKit, '__version__', '?')
             return (
-                f"AI Agent 安全审计（天龙工具箱 v{version}）:\n"
+                f"AI Agent 安全审计（SentriKit v{version}）:\n"
                 f"- 30 条安全规则（IS×10 + SI×10 + PM×10）\n"
                 f"- OWASP LLM Top 10 合规映射\n"
                 f"- AST 解析 + 数据流追踪\n"
                 f"- 三柱加权评分体系\n\n"
-                f"快速体验: pip install tianlong-toolkit && tianlong-uxu scan ."
+                f"快速体验: pip install SentriKit-toolkit && SentriKit-uxu scan ."
             )
         except Exception:
             pass
         return (
             f"AI Agent 安全需求: 提示注入/记忆注入/工具权限/数据泄露\n"
             f"合规需求: OWASP LLM Top 10\n"
-            f"使用 {self.product_name} 一键审计: pip install tianlong-toolkit && tianlong-uxu scan ."
+            f"使用 {self.product_name} 一键审计: pip install SentriKit-toolkit && SentriKit-uxu scan ."
         )
 
     def _compintel_text(self, lead: Lead) -> str:
-        """从 tianlong-toolkit 获取竞品情报数据。"""
+        """从 SentriKit-toolkit 获取竞品情报数据。"""
         try:
-            from tianlong.compintel import CompIntelTracker
+            from SentriKit.compintel import CompIntelTracker
             tracker = CompIntelTracker(project_dir=str(self.project_dir))
             competitors = tracker.competitors
             if competitors:
-                lines = ["竞品格局分析（来自天龙工具箱竞品情报）:"]
+                lines = ["竞品格局分析（来自 SentriKit 竞品情报）:"]
                 for c in competitors[:3]:
                     act = c.activity_score or 50
                     risk = c.risk_score or 50
@@ -386,8 +386,8 @@ class SalesPipeline:
         return ""
 
     def _needs_analysis_text(self, lead: Lead) -> str:
-        if self.has_tianlong:
-            security_data = self._tianlong_security_text()
+        if self.has_SentriKit:
+            security_data = self._SentriKit_security_text()
             return (
                 f"作为{lead.industry}领域公司，您可能面临以下挑战:\n"
                 f"1. 🔴 Agent安全风险 — 提示注入/记忆篡改/工具滥用\n"
@@ -403,12 +403,12 @@ class SalesPipeline:
         )
 
     def _value_proposition_text(self) -> str:
-        if self.has_tianlong:
+        if self.has_SentriKit:
             compintel_data = ""
             try:
-                import tianlong
-                version = getattr(tianlong, '__version__', '?')
-                compintel_data = f"\n\n竞品情报: 集成天龙工具箱 v{version} 竞品追踪"
+                import SentriKit
+                version = getattr(SentriKit, '__version__', '?')
+                compintel_data = f"\n\n竞品情报: 集成 SentriKit v{version} 竞品追踪"
             except Exception:
                 pass
 
@@ -425,11 +425,11 @@ class SalesPipeline:
         return f"{self.product_name}: {self.product_tagline} — {self.product_description}"
 
     def _recommended_solution_text(self) -> str:
-        if self.has_tianlong:
+        if self.has_SentriKit:
             return (
-                f"Step 1: pip install tianlong-toolkit\n"
-                f"Step 2: tianlong-uxu scan . --severity high\n"
-                "Step 3: 集成到CI — tianlong-audit -d .\n"
+                f"Step 1: pip install SentriKit-toolkit\n"
+                f"Step 2: SentriKit-uxu scan . --severity high\n"
+                "Step 3: 集成到CI — SentriKit-audit -d .\n"
                 "全程免费开源，5分钟完成安全审计。"
             )
         return (

@@ -1,6 +1,6 @@
-"""tianlong_salesmaster.team_pkg.memory — 学习记忆系统
+"""SentriKit_salesmaster.team_pkg.memory — 学习记忆系统
 
-企业版通过服务端 API 提供完整记忆库（需 TIANLONG_API_KEY）。
+企业版通过服务端 API 提供完整记忆库（需 SentriKit_API_KEY）。
 社区版使用本地简化存储。
 """
 
@@ -13,7 +13,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from tianlong_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig, UPGRADE_HINT
+from SentriKit_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig, UPGRADE_HINT
 
 
 # ── 企业版检测 ──────────────────────────────────
@@ -24,7 +24,7 @@ _ENTERPRISE_IMPORT_ERROR = ""
 _cfg = EnterpriseConfig.from_env()
 _HAS_ENTERPRISE = _cfg.is_enterprise
 if not _cfg.is_enterprise:
-    _ENTERPRISE_IMPORT_ERROR = "社区版模式（无 TIANLONG_API_KEY），使用本地简化存储"
+    _ENTERPRISE_IMPORT_ERROR = "社区版模式（无 SentriKit_API_KEY），使用本地简化存储"
 
 
 # ── 社区版本地存储（简化版） ──────────────────

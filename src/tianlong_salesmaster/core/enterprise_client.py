@@ -1,9 +1,11 @@
-"""tianlong_salesmaster.core.enterprise_client — 企业版 SaaS API 客户端
+"""SentriKit_salesmaster.core.enterprise_client — 企业版 SaaS API 客户端
 
 所有调用服务端 AI 能力的模块，通过此客户端实现。
 
 社区版（无 API Key）：返回模板/空结果 + 升级提示
 企业版（有 API Key）：HTTP 调用服务端 API
+
+API Key 检测链：SENTRIKIT_API_KEY > TIANLONG_API_KEY > 配置文件
 """
 
 from __future__ import annotations
@@ -17,8 +19,8 @@ from typing import Any, Dict, List, Optional
 
 # ── 企业版 API 配置 ─────────────────────────────
 
-ENTERPRISE_API_BASE = "https://api.tianlong.ai/v1"
-ENTERPRISE_API_KEY_ENV = "TIANLONG_API_KEY"
+ENTERPRISE_API_BASE = "https://api.sentrikit.com/v1"
+ENTERPRISE_API_KEY_ENV = "SENTRIKIT_API_KEY"  # 优先，fallback TIANLONG_API_KEY
 
 UPGRADE_HINT = (
     "\n\n---\n💡 **需要企业版解锁完整 AI 智能能力？**\n"
@@ -28,8 +30,16 @@ UPGRADE_HINT = (
     "- ✅ 无限 Lead 管理与多 Agent 编排\n"
     "- ✅ 学习记忆库与技能进化引擎\n"
     "- ✅ 服务端持续优化，无需升级本地代码\n"
-    "获取 API Key：https://tianlong.ai\n"
+    "获取 API Key：https://sentrikit.com\n"
 )
+
+
+def _detect_api_key() -> str:
+    """检测 API Key：SENTRIKIT_API_KEY > TIANLONG_API_KEY > 空"""
+    key = os.environ.get("SENTRIKIT_API_KEY")
+    if key:
+        return key
+    return os.environ.get("TIANLONG_API_KEY", "")
 
 
 @dataclass
@@ -46,15 +56,15 @@ class EnterpriseConfig:
     @classmethod
     def from_env(cls) -> "EnterpriseConfig":
         return cls(
-            api_key=os.environ.get(ENTERPRISE_API_KEY_ENV, ""),
-            api_base=os.environ.get("TIANLONG_API_BASE", ENTERPRISE_API_BASE),
+            api_key=_detect_api_key(),
+            api_base=os.environ.get("SENTRIKIT_API_BASE", ENTERPRISE_API_BASE),
         )
 
     @classmethod
     def from_config(cls, api_key: str = "", api_base: str = "") -> "EnterpriseConfig":
         return cls(
-            api_key=api_key or os.environ.get(ENTERPRISE_API_KEY_ENV, ""),
-            api_base=api_base or os.environ.get("TIANLONG_API_BASE", ENTERPRISE_API_BASE),
+            api_key=api_key or _detect_api_key(),
+            api_base=api_base or os.environ.get("SENTRIKIT_API_BASE", ENTERPRISE_API_BASE),
         )
 
 
