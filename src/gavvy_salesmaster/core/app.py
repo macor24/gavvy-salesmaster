@@ -1403,6 +1403,130 @@ async def api_pipeline_timeouts():
     return {"timeouts": alerts, "count": len(alerts)}
 
 
+# ── 寻客引擎 API ──────────────────────────────
+
+
+_hunt_engine_instance = None
+_hunt_lock = threading.Lock()
+
+
+def _get_hunt_engine():
+    global _hunt_engine_instance
+    if _hunt_engine_instance is None:
+        with _hunt_lock:
+            if _hunt_engine_instance is None:
+                from gavvy_salesmaster.crm_pkg.lead_gen.hunt_engine import HuntEngine
+                _hunt_engine_instance = HuntEngine()
+    return _hunt_engine_instance
+
+
+@app.get("/api/hunt/config")
+async def api_hunt_config():
+    engine = _get_hunt_engine()
+    return engine.get_config().to_dict()
+
+
+@app.post("/api/hunt/config")
+async def api_hunt_update_config(body: dict):
+    engine = _get_hunt_engine()
+    engine.update_config(
+        keywords=body.get("keywords"),
+        sources=body.get("sources"),
+        min_score=body.get("min_score"),
+        interval_hours=body.get("interval_hours"),
+        enabled=body.get("enabled"),
+    )
+    return {"status": "ok", "config": engine.get_config().to_dict()}
+
+
+@app.post("/api/hunt/run")
+async def api_hunt_run(body: dict = {}):
+    engine = _get_hunt_engine()
+    result = engine.run_hunt()
+    return {
+        "status": "ok",
+        "result": {
+            "total_found": result.total_found,
+            "new_added": result.new_added,
+            "total_leads": result.total_leads,
+            "dispatched": result.dispatched,
+            "platforms": result.platforms,
+            "duration_seconds": result.duration_seconds,
+            "errors": result.errors,
+        },
+    }
+
+
+@app.get("/api/hunt/stats")
+async def api_hunt_stats():
+    engine = _get_hunt_engine()
+    return engine.get_stats()
+
+
+@app.get("/api/hunt/leads")
+async def api_hunt_leads(status: str = "", limit: int = 100):
+    engine = _get_hunt_engine()
+    leads = engine.get_leads(status=status, limit=limit)
+    return {"leads": [l.to_dict() for l in leads], "total": len(leads)}
+
+
+# ── 自动调度器 API ─────────────────────────---
+
+
+_scheduler_instance = None
+_scheduler_lock = threading.Lock()
+
+
+def _get_scheduler():
+    global _scheduler_instance
+    if _scheduler_instance is None:
+        with _scheduler_lock:
+            if _scheduler_instance is None:
+                from gavvy_salesmaster.crm_pkg.lead_gen.hunt_engine import HuntEngine
+                from gavvy_salesmaster.crm_pkg.lead_gen.scheduler import AutoScheduler
+                engine = _get_hunt_engine()
+                _scheduler_instance = AutoScheduler(
+                    hunt_engine=engine,
+                    orchestrator=_get_orch(),
+                )
+    return _scheduler_instance
+
+
+@app.get("/api/scheduler/tasks")
+async def api_scheduler_tasks(limit: int = 50):
+    scheduler = _get_scheduler()
+    tasks = scheduler.get_tasks(limit=limit)
+    return {"tasks": [t.to_dict() for t in tasks], "count": len(tasks)}
+
+
+@app.get("/api/scheduler/stats")
+async def api_scheduler_stats():
+    scheduler = _get_scheduler()
+    return {
+        "status_counts": scheduler.get_task_count(),
+    }
+
+
+@app.post("/api/scheduler/submit")
+async def api_scheduler_submit(body: dict):
+    scheduler = _get_scheduler()
+    task = scheduler.submit(
+        message=body.get("message", ""),
+        customer=body.get("customer", ""),
+        product=body.get("product", ""),
+        lead_id=body.get("lead_id", ""),
+    )
+    return {"task": task.to_dict()}
+
+
+@app.post("/api/scheduler/dispatch-hunt")
+async def api_scheduler_dispatch_hunt():
+    """从寻客引擎获取未调度线索，批量调度Agent"""
+    scheduler = _get_scheduler()
+    count = scheduler.dispatch_from_hunt()
+    return {"status": "ok", "dispatched": count}
+
+
 # ── 记忆库-销售闭环 API ─────────────────────
 
 

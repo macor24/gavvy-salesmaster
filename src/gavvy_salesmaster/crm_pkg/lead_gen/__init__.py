@@ -31,6 +31,24 @@ from .assignment import (
     AssignmentStrategy,
 )
 
+from .hunt_engine import (
+    HuntEngine,
+    HuntConfig,
+    HuntResult,
+    FoundLead,
+    BaseHunter,
+    Alibaba1688Hunter,
+    AlibabaInternationalHunter,
+    StandaloneHunter,
+)
+
+from .scheduler import (
+    AutoScheduler,
+    ScheduledTask,
+    classify_intent,
+    AGENT_NAMES,
+)
+
 __all__ = [
     # 数据挖掘
     "DataMiningService",
@@ -59,6 +77,22 @@ __all__ = [
     "Salesperson",
     "AssignmentRule",
     "AssignmentStrategy",
+    
+    # 寻客引擎
+    "HuntEngine",
+    "HuntConfig",
+    "HuntResult",
+    "FoundLead",
+    "BaseHunter",
+    "Alibaba1688Hunter",
+    "AlibabaInternationalHunter",
+    "StandaloneHunter",
+    
+    # 自动调度
+    "AutoScheduler",
+    "ScheduledTask",
+    "classify_intent",
+    "AGENT_NAMES",
 ]
 
 # 服务实例
