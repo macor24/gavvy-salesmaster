@@ -6,7 +6,7 @@ sys.path.insert(0, 'src')
 
 # 测试智能寻客模块
 print("=== 智能寻客测试 ===")
-from SentriKit_salesmaster.lead_gen.data_mining import get_data_mining_service
+from gavvy_salesmaster.lead_gen.data_mining import get_data_mining_service
 
 dm_service = get_data_mining_service()
 companies = dm_service.search_companies('科技')
@@ -16,7 +16,7 @@ for c in companies[:3]:
 
 # 测试线索评分模块
 print("\n=== 线索评分测试 ===")
-from SentriKit_salesmaster.lead_gen.scoring import get_lead_scoring_service, LeadInfo
+from gavvy_salesmaster.lead_gen.scoring import get_lead_scoring_service, LeadInfo
 
 score_service = get_lead_scoring_service()
 lead = LeadInfo(
@@ -33,7 +33,7 @@ print(f"建议: {result.recommended_action}")
 
 # 测试企微通信模块
 print("\n=== 企微通信测试 ===")
-from SentriKit_salesmaster.followup.communication import get_communication_service, ChannelType
+from gavvy_salesmaster.followup.communication import get_communication_service, ChannelType
 
 comm_service = get_communication_service()
 result = comm_service.send_message(ChannelType.WEWORK, 'test_user', '您好！这是测试消息')
@@ -41,7 +41,7 @@ print(f"消息发送: {'成功' if result else '失败'}")
 
 # 测试销售预测模块
 print("\n=== 销售预测测试 ===")
-from SentriKit_salesmaster.prediction.ai_model import get_sales_prediction_service, Deal, DealStage
+from gavvy_salesmaster.prediction.ai_model import get_sales_prediction_service, Deal, DealStage
 
 pred_service = get_sales_prediction_service()
 deal = Deal(

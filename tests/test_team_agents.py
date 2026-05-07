@@ -9,14 +9,14 @@ import uuid
 
 import pytest
 
-from SentriKit_salesmaster.team_pkg.team.base import (
+from gavvy_salesmaster.team_pkg.team import (
     BaseAgent, AgentContext, AgentResult, PrivateInput, Kernels,
     AgentRole, LeadScorer, SafetyGuard, SafetyMode, QuickstartGuide,
 )
-from SentriKit_salesmaster.team_pkg.team.coordinator import (
+from gavvy_salesmaster.team_pkg.team.coordinator import (
     SalesOrchestrator, PipelineTrigger, STAGES, STAGE_LABELS,
 )
-from SentriKit_salesmaster.team_pkg.team.agents import (
+from gavvy_salesmaster.team_pkg.team.agents import (
     MarketResearchAgent, CompetitorIntelAgent, PresalesAgent,
 )
 
@@ -92,20 +92,22 @@ class TestBaseAgent:
         assert k.psychologist == ""
 
     def test_lead_scorer_high_value(self):
-        score = LeadScorer.score({
+        scorer = LeadScorer()
+        score = scorer.score({
             "industry": "AI Agent",
             "description": "一个专注于AI Agent开发的创新企业，拥有完整的技术团队",
             "source": "web_search",
         })
-        assert score.score > 0.3
+        assert score.score > 30
 
     def test_lead_scorer_low_value(self):
-        score = LeadScorer.score({
+        scorer = LeadScorer()
+        score = scorer.score({
             "industry": "传统制造",
             "description": "小企业",
             "source": "preset",
         })
-        assert score.score < 0.5
+        assert score.score < 50
 
 
 # ── SalesOrchestrator 测试 ───────────────────────
@@ -414,12 +416,14 @@ class TestSafetyGuard:
 
 class TestQuickstartGuide:
     def test_get_industries(self):
-        industries = QuickstartGuide.get_industries()
+        guide = QuickstartGuide()
+        industries = guide.get_industries()
         assert "电商" in industries
         assert "SaaS企业服务" in industries
 
     def test_apply_template(self):
-        tmpl = QuickstartGuide.apply_template("AI/科技", "天龙工具箱")
+        guide = QuickstartGuide()
+        tmpl = guide.apply_template("AI/科技", "天龙工具箱")
         assert tmpl["product_name"] == "天龙工具箱"
         assert tmpl["pricing"]["base"] == 999
 

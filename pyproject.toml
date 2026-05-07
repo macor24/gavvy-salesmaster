@@ -3,7 +3,7 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "SentriKit-salesmaster"
+name = "gavvy-salesmaster"
 version = "2.6.0"
 description = "开源销售引擎 — CRM + AI销售团队 + 自动化Pipeline，pip install 即用"
 readme = "README.md"
@@ -12,7 +12,7 @@ requires-python = ">=3.11"
 keywords = ["sales", "crm", "pipeline", "lead-generation", "proposal", "ai-agent"]
 
 authors = [
-    {name = "Gavvy Team", email = "Gavvy@example.com"},
+    {name = "gavvy Team", email = "gavvy@example.com"},
 ]
 
 classifiers = [
@@ -30,15 +30,15 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-SentriKit = ["SentriKit-toolkit"]
+gavvy = ["sentrikit-toolkit"]
 fastapi = ["fastapi>=0.100", "uvicorn>=0.20"]
 database = ["sqlalchemy>=2.0", "psycopg2-binary>=2.9"]
 enterprise = ["httpx>=0.27.0"]  # 企业版通过服务端 API 提供，本地仅需 HTTP 客户端
-all = ["SentriKit-toolkit", "fastapi>=0.100", "uvicorn>=0.20", "sqlalchemy>=2.0", "psycopg2-binary>=2.9"]
+all = ["sentrikit-toolkit", "fastapi>=0.100", "uvicorn>=0.20", "sqlalchemy>=2.0", "psycopg2-binary>=2.9"]
 
 [project.scripts]
-SentriKit-sales-api = "SentriKit_salesmaster.api:main"
-SentriKit-sales-fastapi = "SentriKit_salesmaster.app:main"
+gavvy-sales-api = "gavvy_salesmaster.core.api:main"
+gavvy-sales-fastapi = "gavvy_salesmaster.core.app:main"
 
 [project.urls]
 Homepage = "https://github.com/"
@@ -48,7 +48,7 @@ Source = "https://github.com/"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["SentriKit_salesmaster*"]
+include = ["gavvy_salesmaster*"]
 
 [tool.setuptools.package-data]
-"SentriKit_salesmaster" = ["web/*.html", "web/*.js", "web/*.css", "web/_customers.json", "storage/_data/*.json", "storage/_memory/*.json", "team/_leads.json"]
+"gavvy_salesmaster" = ["web/*.html", "web/*.js", "web/*.css", "web/_customers.json", "storage/_data/*.json", "storage/_memory/*.json", "team/_leads.json"]

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>gavvy · 开源销售引擎 — pip install 即用的AI销售团队系统</title>
+    <meta name="description" content="gavvy - 开源AI销售引擎。CRM + 6大AI Agent + 智能话术 + Pipeline管理。pip install gavvy-salesmaster 即用。">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --light: #f8fafc;
+            --white: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--dark); line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+        
+        @media (max-width: 768px) {
+            .container { padding: 0 12px; }
+        }
+        
+        @media (max-width: 480px) {
+            .container { padding: 0 8px; }
+        }
+        .btn { display: inline-block; padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-size: 16px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-secondary { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-secondary:hover { background: var(--primary); color: white; }
+        .btn-demo { background: var(--secondary); color: white; padding: 16px 40px; font-size: 18px; }
+        .btn-demo:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); }
+        .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--gray); }
+        .btn-ghost:hover { color: var(--primary); border-color: var(--primary); }
+
+        header { padding: 16px 0; position: fixed; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #e2e8f0; }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 22px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--primary); }
+        nav { display: flex; gap: 28px; align-items: center; }
+        nav a { color: var(--gray); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.2s; }
+        nav a:hover { color: var(--primary); }
+
+        .hero { padding: 140px 0 80px; text-align: center; background: linear-gradient(180deg, #f0f1ff 0%, white 100%); }
+        .hero h1 { font-size: 52px; font-weight: 800; margin-bottom: 20px; line-height: 1.15; }
+        .hero h1 .highlight { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero .subtitle { font-size: 18px; color: var(--gray); max-width: 600px; margin: 0 auto 32px; }
+        .hero .pip-cmd { display: inline-block; background: var(--dark); color: #e2e8f0; padding: 10px 24px; border-radius: 8px; font-family: monospace; font-size: 15px; margin: 8px auto 32px; border: 1px solid #334155; }
+        .hero .pip-cmd span { color: var(--secondary); }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .demo-badge { display: inline-block; background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+
+        .stats { display: flex; justify-content: center; gap: 48px; margin: 48px 0 0; flex-wrap: wrap; }
+        .stat-item { text-align: center; }
+        .stat-item .number { font-size: 40px; font-weight: 800; color: var(--primary); }
+        .stat-item .label { color: var(--gray); font-size: 13px; margin-top: 2px; }
+
+        .features { padding: 80px 0; background: white; }
+        .features h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .features .subhead { text-align: center; color: var(--gray); font-size: 16px; margin-bottom: 48px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .feature-card { background: var(--light); border-radius: 14px; padding: 28px; transition: all 0.3s; border: 1px solid transparent; }
+        .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(0,0,0,0.06); border-color: #e2e8f0; }
+        .feature-icon { font-size: 40px; margin-bottom: 12px; }
+        .feature-card h3 { font-size: 18px; margin-bottom: 10px; }
+        .feature-card p { color: var(--gray); font-size: 14px; line-height: 1.7; }
+
+        .arch { padding: 80px 0; background: var(--light); }
+        .arch h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 40px; }
+        .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 900px; margin: 0 auto; }
+        .arch-box { background: white; border-radius: 14px; padding: 28px; border: 1px solid #e2e8f0; }
+        .arch-box h3 { font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .arch-box ul { list-style: none; }
+        .arch-box li { padding: 5px 0; font-size: 14px; color: var(--gray); display: flex; align-items: center; gap: 8px; }
+
+        .pricing { padding: 80px 0; background: white; }
+        .pricing h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .pricing .subhead { text-align: center; color: var(--gray); font-size: 16px; margin-bottom: 48px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+        .price-card { background: var(--light); border-radius: 16px; padding: 32px; text-align: center; border: 2px solid transparent; transition: all 0.3s; }
+        .price-card.featured { border-color: var(--primary); transform: scale(1.04); box-shadow: 0 16px 48px rgba(99, 102, 241, 0.12); background: white; }
+        .price-card .badge { display: inline-block; background: var(--primary); color: white; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+        .price-card h3 { font-size: 20px; margin-bottom: 4px; }
+        .price-card .tagline { font-size: 13px; color: var(--gray-light); margin-bottom: 12px; }
+        .price-card .price { font-size: 40px; font-weight: 800; color: var(--primary); margin: 12px 0; }
+        .price-card .price span { font-size: 14px; color: var(--gray); font-weight: 400; }
+        .price-card ul { list-style: none; text-align: left; margin: 20px 0; }
+        .price-card li { padding: 6px 0; color: var(--gray); font-size: 13px; }
+        .price-card li::before { content: "✓ "; color: var(--secondary); font-weight: 700; margin-right: 6px; }
+
+        .steps { padding: 80px 0; background: var(--dark); color: white; }
+        .steps h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 48px; }
+        .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 900px; margin: 0 auto; }
+        .step-card { text-align: center; }
+        .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-weight: 800; font-size: 20px; }
+        .step-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .step-card p { color: var(--gray-light); font-size: 14px; line-height: 1.6; }
+        .step-card code { display: inline-block; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 4px; font-size: 13px; color: var(--accent); }
+
+        footer { padding: 32px 0; text-align: center; color: var(--gray); font-size: 13px; border-top: 1px solid #e2e8f0; }
+        footer a { color: var(--primary); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .pip-cmd { font-size: 13px; padding: 8px 16px; }
+            .feature-grid, .pricing-grid, .arch-grid, .step-grid { grid-template-columns: 1fr; }
+            .price-card.featured { transform: scale(1); }
+            nav { display: none; }
+            .stats { gap: 20px; }
+            .stat-item .number { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo"><span>gavvy</span> · 开源销售引擎</div>
+            <nav>
+                <a href="#features">功能</a>
+                <a href="#pricing">定价</a>
+                <a href="/docs">API</a>
+                <a href="/">管理后台</a>
+                <a href="https://github.com/macor24/gavvy-salesmaster" target="_blank" rel="noopener">GitHub</a>
+                <a href="#start" class="btn btn-primary" style="padding: 8px 18px; font-size: 14px;">快速开始</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="demo-badge">🐙 完全开源 · MIT 协议 · pip install 即用</div>
+            <h1>开源 <span class="highlight">AI 销售引擎</span><br>装好了就能用</h1>
+            <p class="subtitle">CRM + 6大AI Agent + 智能话术 + Pipeline管理，<br>一行命令装完立刻跑通全流程，无需任何外部依赖。</p>
+            <div class="pip-cmd">pip install <span>gavvy-salesmaster</span> && gavvy-sales-fastapi</div>
+            <div class="hero-buttons">
+                <a href="/" class="btn btn-demo">🚀 打开管理后台</a>
+                <a href="https://github.com/macor24/gavvy-salesmaster" class="btn btn-secondary" target="_blank">GitHub 源码 →</a>
+            </div>
+            <div class="stats">
+                <div class="stat-item"><div class="number">7</div><div class="label">AI Agent 角色</div></div>
+                <div class="stat-item"><div class="number">160+</div><div class="label">REST API</div></div>
+                <div class="stat-item"><div class="number">20+</div><div class="label">功能模块</div></div>
+                <div class="stat-item"><div class="number">MIT</div><div class="label">开源协议</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2>开箱即用的销售工具集</h2>
+            <p class="subhead">不需要数据库、不需要配置，装完就能跑</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI 虚拟销售团队</h3>
+                    <p>7大Agent角色：市场调研、竞品分析、售前谈判、售后维护、运营管理、采购、平台运营。自动协同作战。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>CRM 客户管理</h3>
+                    <p>客户/商机/合同/活动全生命周期管理。支持自定义字段、标签筛选、批量导入导出。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>销售 Pipeline</h3>
+                    <p>可视化漏斗，从线索到成交4步走。自动跟进、超时提醒、阶段转化分析。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>知识库 + 话术训练</h3>
+                    <p>LLM知识库自动FAQ生成。话术评分系统，6大场景训练模拟，AI教练实时反馈。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>多渠道消息</h3>
+                    <p>企业微信、钉钉、飞书、邮件、短信统一收归。嵌入式 Widget 在任意网页捕获线索。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>RBAC 权限体系</h3>
+                    <p>用户/角色/权限三维管理。企业版支持多租户SaaS，开账号给团队成员。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="arch">
+        <div class="container">
+            <h2>架构一目了然</h2>
+            <div class="arch-grid">
+                <div class="arch-box">
+                    <h3>📦 开源版（MIT）</h3>
+                    <ul>
+                        <li>✓ CRM、报价、合同、支付</li>
+                        <li>✓ LLM 多模型接入</li>
+                        <li>✓ 工作流引擎</li>
+                        <li>✓ RBAC 权限管理</li>
+                        <li>✓ 消息渠道集成</li>
+                        <li>✓ Web 管理后台 SPA</li>
+                        <li>✓ 300+ 自动化测试</li>
+                    </ul>
+                </div>
+                <div class="arch-box">
+                    <h3>🔒 企业版（SaaS API）</h3>
+                    <ul>
+                        <li>✓ AI 销售团队编排器</li>
+                        <li>✓ 7 Agent 智能协同</li>
+                        <li>✓ 学习记忆库</li>
+                        <li>✓ 多租户管理</li>
+                        <li>✓ 销售数据分析</li>
+                        <li>✓ 优先技术支持</li>
+                        <li>💡 设置 SENTRIKIT_API_KEY 激活</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>定价</h2>
+            <p class="subhead">开源免费，升级按需</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>开源版</h3>
+                    <div class="tagline">自己部署，完全免费</div>
+                    <div class="price">¥0 <span>/ 永久</span></div>
+                    <ul>
+                        <li>全部开源代码</li>
+                        <li>私有部署，数据在自己手里</li>
+                        <li>无限用户、不限API</li>
+                        <li>社区支持</li>
+                        <li>可商用（MIT协议）</li>
+                    </ul>
+                    <a href="#start" class="btn btn-secondary" style="width:100%;">🏗️ 自行部署</a>
+                </div>
+                <div class="price-card featured">
+                    <div class="badge">推荐</div>
+                    <h3>专业版</h3>
+                    <div class="tagline">云托管，即开即用</div>
+                    <div class="price">$29 <span>/ 月</span></div>
+                    <ul>
+                        <li>云端托管，免运维</li>
+                        <li>AI 销售团队全功能</li>
+                        <li>学习记忆库</li>
+                        <li>数据自动备份</li>
+                        <li>邮件技术支持</li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn-primary" style="width:100%;">📋 加入等待列表</a>
+                </div>
+                <div class="price-card">
+                    <h3>企业版</h3>
+                    <div class="tagline">专属部署 + 定制</div>
+                    <div class="price">$99 <span>/ 月</span></div>
+                    <ul>
+                        <li>私有化部署</li>
+                        <li>无限 API 调用</li>
+                        <li>专属客户成功经理</li>
+                        <li>SLA 保障</li>
+                        <li>定制开发</li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn-secondary" style="width:100%;">📧 联系销售</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps" id="start">
+        <div class="container">
+            <h2>3 步开始</h2>
+            <div class="step-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>安装</h3>
+                    <p>Python 3.11+ 环境，<br>一行命令搞定：</p>
+                    <p><code>pip install gavvy-salesmaster</code></p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>启动</h3>
+                    <p>内置 FastAPI 服务，<br>零配置直接运行：</p>
+                    <p><code>gavvy-sales-fastapi</code></p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>使用</h3>
+                    <p>浏览器打开管理后台，<br>立刻开始销售流程：</p>
+                    <p><code>open http://localhost:8877</code></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 gavvy · 开源销售引擎</p>
+            <p style="margin-top:4px;">
+                <a href="https://github.com/macor24/gavvy-salesmaster">GitHub</a> ·
+                <a href="/docs">API文档</a> ·
+                <a href="/">管理后台</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

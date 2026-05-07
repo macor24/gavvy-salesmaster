@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#1d1d1f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>gavvy - 销售宗师智能体 · 全职能虚拟销售团队</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 本地字体后备 — 优先系统字体，不再依赖Google Fonts CDN -->
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- 顶边栏：品牌 + 导航 + 搜索 + 通知 合并为一横行 -->
+        <header class="top-navbar">
+            <div class="top-nav-left">
+                <div class="brand">
+                    <div class="brand-icon">⚔️</div>
+                    <div class="brand-text">
+                        <h1>gavvy</h1>
+                        <span>智能体系统</span>
+                    </div>
+                </div>
+                <nav class="top-nav-items">
+                    <button class="top-nav-item active" data-view="dashboard" onclick="switchView('dashboard')">
+                        <span>仪表盘</span>
+                        <span class="nav-badge-sm">3</span>
+                    </button>
+                    <button class="top-nav-item" data-view="workspace" onclick="switchView('workspace')">
+                        <span>AI对话消息</span>
+                    </button>
+                    <button class="top-nav-item" data-view="customers" onclick="switchView('customers')">
+                        <span>客户</span>
+                        <span class="nav-badge-sm warning">12</span>
+                    </button>
+                    <button class="top-nav-item" data-view="analytics" onclick="switchView('analytics')">
+                        <span>分析</span>
+                    </button>
+                    <button class="top-nav-item" data-view="team" onclick="switchView('team')">
+                        <span>团队</span>
+                    </button>
+                    <button class="top-nav-item" data-view="abilities" onclick="switchView('abilities')">
+                        <span>能力</span>
+                    </button>
+                    <button class="top-nav-item" data-view="automation" onclick="switchView('automation')">
+                        <span>流程</span>
+                    </button>
+                    <button class="top-nav-item" data-view="memory" onclick="switchView('memory')">
+                        <span>记忆库</span>
+                    </button>
+                    <button class="top-nav-item" data-view="scripts" onclick="switchView('scripts')">
+                        <span>话术</span>
+                    </button>
+                    <button class="top-nav-item" data-view="knowledge" onclick="switchView('knowledge')">
+                        <span>知识库</span>
+                    </button>
+                    <button class="top-nav-item" data-view="permissions" onclick="switchView('permissions')">
+                        <span>权限</span>
+                    </button>
+                    <button class="top-nav-item" data-view="payments" onclick="switchView('payments')">
+                        <span>支付</span>
+                    </button>
+                    <button class="top-nav-item" data-view="leads" onclick="switchView('leads')">
+                        <span>线索池</span>
+                    </button>
+                    <button class="top-nav-item" data-view="kanban" onclick="switchView('kanban')">
+                        <span>销售看板</span>
+                    </button>
+                    <button class="top-nav-item" data-view="callcenter" onclick="switchView('callcenter')">
+                        <span>外呼中心</span>
+                    </button>
+                    <button class="top-nav-item" data-view="api" onclick="switchView('api')">
+                        <span>API</span>
+                    </button>
+                    <button class="top-nav-item" data-view="settings" onclick="switchView('settings')">
+                        <span>设置</span>
+                    </button>
+                </nav>
+            </div>
+            <div class="top-nav-right">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="搜索客户、商品、对话...">
+                </div>
+                <button class="header-btn notification">
+                    <span>🔔</span>
+                    <span class="notification-dot"></span>
+                </button>
+                <button class="header-btn">
+                    <span>📤</span>
+                </button>
+                <div class="user-avatar">
+                    <span>管</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-area">
+            <!-- 全局加载指示器 -->
+            <div id="global-loader" style="display:flex;align-items:center;justify-content:center;height:calc(100vh - 56px);flex-direction:column;gap:16px;">
+                <div style="width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:#3b82f6;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+                <div style="font-size:13px;color:#94a3b8;">加载中...</div>
+            </div>
+            <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+            <!-- 登录页面 -->
+            <div id="login-page" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#f8fafc;z-index:9999;display:none;align-items:center;justify-content:center;">
+                <div style="width:380px;padding:40px;background:white;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+                    <div style="text-align:center;margin-bottom:32px;">
+                        <div style="font-size:40px;margin-bottom:8px;">🧬</div>
+                        <h1 style="font-size:20px;color:#1e293b;margin:0;">销售宗师</h1>
+                        <p style="font-size:13px;color:#94a3b8;margin-top:6px;">登录您的账户</p>
+                    </div>
+                    <div id="login-form">
+                        <div style="margin-bottom:16px;">
+                            <label style="font-size:13px;color:#64748b;display:block;margin-bottom:6px;">用户名</label>
+                            <input id="login-username" type="text" placeholder="输入用户名" style="width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s;">
+                        </div>
+                        <div style="margin-bottom:20px;">
+                            <label style="font-size:13px;color:#64748b;display:block;margin-bottom:6px;">密码</label>
+                            <input id="login-password" type="password" placeholder="输入密码" style="width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;transition:border-color 0.2s;">
+                        </div>
+                        <button onclick="submitLogin()" style="width:100%;padding:12px;background:#3b82f6;color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">登 录</button>
+                        <div style="margin-top:12px;text-align:center;">
+                            <button onclick="showRegisterForm()" style="background:none;border:none;color:#3b82f6;font-size:13px;cursor:pointer;">没有账户？注册</button>
+                        </div>
+                    </div>
+                    <div id="register-form" style="display:none;">
+                        <div style="margin-bottom:16px;">
+                            <label style="font-size:13px;color:#64748b;display:block;margin-bottom:6px;">用户名</label>
+                            <input id="reg-username" type="text" placeholder="至少2个字符" style="width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;">
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <label style="font-size:13px;color:#64748b;display:block;margin-bottom:6px;">邮箱</label>
+                            <input id="reg-email" type="email" placeholder="your@email.com" style="width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;">
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <label style="font-size:13px;color:#64748b;display:block;margin-bottom:6px;">密码</label>
+                            <input id="reg-password" type="password" placeholder="至少6位" style="width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;">
+                        </div>
+                        <div style="margin-bottom:20px;">
+                            <label style="font-size:13px;color:#64748b;display:block;margin-bottom:6px;">显示名称</label>
+                            <input id="reg-displayname" type="text" placeholder="选填" style="width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;">
+                        </div>
+                        <button onclick="submitRegister()" style="width:100%;padding:12px;background:#3b82f6;color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">注 册</button>
+                        <div style="margin-top:12px;text-align:center;">
+                            <button onclick="showLoginForm()" style="background:none;border:none;color:#3b82f6;font-size:13px;cursor:pointer;">已有账户？登录</button>
+                        </div>
+                    </div>
+                    <div id="login-message" style="margin-top:12px;font-size:12px;text-align:center;display:none;"></div>
+                </div>
+            </div>
+            <div class="content-area" style="display:none;">
+                <div id="dashboard" class="view active">
+                    <div class="stats-container">
+                        <div class="stats-row">
+                            <div class="stat-card primary">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-1">
+                                        <span>👥</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 12.5%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="1284" data-key="total_leads">0</h3>
+                                    <p class="stat-label">潜在客户</p>
+                                </div>
+                                <div class="stat-footer">
+                                    <div class="stat-sparkline">
+                                        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                                            <path d="M0,25 L15,20 L30,22 L45,15 L60,18 L75,10 L90,12 L100,5" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <span class="stat-compare">累计</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card success">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-2">
+                                        <span>💬</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 8.3%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="356" data-key="history_count">0</h3>
+                                    <p class="stat-label">历史记录</p>
+                                </div>
+                                <div class="stat-footer">
+                                    <div class="stat-sparkline">
+                                        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                                            <path d="M0,20 L15,18 L30,15 L45,17 L60,12 L75,8 L90,10 L100,5" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <span class="stat-compare">累计</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card warning">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-3">
+                                        <span>💰</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 23.1%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="85600" data-prefix="¥" data-key="agent_count">0</h3>
+                                    <p class="stat-label">Agent数量</p>
+                                </div>
+                                <div class="stat-footer">
+                                    <div class="stat-sparkline">
+                                        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                                            <path d="M0,25 L15,22 L30,20 L45,15 L60,16 L75,8 L90,5 L100,3" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <span class="stat-compare">在岗</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card info">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-4">
+                                        <span>📈</span>
+                                    </div>
+                                    <div class="stat-trend down">
+                                        <span>↓</span> 2.1%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="12.5" data-suffix="%" data-key="scored_leads">0</h3>
+                                    <p class="stat-label">可评分客户</p>
+                                </div>
+                                <div class="stat-footer">
+                                    <div class="stat-sparkline">
+                                        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                                            <path d="M0,15 L15,12 L30,18 L45,14 L60,16 L75,20 L90,18 L100,22" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <span class="stat-compare">待评分</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 销售管道卡片 -->
+                    <div class="card pipeline-card" style="margin-bottom:16px;">
+                        <div class="card-header">
+                            <h3>📊 销售管道 Pipeline</h3>
+                            <div class="card-actions">
+                                <button class="btn-ghost" onclick="triggerPipelineAuto()" style="padding:4px 10px;font-size:12px;">🔄 自动推进</button>
+                                <button class="btn-ghost" onclick="triggerAutoEvolve()" style="padding:4px 10px;font-size:12px;">🧬 学习进化</button>
+                                <span class="pipeline-total" id="pipeline-total" style="font-size:12px;color:var(--text-muted);">共 0 客户</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="pipeline-stages" id="pipeline-stages" style="display:flex;gap:6px;overflow-x:auto;padding:4px 0;">
+                                <!-- 由 loadPipelineStages() 渲染 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="card team-overview">
+                            <div class="card-header">
+                                <h3>虚拟团队状态</h3>
+                                <div class="card-actions">
+                                    <span class="status-text success">● 7人在线</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="team-grid">
+                                    <div class="team-member-card active">
+                                        <div class="member-avatar large">📊</div>
+                                        <div class="member-details">
+                                            <h4>市场调研官</h4>
+                                            <p>行业趋势分析中</p>
+                                        </div>
+                                        <div class="member-status">
+                                            <span class="status-dot pulse"></span>
+                                        </div>
+                                    </div>
+                                    <div class="team-member-card active">
+                                        <div class="member-avatar large">🔍</div>
+                                        <div class="member-details">
+                                            <h4>竞品分析官</h4>
+                                            <p>监控竞争对手</p>
+                                        </div>
+                                        <div class="member-status">
+                                            <span class="status-dot pulse"></span>
+                                        </div>
+                                    </div>
+                                    <div class="team-member-card active">
+                                        <div class="member-avatar large">🤝</div>
+                                        <div class="member-details">
+                                            <h4>售前谈判官</h4>
+                                            <p>正在对话 5人</p>
+                                        </div>
+                                        <div class="member-status">
+                                            <span class="status-dot pulse"></span>
+                                        </div>
+                                    </div>
+                                    <div class="team-member-card">
+                                        <div class="member-avatar large">🎯</div>
+                                        <div class="member-details">
+                                            <h4>售后维系官</h4>
+                                            <p>待命中</p>
+                                        </div>
+                                        <div class="member-status">
+                                            <span class="status-dot"></span>
+                                        </div>
+                                    </div>
+                                    <div class="team-member-card">
+                                        <div class="member-avatar large">📦</div>
+                                        <div class="member-details">
+                                            <h4>采购供应链官</h4>
+                                            <p>待命中</p>
+                                        </div>
+                                        <div class="member-status">
+                                            <span class="status-dot"></span>
+                                        </div>
+                                    </div>
+                                    <div class="team-member-card active">
+                                        <div class="member-avatar large">🚀</div>
+                                        <div class="member-details">
+                                            <h4>运营增长官</h4>
+                                            <p>优化策略中</p>
+                                        </div>
+                                        <div class="member-status">
+                                            <span class="status-dot pulse"></span>
+                                        </div>
+                                    </div>
+                                    <div class="team-member-card active">
+                                        <div class="member-avatar large">📋</div>
+                                        <div class="member-details">
+                                            <h4>运营助理</h4>
+                                            <p>商品上架管理中</p>
+                                        </div>
+                                        <div class="member-status">
+                                            <span class="status-dot pulse"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card quick-actions">
+                            <div class="card-header">
+                                <h3>快捷操作</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="quick-actions-grid">
+                                    <button class="quick-action-btn primary" onclick="quickActionTrigger('新建')">
+                                        <span class="action-icon">➕</span>
+                                        <span class="action-text">新建任务</span>
+                                    </button>
+                                    <button class="quick-action-btn" onclick="quickActionTrigger('批量')">
+                                        <span class="action-icon">📋</span>
+                                        <span class="action-text">批量导入</span>
+                                    </button>
+                                    <button class="quick-action-btn" onclick="quickActionTrigger('报告')">
+                                        <span class="action-icon">📊</span>
+                                        <span class="action-text">生成报告</span>
+                                    </button>
+                                    <button class="quick-action-btn" onclick="quickActionTrigger('配置')">
+                                        <span class="action-icon">⚙️</span>
+                                        <span class="action-text">系统配置</span>
+                                    </button>
+                                    <button class="quick-action-btn" onclick="switchView('knowledge')">
+                                        <span class="action-icon">📚</span>
+                                        <span class="action-text">知识库</span>
+                                    </button>
+                                    <button class="quick-action-btn" onclick="switchView('permissions')">
+                                        <span class="action-icon">🔐</span>
+                                        <span class="action-text">权限管理</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card abilities-card">
+                            <div class="card-header">
+                                <h3>四位一体能力底座</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="switchView('abilities')">查看详情 →</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="abilities-grid">
+                                    <div class="ability-item">
+                                        <div class="ability-content">
+                                            <h4>心理学家</h4>
+                                            <p>情绪洞察 · 消费心理 · 潜台词分析</p>
+                                        </div>
+                                    </div>
+                                    <div class="ability-item">
+                                        <div class="ability-content">
+                                            <h4>战略顾问</h4>
+                                            <p>全局布局 · 品类规划 · 避坑策略</p>
+                                        </div>
+                                    </div>
+                                    <div class="ability-item">
+                                        <div class="ability-content">
+                                            <h4>量化分析师</h4>
+                                            <p>数据测算 · 利润核算 · 转化分析</p>
+                                        </div>
+                                    </div>
+                                    <div class="ability-item">
+                                        <div class="ability-content">
+                                            <h4>谈判专家</h4>
+                                            <p>议价博弈 · 逼单成交 · 锁单话术</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card recent-activity">
+                            <div class="card-header">
+                                <h3>最近活动</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="switchView('memory')">全部记录 →</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-list">
+                                    <div class="activity-item">
+                                        <div class="activity-content">
+                                            <p style="color:#94a3b8;">加载中...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>记忆库概览</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="switchView('memory')">进入 →</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="memory-mini-grid" id="memory-mini">
+                                    <div class="memory-mini-item"><span class="mini-num" data-mkey="episodes">-</span><span class="mini-lbl">案例</span></div>
+                                    <div class="memory-mini-item"><span class="mini-num" data-mkey="insights">-</span><span class="mini-lbl">洞察</span></div>
+                                    <div class="memory-mini-item"><span class="mini-num" data-mkey="skills">-</span><span class="mini-lbl">技能</span></div>
+                                    <div class="memory-mini-item"><span class="mini-num" data-mkey="patterns">-</span><span class="mini-lbl">模式</span></div>
+                                    <div class="memory-mini-item"><span class="mini-num" data-mkey="rules">-</span><span class="mini-lbl">规则</span></div>
+                                    <div class="memory-mini-item"><span class="mini-num" data-mkey="evolution_events">-</span><span class="mini-lbl">进化</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="workspace" class="view">
+                    <div class="ws-three-col">
+                        <!-- 左：客户列表（简约版） -->
+                        <div class="ws-customers">
+                            <div class="ws-customers-header">
+                                <h4>客户列表</h4>
+                            </div>
+                            <div class="ws-customers-list">
+                                <div class="ws-customer active" data-customer="z">
+                                    <div class="ws-cust-top">
+                                        <span class="ws-cust-name">张先生</span>
+                                        <span class="ws-cust-intent hot">高意向</span>
+                                        <span class="ws-cust-time">14:28</span>
+                                    </div>
+                                    <div class="ws-cust-last">这个价格还能再优惠吗？</div>
+                                </div>
+                                <div class="ws-customer" data-customer="l">
+                                    <div class="ws-cust-top">
+                                        <span class="ws-cust-name">李女士</span>
+                                        <span class="ws-cust-intent warm">跟进中</span>
+                                        <span class="ws-cust-time">14:15</span>
+                                    </div>
+                                    <div class="ws-cust-last">好的，我先了解一下</div>
+                                </div>
+                                <div class="ws-customer" data-customer="w">
+                                    <div class="ws-cust-top">
+                                        <span class="ws-cust-name">王先生</span>
+                                        <span class="ws-cust-intent success">已成交</span>
+                                        <span class="ws-cust-time">13:52</span>
+                                    </div>
+                                    <div class="ws-cust-last">已付款，谢谢！</div>
+                                </div>
+                                <div class="ws-customer" data-customer="zhao">
+                                    <div class="ws-cust-top">
+                                        <span class="ws-cust-name">赵先生</span>
+                                        <span class="ws-cust-intent">新客户</span>
+                                        <span class="ws-cust-time">13:30</span>
+                                    </div>
+                                    <div class="ws-cust-last">你们产品主要用在哪些场景？</div>
+                                </div>
+                                <div class="ws-customer" data-customer="liu">
+                                    <div class="ws-cust-top">
+                                        <span class="ws-cust-name">刘女士</span>
+                                        <span class="ws-cust-intent warm">跟进中</span>
+                                        <span class="ws-cust-time">12:45</span>
+                                    </div>
+                                    <div class="ws-cust-last">价格能不能再低点？</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 中：对话区域 -->
+                        <div class="ws-chat">
+                            <div class="ws-chat-header">
+                                <div class="ws-chat-user">
+                                    <div class="ws-cust-avatar">张</div>
+                                    <div>
+                                        <div class="ws-chat-name">张先生 <span class="ws-chat-status">高意向</span></div>
+                                        <div class="ws-chat-agent">售前谈判官 正在服务中</div>
+                                    </div>
+                                </div>
+                                <div class="ws-chat-tools">
+                                    <span id="llm-indicator" style="font-size:11px;padding:3px 8px;border-radius:4px;background:#f1f5f9;color:#94a3b8;margin-right:8px;" title="LLM状态">🤖 检测中</span>
+                                    <button class="ws-tool-btn" onclick="switchView('customers')">档案</button>
+                                    <button class="ws-tool-btn" onclick="switchView('analytics')">记录</button>
+                                    <button class="ws-tool-btn" onclick="switchView('memory')">标注</button>
+                                    <button class="ws-tool-btn" onclick="showToast('更多功能开发中', 'success')">更多</button>
+                                </div>
+                            </div>
+
+                            <div class="ws-chat-messages" id="wsChatMessages">
+                                <div class="ws-msg agent">
+                                    <div class="ws-msg-bubble">
+                                        <div class="ws-msg-sender">售前谈判官 <span class="ws-ai-tag">AI</span></div>
+                                        <p>张先生您好！很高兴为您服务～ 我注意到您对我们的专业版套餐很感兴趣，这款产品非常适合追求高效运营的企业。</p>
+                                        <div class="ws-msg-time">14:23</div>
+                                    </div>
+                                </div>
+                                <div class="ws-msg customer">
+                                    <div class="ws-msg-bubble">
+                                        <p>你好，我想了解一下你们这款产品的具体功能和价格</p>
+                                        <div class="ws-msg-time">14:25</div>
+                                    </div>
+                                </div>
+                                <div class="ws-msg agent">
+                                    <div class="ws-msg-bubble">
+                                        <div class="ws-msg-sender">售前谈判官 <span class="ws-ai-tag">AI</span></div>
+                                        <p>好的张先生！我们的专业版套餐包含以下核心功能：</p>
+                                        <ul class="ws-feature-list">
+                                            <li>✅ 全职能虚拟销售团队（7大岗位）</li>
+                                            <li>✅ 四位一体能力底座</li>
+                                            <li>✅ 智能客户匹配</li>
+                                            <li>✅ 自动报价成交</li>
+                                            <li>✅ 7×24小时服务</li>
+                                        </ul>
+                                        <p style="margin-top:8px;">原价 <strong>¥5999/年</strong>，现在预约可享受 <strong>8折优惠</strong>～</p>
+                                        <div class="ws-msg-time">14:26</div>
+                                    </div>
+                                </div>
+                                <div class="ws-msg customer">
+                                    <div class="ws-msg-bubble">
+                                        <p>这个价格还能再优惠吗？</p>
+                                        <div class="ws-msg-time">14:28</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ws-chat-input">
+                                <div class="ws-input-tools">
+                                    <button>表情</button>
+                                    <button>附件</button>
+                                    <button>模板</button>
+                                    <button>商品</button>
+                                </div>
+                                <div class="ws-input-row">
+                                    <input type="text" class="ws-input" id="wsChatInput" placeholder="输入消息或下达指令...">
+                                    <button class="ws-send-btn" id="wsSendBtn">发送</button>
+                                </div>
+                                <div class="ws-input-hints">
+                                    <span>按 Enter 发送</span>
+                                    <span>•</span>
+                                    <span>Ctrl+Enter 换行</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 右：AI 分析 -->
+                        <div class="ws-ai-panel">
+                            <div class="ws-ai-header">
+                                <span class="ws-ai-icon">🧠</span>
+                                <span>AI 分析</span>
+                                <span class="ws-ai-badge">仅您可见</span>
+                            </div>
+                            <div class="ws-ai-content">
+                                <div class="ws-ai-item">
+                                    <strong>客户心理：</strong>
+                                    <span>客户已进入价格谈判阶段，说明有较强购买意向，希望获得更多优惠。</span>
+                                </div>
+                                <div class="ws-ai-item">
+                                    <strong>建议策略：</strong>
+                                    <span>先强调产品价值，可适当让步但需设置底线，配合限时优惠逼单。</span>
+                                </div>
+                                <div class="ws-ai-item">
+                                    <strong>推荐话术：</strong>
+                                    <span>"这个价格已经是限时优惠了，如果您今天确定，我可以帮您申请一个额外的增值服务..."</span>
+                                </div>
+                            </div>
+                            <div class="ws-private">
+                                <div class="ws-private-header">
+                                    <span>🔒 私密指令区</span>
+                                    <span class="ws-private-badge">仅您可见</span>
+                                </div>
+                                <div class="ws-private-tabs">
+                                    <button class="ws-pri-tab active" onclick="switchPrivateTab('kw',this)">关键词</button>
+                                    <button class="ws-pri-tab" onclick="switchPrivateTab('pd',this)">商品</button>
+                                    <button class="ws-pri-tab" onclick="switchPrivateTab('rl',this)">规则</button>
+                                </div>
+                                <div class="ws-pri-panel active" id="kw">
+                                    <div class="ws-pri-field">
+                                        <label>行业关键词</label>
+                                        <textarea placeholder="智能家居、环保设备..."></textarea>
+                                    </div>
+                                    <div class="ws-pri-field">
+                                        <label>目标客户类型</label>
+                                        <textarea placeholder="年龄、职业、需求..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="ws-pri-panel" id="pd" style="display:none">
+                                    <div class="ws-pri-field">
+                                        <label>商品名称</label>
+                                        <input type="text" value="gavvy 专业版">
+                                    </div>
+                                    <div class="ws-pri-row">
+                                        <div><label>成本价</label><input type="number" placeholder="¥"></div>
+                                        <div><label>最低售价</label><input type="number" placeholder="¥"></div>
+                                        <div><label>标准售价</label><input type="number" placeholder="¥"></div>
+                                    </div>
+                                </div>
+                                <div class="ws-pri-panel" id="rl" style="display:none">
+                                    <div class="ws-pri-field">
+                                        <label>底线价格</label>
+                                        <input type="number" value="4800">
+                                    </div>
+                                    <div class="ws-pri-field">
+                                        <label>禁止话术</label>
+                                        <textarea></textarea>
+                                    </div>
+                                </div>
+                                <button class="ws-pri-publish">🚀 发布指令</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="team" class="view">
+                    <div class="team-header">
+                        <div class="team-info">
+                            <h2>虚拟销售团队</h2>
+                            <p>7大职能岗位 · 完整编制 · 自主协作</p>
+                        </div>
+                        <div class="team-stats">
+                            <div class="team-stat">
+                                <span class="stat-number">7</span>
+                                <span class="stat-label">总人数</span>
+                            </div>
+                            <div class="team-stat active">
+                                <span class="stat-number">4</span>
+                                <span class="stat-label">在线</span>
+                            </div>
+                            <div class="team-stat">
+                                <span class="stat-number">2</span>
+                                <span class="stat-label">待命</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-cards-grid">
+                        <div class="team-card market" data-agent-key="market_research_agent">
+                            <div class="card-glow"></div>
+                            <div class="card-top">
+                                <div class="card-icon-wrapper">📊</div>
+                                <div class="card-status-badge active">
+                                    <span class="pulse"></span> 运行中
+                                </div>
+                            </div>
+                            <h3>市场调研官</h3>
+                            <p class="card-description">抓取行业趋势、客源渠道、热门需求、蓝海品类，输出调研报告。</p>
+                            <div class="card-stats">
+                                <div class="mini-stat">
+                                    <span class="mini-value">23</span>
+                                    <span class="mini-label">本月报告</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-value">5</span>
+                                    <span class="mini-label">蓝海品类</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn primary" onclick="switchView('analytics')">查看报告</button>
+                                <button class="card-btn" onclick="switchView('settings')">配置</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card competitor" data-agent-key="competitor_intel_agent">
+                            <div class="card-glow"></div>
+                            <div class="card-top">
+                                <div class="card-icon-wrapper">🔍</div>
+                                <div class="card-status-badge active">
+                                    <span class="pulse"></span> 运行中
+                                </div>
+                            </div>
+                            <h3>竞品分析官</h3>
+                            <p class="card-description">对标同行价格、卖点、话术、活动策略，自动做差异化方案。</p>
+                            <div class="card-stats">
+                                <div class="mini-stat">
+                                    <span class="mini-value">12</span>
+                                    <span class="mini-label">监控对手</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-value">8</span>
+                                    <span class="mini-label">差异点</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn primary" onclick="switchView('analytics')">查看分析</button>
+                                <button class="card-btn" onclick="switchView('settings')">配置</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card presales" data-agent-key="presales_agent">
+                            <div class="card-glow"></div>
+                            <div class="card-top">
+                                <div class="card-icon-wrapper">🤝</div>
+                                <div class="card-status-badge active">
+                                    <span class="pulse"></span> 对话中
+                                </div>
+                            </div>
+                            <h3>售前谈判官</h3>
+                            <p class="card-description">对接陌生客户、需求挖掘、答疑、价值塑造、异议处理。</p>
+                            <div class="card-stats">
+                                <div class="mini-stat">
+                                    <span class="mini-value">5</span>
+                                    <span class="mini-label">进行中</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-value">89%</span>
+                                    <span class="mini-label">响应率</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn primary" onclick="switchView('workspace')">监控对话</button>
+                                <button class="card-btn" onclick="switchView('settings')">配置</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card aftersales" data-agent-key="aftersales_agent">
+                            <div class="card-glow"></div>
+                            <div class="card-top">
+                                <div class="card-icon-wrapper">🎯</div>
+                                <div class="card-status-badge">
+                                    <span class="dot"></span> 待命
+                                </div>
+                            </div>
+                            <h3>售后维系官</h3>
+                            <p class="card-description">售后答疑、安抚情绪、复购唤醒、老客户留存、社群维护。</p>
+                            <div class="card-stats">
+                                <div class="mini-stat">
+                                    <span class="mini-value">156</span>
+                                    <span class="mini-label">老客维护</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-value">32%</span>
+                                    <span class="mini-label">复购率</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn primary" onclick="switchView('customers')">查看记录</button>
+                                <button class="card-btn" onclick="switchView('settings')">配置</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card supply" data-agent-key="procurement_agent">
+                            <div class="card-glow"></div>
+                            <div class="card-top">
+                                <div class="card-icon-wrapper">📦</div>
+                                <div class="card-status-badge">
+                                    <span class="dot"></span> 待命
+                                </div>
+                            </div>
+                            <h3>采购供应链官</h3>
+                            <p class="card-description">自动匹配货源、控价、核算利润、库存预判、物流跟踪。</p>
+                            <div class="card-stats">
+                                <div class="mini-stat">
+                                    <span class="mini-value">45</span>
+                                    <span class="mini-label">供应商</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-value">18%</span>
+                                    <span class="mini-label">成本优化</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn primary" onclick="switchView('knowledge')">供应链库</button>
+                                <button class="card-btn" onclick="switchView('settings')">配置</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card growth" data-agent-key="operations_agent">
+                            <div class="card-glow"></div>
+                            <div class="card-top">
+                                <div class="card-icon-wrapper">🚀</div>
+                                <div class="card-status-badge active">
+                                    <span class="pulse"></span> 优化中
+                                </div>
+                            </div>
+                            <h3>运营增长官</h3>
+                            <p class="card-description">客户标签分层、话术迭代、成交复盘、获客优化、自动营销。</p>
+                            <div class="card-stats">
+                                <div class="mini-stat">
+                                    <span class="mini-value">3</span>
+                                    <span class="mini-label">策略优化</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-value">12.5%</span>
+                                    <span class="mini-label">转化提升</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn primary" onclick="switchView('analytics')">数据看板</button>
+                                <button class="card-btn" onclick="switchView('settings')">配置</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card platform" data-agent-key="platform_ops_agent">
+                            <div class="card-glow"></div>
+                            <div class="card-top">
+                                <div class="card-icon-wrapper">📋</div>
+                                <div class="card-status-badge active">
+                                    <span class="pulse"></span> 上架中
+                                </div>
+                            </div>
+                            <h3>运营助理</h3>
+                            <p class="card-description">产品发布上架、平台规则洞察与适配、标题优化、主图审核、类目匹配、上下架策略。</p>
+                            <div class="card-stats">
+                                <div class="mini-stat">
+                                    <span class="mini-value">18</span>
+                                    <span class="mini-label">本月上架</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-value">92%</span>
+                                    <span class="mini-label">通过率</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="card-btn primary" onclick="switchView('knowledge')">商品管理</button>
+                                <button class="card-btn" onclick="switchView('settings')">配置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="abilities" class="view">
+                    <div class="abilities-hero">
+                        <h2 id="abilitiesTitle">四位一体能力底座</h2>
+                        <p>所有岗位智能体共享的底层核心能力</p>
+                        <div class="abilities-meta" id="abilitiesMeta" style="margin-top:8px;font-size:12px;color:#94a3b8;"></div>
+                    </div>
+                    <div class="abilities-grid" id="abilitiesGrid">
+                        <!-- 骨架占位：JS加载后会替换为真实数据 -->
+                        <div class="ability-card skeleton">
+                            <div class="ability-card-top"><div class="ability-badge" style="background:#e2e8f0;width:80px;height:22px;border-radius:4px;"></div></div>
+                            <h3 class="ability-title" style="background:#e2e8f0;width:160px;height:18px;border-radius:4px;margin-top:8px;">&nbsp;</h3>
+                            <p class="ability-desc" style="background:#f1f5f9;width:100%;height:36px;border-radius:4px;margin-top:6px;">&nbsp;</p>
+                        </div>
+                        <div class="ability-card skeleton">
+                            <div class="ability-card-top"><div class="ability-badge" style="background:#e2e8f0;width:80px;height:22px;border-radius:4px;"></div></div>
+                            <h3 class="ability-title" style="background:#e2e8f0;width:140px;height:18px;border-radius:4px;margin-top:8px;">&nbsp;</h3>
+                            <p class="ability-desc" style="background:#f1f5f9;width:100%;height:36px;border-radius:4px;margin-top:6px;">&nbsp;</p>
+                        </div>
+                        <div class="ability-card skeleton">
+                            <div class="ability-card-top"><div class="ability-badge" style="background:#e2e8f0;width:80px;height:22px;border-radius:4px;"></div></div>
+                            <h3 class="ability-title" style="background:#e2e8f0;width:150px;height:18px;border-radius:4px;margin-top:8px;">&nbsp;</h3>
+                            <p class="ability-desc" style="background:#f1f5f9;width:100%;height:36px;border-radius:4px;margin-top:6px;">&nbsp;</p>
+                        </div>
+                        <div class="ability-card skeleton">
+                            <div class="ability-card-top"><div class="ability-badge" style="background:#e2e8f0;width:80px;height:22px;border-radius:4px;"></div></div>
+                            <h3 class="ability-title" style="background:#e2e8f0;width:130px;height:18px;border-radius:4px;margin-top:8px;">&nbsp;</h3>
+                            <p class="ability-desc" style="background:#f1f5f9;width:100%;height:36px;border-radius:4px;margin-top:6px;">&nbsp;</p>
+                        </div>
+                    </div>
+                    <div style="margin-top:24px;padding:20px;background:white;border-radius:12px;border:1px solid #e5e7eb;">
+                        <h3 style="font-size:14px;color:#64748b;margin-bottom:12px;">🧠 能力维度说明</h3>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                            <div style="padding:12px;background:#f8fafc;border-radius:8px;">
+                                <strong style="color:#2563eb;font-size:13px;">🔬 心理学家</strong>
+                                <p style="font-size:12px;color:#64748b;margin-top:4px;">情绪洞察 · 消费心理 · 潜台词分析</p>
+                            </div>
+                            <div style="padding:12px;background:#f8fafc;border-radius:8px;">
+                                <strong style="color:#059669;font-size:13px;">📊 战略顾问</strong>
+                                <p style="font-size:12px;color:#64748b;margin-top:4px;">全局布局 · 品类规划 · 避坑策略</p>
+                            </div>
+                            <div style="padding:12px;background:#f8fafc;border-radius:8px;">
+                                <strong style="color:#d97706;font-size:13px;">📐 量化分析师</strong>
+                                <p style="font-size:12px;color:#64748b;margin-top:4px;">数据测算 · 利润核算 · 转化分析</p>
+                            </div>
+                            <div style="padding:12px;background:#f8fafc;border-radius:8px;">
+                                <strong style="color:#dc2626;font-size:13px;">🤝 谈判专家</strong>
+                                <p style="font-size:12px;color:#64748b;margin-top:4px;">议价博弈 · 逼单成交 · 锁单话术</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="memory" class="view">
+                    <div class="memory-hero">
+                        <h2>学习记忆库</h2>
+                        <p>Agent 知识沉淀与技能自主进化</p>
+                    </div>
+                    <div class="memory-grid">
+                        <div class="memory-card stat" id="memory-stats-card">
+                            <div class="memory-card-header">📊 记忆统计</div>
+                            <div class="memory-stats-grid" id="memory-stats">
+                                <div class="memory-stat"><span class="mem-stat-value">-</span><span class="mem-stat-label">案例</span></div>
+                                <div class="memory-stat"><span class="mem-stat-value">-</span><span class="mem-stat-label">洞察</span></div>
+                                <div class="memory-stat"><span class="mem-stat-value">-</span><span class="mem-stat-label">技能</span></div>
+                                <div class="memory-stat"><span class="mem-stat-value">-</span><span class="mem-stat-label">模式</span></div>
+                                <div class="memory-stat"><span class="mem-stat-value">-</span><span class="mem-stat-label">规则</span></div>
+                                <div class="memory-stat"><span class="mem-stat-value">-</span><span class="mem-stat-label">进化事件</span></div>
+                            </div>
+                            <div style="margin-top:12px;padding-top:12px;border-top:1px solid #f1f5f9;">
+                                <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-bottom:4px;">
+                                    <span>记忆利用率</span>
+                                    <span id="memory-usage-pct">0%</span>
+                                </div>
+                                <div style="height:4px;background:#e2e8f0;border-radius:2px;overflow:hidden;">
+                                    <div id="memory-usage-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border-radius:2px;transition:width 0.5s;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="memory-card skills">
+                            <div class="memory-card-header">🎯 技能列表 <button class="memory-refresh" onclick="loadMemorySkills()" style="float:right;padding:2px 8px;font-size:11px;border:1px solid #e2e8f0;border-radius:4px;background:white;cursor:pointer;">刷新</button></div>
+                            <div class="memory-list" id="memory-skills-list"><div class="memory-empty">加载中...</div></div>
+                        </div>
+                        <div class="memory-card evolution">
+                            <div class="memory-card-header">📜 进化日志 <button class="memory-evolve-btn" onclick="triggerEvolution()" style="float:right;padding:2px 8px;font-size:11px;border:1px solid #4f46e5;border-radius:4px;background:#4f46e5;color:white;cursor:pointer;">触发进化</button></div>
+                            <div class="memory-list" id="memory-evolution-list"><div class="memory-empty">加载中...</div></div>
+                        </div>
+                        <div class="memory-card perf">
+                            <div class="memory-card-header">📈 Agent 绩效</div>
+                            <div class="memory-list" id="memory-perf-list"><div class="memory-empty">加载中...</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="api" class="view">
+                    <div class="api-header">
+                        <div class="api-info">
+                            <h2>API接入配置</h2>
+                            <p>填写真实API Key，数据保存到本地</p>
+                        </div>
+                    </div>
+
+                    <div class="api-sections">
+
+                        <div class="api-section">
+                            <h3>底层模型</h3>
+                            <div class="api-card primary" style="margin-bottom:16px;">
+                                <div class="api-card-header">
+                                    <div class="api-title">
+                                        <h4>DeepSeek 大模型</h4>
+                                        <p>用于Agent推理、谈判策略、话术生成</p>
+                                    </div>
+                                    <div class="api-status" id="deepseek-status">
+                                        <span class="status-dot"></span> <span id="deepseek-status-text">未配置</span>
+                                    </div>
+                                </div>
+                                <div class="api-card-body">
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <label>API Key</label>
+                                        <input type="password" id="deepseek-key" placeholder="sk-xxx...xxxx" style="width:100%;">
+                                    </div>
+                                    <div class="form-group" style="margin-top:12px;">
+                                        <label>Base URL <span class="text-muted">(可选)</span></label>
+                                        <input type="text" id="deepseek-url" value="https://api.deepseek.com/v1" placeholder="https://api.deepseek.com/v1">
+                                    </div>
+                                </div>
+                                <div class="api-card-footer" style="display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--border-color);">
+                                    <button class="btn-primary" id="save-deepseek" style="padding:6px 16px;font-size:13px;" onclick="saveDeepSeek()">保存</button>
+                                    <button class="btn-secondary" id="test-deepseek" style="padding:6px 16px;font-size:13px;" onclick="testDeepSeek()">测试连接</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="api-section">
+                            <h3>对话平台</h3>
+                            <div class="api-select-section">
+                                <div class="api-select-wrapper">
+                                    <select id="chat-select" onchange="switchChatPlatform(this.value)">
+                                        <option value="">-- 选择对话平台 --</option>
+                                        <option value="wecom">企业微信</option>
+                                        <option value="dingtalk">钉钉</option>
+                                        <option value="feishu">飞书</option>
+                                        <option value="douyin">抖音</option>
+                                        <option value="xiaohongshu">小红书</option>
+                                    </select>
+                                    <span class="api-select-status" id="chat-select-status"><span class="status-dot"></span> <span id="chat-select-status-text">未选择</span></span>
+                                </div>
+                                <div class="api-select-config" id="chat-config-area" style="display:none;">
+                                    <input type="password" id="chat-key" placeholder="API Key / AppSecret">
+                                    <button class="btn-save-api" onclick="saveSelectKey('chat')">保存</button>
+                                </div>
+                                <div class="api-select-hint" id="chat-hint">选择平台后配置密钥</div>
+                            </div>
+                        </div>
+
+                        <div class="api-section">
+                            <h3>电商平台</h3>
+                            <div class="api-select-section">
+                                <div class="api-select-wrapper">
+                                    <select id="ecom-select" onchange="switchEcomPlatform(this.value)">
+                                        <option value="">-- 选择电商平台 --</option>
+                                        <option value="taobao">淘宝</option>
+                                        <option value="tmall">天猫</option>
+                                        <option value="pifa1688">1688</option>
+                                        <option value="pdd">拼多多</option>
+                                        <option value="jd">京东</option>
+                                    </select>
+                                    <span class="api-select-status" id="ecom-select-status"><span class="status-dot"></span> <span id="ecom-select-status-text">未选择</span></span>
+                                </div>
+                                <div class="api-select-config" id="ecom-config-area" style="display:none;">
+                                    <input type="password" id="ecom-key" placeholder="AppKey / ClientID">
+                                    <button class="btn-save-api" onclick="saveSelectKey('ecom')">保存</button>
+                                </div>
+                                <div class="api-select-hint" id="ecom-hint">选择平台后配置密钥</div>
+                            </div>
+                        </div>
+
+                        <div class="api-section">
+                            <h3>业务服务</h3>
+                            <div class="api-select-section">
+                                <div class="api-select-wrapper">
+                                    <select id="biz-select" onchange="switchBizPlatform(this.value)">
+                                        <option value="">-- 选择业务服务 --</option>
+                                        <option value="leads">获客线索</option>
+                                        <option value="supply">供应链货源</option>
+                                    </select>
+                                    <span class="api-select-status" id="biz-select-status"><span class="status-dot"></span> <span id="biz-select-status-text">未选择</span></span>
+                                </div>
+                                <div class="api-select-config" id="biz-config-area" style="display:none;">
+                                    <input type="password" id="biz-key" placeholder="API Key">
+                                    <button class="btn-save-api" onclick="saveSelectKey('biz')">保存</button>
+                                </div>
+                                <div class="api-select-hint" id="biz-hint">选择平台后配置密钥</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="customers" class="view">
+                    <div class="stats-container">
+                        <div class="stats-row">
+                            <div class="stat-card primary">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-1">
+                                        <span>👥</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 15.2%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="47">0</h3>
+                                    <p class="stat-label">总客户数</p>
+                                </div>
+                            </div>
+                            <div class="stat-card success">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-2">
+                                        <span>🔄</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 8.7%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="23">0</h3>
+                                    <p class="stat-label">跟进中</p>
+                                </div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-3">
+                                        <span>✅</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 5.3%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="12">0</h3>
+                                    <p class="stat-label">已成交</p>
+                                </div>
+                            </div>
+                            <div class="stat-card info">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-4">
+                                        <span>🆕</span>
+                                    </div>
+                                    <div class="stat-trend">
+                                        <span>→</span> 0%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-target="8">0</h3>
+                                    <p class="stat-label">新客户</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📋 客户列表</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="showToast('新建客户功能开发中', 'success')">+ 新建</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="data-table" style="width:100%;border-collapse:collapse;">
+                                    <thead>
+                                        <tr style="border-bottom:1px solid var(--border-color);text-align:left;">
+                                            <th style="padding:8px 12px;">客户</th>
+                                            <th style="padding:8px 12px;">阶段</th>
+                                            <th style="padding:8px 12px;">优先级</th>
+                                            <th style="padding:8px 12px;">最近联系</th>
+                                            <th style="padding:8px 12px;">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom:1px solid var(--border-color);">
+                                            <td style="padding:8px 12px;">张先生</td>
+                                            <td style="padding:8px 12px;"><span class="status-badge hot">议价中</span></td>
+                                            <td style="padding:8px 12px;">⭐⭐⭐</td>
+                                            <td style="padding:8px 12px;">14:28</td>
+                                            <td style="padding:8px 12px;"><button class="btn-ghost" onclick="switchView('workspace')">联系</button></td>
+                                        </tr>
+                                        <tr style="border-bottom:1px solid var(--border-color);">
+                                            <td style="padding:8px 12px;">李女士</td>
+                                            <td style="padding:8px 12px;"><span class="status-badge warm">需求确认</span></td>
+                                            <td style="padding:8px 12px;">⭐⭐</td>
+                                            <td style="padding:8px 12px;">14:15</td>
+                                            <td style="padding:8px 12px;"><button class="btn-ghost" onclick="switchView('workspace')">联系</button></td>
+                                        </tr>
+                                        <tr style="border-bottom:1px solid var(--border-color);">
+                                            <td style="padding:8px 12px;">王先生</td>
+                                            <td style="padding:8px 12px;"><span class="status-badge success">已成交</span></td>
+                                            <td style="padding:8px 12px;">⭐⭐⭐</td>
+                                            <td style="padding:8px 12px;">13:52</td>
+                                            <td style="padding:8px 12px;"><button class="btn-ghost" onclick="switchView('workspace')">售后</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:8px 12px;">赵先生</td>
+                                            <td style="padding:8px 12px;"><span class="status-badge">新客户</span></td>
+                                            <td style="padding:8px 12px;">⭐</td>
+                                            <td style="padding:8px 12px;">13:30</td>
+                                            <td style="padding:8px 12px;"><button class="btn-primary" onclick="switchView('workspace')">跟进</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="analytics" class="view">
+                    <div class="stats-container">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                            <div class="stats-row" style="flex:1;margin:0;gap:12px;">
+                                <div class="stat-card primary">
+                                    <div class="stat-header">
+                                        <div class="stat-icon-wrapper bg-gradient-1">
+                                            <span>📈</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-body">
+                                        <h3 class="stat-value" id="ana-total-leads">0</h3>
+                                        <p class="stat-label">总客户数 <span id="ana-leads-trend" style="font-size:11px;color:#94a3b8;font-weight:400;"></span></p>
+                                    </div>
+                                </div>
+                                <div class="stat-card success">
+                                    <div class="stat-header">
+                                        <div class="stat-icon-wrapper bg-gradient-2">
+                                            <span>📊</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-body">
+                                        <h3 class="stat-value" id="ana-avg-score">0</h3>
+                                        <p class="stat-label">平均评分 <span id="ana-score-trend" style="font-size:11px;color:#94a3b8;font-weight:400;"></span></p>
+                                    </div>
+                                </div>
+                                <div class="stat-card warning">
+                                    <div class="stat-header">
+                                        <div class="stat-icon-wrapper bg-gradient-3">
+                                            <span>📉</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-body">
+                                        <h3 class="stat-value" id="ana-conversion">0%</h3>
+                                        <p class="stat-label">转化率 <span id="ana-conv-trend" style="font-size:11px;color:#94a3b8;font-weight:400;"></span></p>
+                                    </div>
+                                </div>
+                                <div class="stat-card info">
+                                    <div class="stat-header">
+                                        <div class="stat-icon-wrapper bg-gradient-4">
+                                            <span>🧠</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-body">
+                                        <h3 class="stat-value" id="ana-skills">0</h3>
+                                        <p class="stat-label">已进化技能 <span id="ana-skills-trend" style="font-size:11px;color:#94a3b8;font-weight:400;"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                            <span id="ana-updated-at" style="font-size:11px;color:#94a3b8;"></span>
+                            <button class="btn-text" onclick="exportAnalytics()" style="font-size:12px;padding:4px 12px;">📥 导出报表</button>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📊 销售漏斗</h3>
+                            </div>
+                            <div class="card-body" id="funnel-body">
+                                <div style="padding:20px 0;color:var(--text-muted);font-size:13px;text-align:center;">加载中...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🤖 Agent 效能</h3>
+                            </div>
+                            <div class="card-body" id="agent-perf-body">
+                                <div style="padding:20px 0;color:var(--text-muted);font-size:13px;text-align:center;">加载中...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="automation" class="view">
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>⚡ 自动化流程配置</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="padding:12px 0;">
+                                    <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid var(--border-color);">
+                                        <div>
+                                            <strong>自动客户发现</strong>
+                                            <p style="font-size:13px;color:var(--text-muted);">每日自动搜索潜在客户</p>
+                                        </div>
+                                        <div class="toggle-switch active" data-flow-name="auto_discovery"></div>
+                                    </div>
+                                    <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid var(--border-color);">
+                                        <div>
+                                            <strong>自动竞品监控</strong>
+                                            <p style="font-size:13px;color:var(--text-muted);">7×24监控竞品动态</p>
+                                        </div>
+                                        <div class="toggle-switch active" data-flow-name="auto_competitor_monitor"></div>
+                                    </div>
+                                    <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid var(--border-color);">
+                                        <div>
+                                            <strong>智能对话响应</strong>
+                                            <p style="font-size:13px;color:var(--text-muted);">AI自动回复客户咨询</p>
+                                        </div>
+                                        <div class="toggle-switch active" data-flow-name="auto_chat_response"></div>
+                                    </div>
+                                    <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid var(--border-color);">
+                                        <div>
+                                            <strong>自动报价成交（安全模式）</strong>
+                                            <p style="font-size:13px;color:var(--text-muted);">阈值内自动成交，超限升级人工</p>
+                                        </div>
+                                        <div class="toggle-switch" data-flow-name="auto_quote_deal"></div>
+                                    </div>
+                                    <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:12px;">
+                                        <div>
+                                            <strong>定时上架发布</strong>
+                                            <p style="font-size:13px;color:var(--text-muted);">按计划自动发布商品到各平台</p>
+                                        </div>
+                                        <div class="toggle-switch active" data-flow-name="auto_scheduled_publish"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="scripts" class="view">
+                    <div class="memory-hero">
+                        <h2>🎯 话术训练系统</h2>
+                        <p>销售场景话术库 · 模拟训练 · 评分迭代</p>
+                    </div>
+                    <div class="dashboard-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📖 话术库 <span id="script-count" style="font-size:13px;color:var(--text-muted);"></span></h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="showNewScriptDialog()">+ 新建</button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="scripts-list">
+                                <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card" style="margin-bottom:16px;">
+                                <div class="card-header">
+                                    <h3>🎯 场景分类</h3>
+                                </div>
+                                <div class="card-body" id="scenarios-list">
+                                    <div style="padding:12px;text-align:center;color:var(--text-muted);">加载中...</div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>🏋️ 模拟训练</h3>
+                                    <div class="card-actions">
+                                        <button class="btn-text" onclick="startTrainingSession()">开始训练</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="training-panel" style="padding:12px;">
+                                        <p style="color:var(--text-muted);font-size:13px;">选择一个场景，开始模拟对话训练。</p>
+                                        <div id="training-scenarios" style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;"></div>
+                                        <div id="training-area" style="display:none;">
+                                            <div id="training-messages" style="max-height:300px;overflow-y:auto;margin-bottom:12px;padding:8px;background:#f8fafc;border-radius:8px;"></div>
+                                            <div id="current-script-ref" style="display:none;"></div>
+                                            <textarea id="training-input" placeholder="输入你的回复..." style="width:100%;height:80px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;resize:vertical;outline:none;box-sizing:border-box;"></textarea>
+                                            <div style="display:flex;gap:8px;margin-top:8px;">
+                                                <button class="card-btn primary" onclick="sendTrainingStep()">发送</button>
+                                                <button class="card-btn" onclick="endTrainingSession()">结束训练</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="settings" class="view">
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>⚙️ 系统设置</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="padding:12px 0;">
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <label>API Key</label>
+                                        <input type="text" value="sk-••••••••••••••••" readonly style="opacity:0.7;">
+                                        <p class="form-hint">用于外部系统集成</p>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <label>默认安全模式</label>
+                                        <select style="width:100%;padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-secondary);">
+                                            <option selected>保守模式（所有成交需人工确认）</option>
+                                            <option>开放模式（阈值内自动成交）</option>
+                                            <option>自定义模式（按条件规则）</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <label>通知设置</label>
+                                        <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+                                            <span>新客户提醒</span>
+                                            <div class="toggle-switch active"></div>
+                                        </div>
+                                        <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+                                            <span>成交通知</span>
+                                            <div class="toggle-switch active"></div>
+                                        </div>
+                                        <div class="toggle-item" style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+                                            <span>异常警告</span>
+                                            <div class="toggle-switch active"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🔗 SentriKit 集成</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="padding:12px 0;">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                        <div>
+                                            <strong style="font-size:14px;">集成状态</strong>
+                                            <span id="SentriKit-badge" style="margin-left:10px;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;">检测中...</span>
+                                        </div>
+                                        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                                            <span style="font-size:13px;color:var(--text-secondary);">开关</span>
+                                            <input type="checkbox" id="SentriKit-toggle" style="width:36px;height:20px;appearance:none;background:#cbd5e1;border-radius:10px;position:relative;cursor:pointer;transition:all 0.2s;outline:none;">
+                                        </label>
+                                    </div>
+                                    <p id="SentriKit-desc" style="font-size:13px;color:var(--text-muted);line-height:1.6;margin:0;">
+                                        检测 SentriKit 集成状态...
+                                    </p>
+
+                                    <!-- 进化闭环状态 -->
+                                    <div id="evolve-section" style="margin-top:16px;padding-top:16px;border-top:1px solid #f1f5f9;display:none;">
+                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                                            <strong style="font-size:13px;">🧬 进化闭环</strong>
+                                            <span id="evolve-status-badge" style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;">待检测</span>
+                                        </div>
+                                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                                            <div style="padding:8px;background:#f8fafc;border-radius:6px;text-align:center;">
+                                                <div id="evolve-success-rate" style="font-size:18px;font-weight:700;color:#16a34a;">-</div>
+                                                <div style="font-size:10px;color:#94a3b8;">成功率</div>
+                                            </div>
+                                            <div style="padding:8px;background:#f8fafc;border-radius:6px;text-align:center;">
+                                                <div id="evolve-judge-score" style="font-size:18px;font-weight:700;color:#6366f1;">-</div>
+                                                <div style="font-size:10px;color:#94a3b8;">Judge评分</div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex;gap:8px;">
+                                            <button class="card-btn primary" onclick="triggerEvolveRun()" style="flex:1;padding:8px;font-size:12px;">🚀 触发进化</button>
+                                            <button class="card-btn" onclick="refreshEvolveStatus()" style="padding:8px;font-size:12px;">🔄 刷新</button>
+                                        </div>
+                                        <div id="evolve-result" style="margin-top:8px;font-size:12px;color:#64748b;display:none;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>👥 用户与权限</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="display:flex;flex-direction:column;gap:12px;">
+                                    <button class="card-btn primary" onclick="switchView('permissions')" style="width:100%;padding:12px;">
+                                        🔐 权限管理
+                                        <span style="font-size:12px;color:var(--text-muted);display:block;font-weight:normal;">用户 · 角色 · 权限组</span>
+                                    </button>
+                                    <button class="card-btn" onclick="switchView('knowledge')" style="width:100%;padding:12px;">
+                                        📚 知识库
+                                        <span style="font-size:12px;color:var(--text-muted);display:block;font-weight:normal;">产品知识 · FAQ</span>
+                                    </button>
+                                    <button class="card-btn" onclick="switchView('payments')" style="width:100%;padding:12px;">
+                                        💳 支付管理
+                                        <span style="font-size:12px;color:var(--text-muted);display:block;font-weight:normal;">订单 · 退款</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 知识库页面 -->
+                <div id="knowledge" class="view">
+                    <div class="memory-hero">
+                        <h2>📚 知识库管理</h2>
+                        <p>产品知识 · FAQ · 销售话术库</p>
+                    </div>
+                    <div class="dashboard-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📂 知识分类</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="showNewCategoryDialog()">+ 新建分类</button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="knowledge-categories">
+                                <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>❓ 常见问题 FAQ</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="showNewFaqDialog()">+ 添加FAQ</button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="knowledge-faqs">
+                                <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:16px;">
+                        <div class="card-header">
+                            <h3>📖 知识条目</h3>
+                            <div class="card-actions">
+                                <button class="btn-text" onclick="showNewKnowledgeDialog()">+ 添加知识</button>
+                                <button class="btn-text" onclick="exportKnowledge()">📥 导出</button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="knowledge-items">
+                            <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 权限管理页面 -->
+                <div id="permissions" class="view">
+                    <div class="memory-hero">
+                        <h2>🔐 权限管理系统</h2>
+                        <p>用户管理 · 角色配置 · 权限分配</p>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stats-row">
+                            <div class="stat-card primary">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-1">
+                                        <span>👥</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="perm-user-count">0</h3>
+                                    <p class="stat-label">用户数</p>
+                                </div>
+                            </div>
+                            <div class="stat-card success">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-2">
+                                        <span>🎭</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="perm-role-count">0</h3>
+                                    <p class="stat-label">角色数</p>
+                                </div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-3">
+                                        <span>🔑</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="perm-perm-count">0</h3>
+                                    <p class="stat-label">权限项</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>👥 用户列表</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="showNewUserDialog()">+ 添加用户</button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="perm-users">
+                                <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🎭 角色列表</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="showNewRoleDialog()">+ 新建角色</button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="perm-roles">
+                                <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:16px;">
+                        <div class="card-header">
+                            <h3>🔑 权限组配置</h3>
+                        </div>
+                        <div class="card-body" id="perm-permission-groups">
+                            <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 支付管理页面 -->
+                <div id="payments" class="view">
+                    <div class="memory-hero">
+                        <h2>💳 支付管理系统</h2>
+                        <p>订单管理 · 支付处理 · 退款管理</p>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stats-row">
+                            <div class="stat-card primary">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-1">
+                                        <span>📦</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="pay-order-count">0</h3>
+                                    <p class="stat-label">总订单</p>
+                                </div>
+                            </div>
+                            <div class="stat-card success">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-2">
+                                        <span>✅</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="pay-paid-count">0</h3>
+                                    <p class="stat-label">已支付</p>
+                                </div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-3">
+                                        <span>💰</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="pay-amount">¥0</h3>
+                                    <p class="stat-label">总金额</p>
+                                </div>
+                            </div>
+                            <div class="stat-card info">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-4">
+                                        <span>🔄</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="pay-refund-count">0</h3>
+                                    <p class="stat-label">退款</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📋 订单列表</h3>
+                            <div class="card-actions">
+                                <select id="pay-filter" onchange="loadPaymentOrders()" style="padding:6px 12px;border:1px solid var(--border-color);border-radius:6px;">
+                                    <option value="">全部状态</option>
+                                    <option value="pending">待支付</option>
+                                    <option value="paid">已支付</option>
+                                    <option value="refunded">已退款</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body" id="pay-orders">
+                            <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 线索池页面 -->
+                <div id="leads" class="view">
+                    <div class="memory-hero">
+                        <h2>🎯 线索池管理</h2>
+                        <p>智能寻客 · 线索评分 · 自动分配</p>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stats-row">
+                            <div class="stat-card primary">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-1">
+                                        <span>📥</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 23%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="lead-count">58</h3>
+                                    <p class="stat-label">总线索数</p>
+                                </div>
+                            </div>
+                            <div class="stat-card success">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-2">
+                                        <span>⭐</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="lead-score">72</h3>
+                                    <p class="stat-label">平均评分</p>
+                                </div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-3">
+                                        <span>🔄</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="lead-assigned">42</h3>
+                                    <p class="stat-label">已分配</p>
+                                </div>
+                            </div>
+                            <div class="stat-card info">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-4">
+                                        <span>🔥</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="lead-hot">8</h3>
+                                    <p class="stat-label">高意向</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h3>📋 线索列表</h3>
+                                <div class="card-actions">
+                                    <div style="display:flex;gap:8px;">
+                                        <select id="lead-filter-status" onchange="filterLeads()" style="padding:6px 12px;border:1px solid var(--border-color);border-radius:6px;">
+                                            <option value="">全部状态</option>
+                                            <option value="new">新线索</option>
+                                            <option value="contacted">已联系</option>
+                                            <option value="qualified">已认证</option>
+                                            <option value="nurturing">培育中</option>
+                                        </select>
+                                        <select id="lead-filter-priority" onchange="filterLeads()" style="padding:6px 12px;border:1px solid var(--border-color);border-radius:6px;">
+                                            <option value="">全部优先级</option>
+                                            <option value="critical">紧急</option>
+                                            <option value="high">高</option>
+                                            <option value="medium">中</option>
+                                            <option value="low">低</option>
+                                        </select>
+                                        <button class="btn-text" onclick="refreshLeads()">🔄 刷新</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="data-table" style="width:100%;border-collapse:collapse;">
+                                    <thead>
+                                        <tr style="border-bottom:1px solid var(--border-color);text-align:left;">
+                                            <th style="padding:8px 12px;">公司名称</th>
+                                            <th style="padding:8px 12px;">联系人</th>
+                                            <th style="padding:8px 12px;">行业</th>
+                                            <th style="padding:8px 12px;">评分</th>
+                                            <th style="padding:8px 12px;">优先级</th>
+                                            <th style="padding:8px 12px;">状态</th>
+                                            <th style="padding:8px 12px;">来源</th>
+                                            <th style="padding:8px 12px;">分配</th>
+                                            <th style="padding:8px 12px;">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="lead-table-body">
+                                        <tr style="border-bottom:1px solid var(--border-color);">
+                                            <td style="padding:8px 12px;"><strong>北京科技创新有限公司</strong></td>
+                                            <td style="padding:8px 12px;">张明</td>
+                                            <td style="padding:8px 12px;">科技推广</td>
+                                            <td style="padding:8px 12px;"><span class="score-badge high">85</span></td>
+                                            <td style="padding:8px 12px;"><span class="priority-badge critical">紧急</span></td>
+                                            <td style="padding:8px 12px;"><span class="status-badge hot">新线索</span></td>
+                                            <td style="padding:8px 12px;">招标信息</td>
+                                            <td style="padding:8px 12px;">张伟</td>
+                                            <td style="padding:8px 12px;">
+                                                <button class="btn-ghost" onclick="viewLeadDetail('lead-001')">详情</button>
+                                                <button class="btn-primary" onclick="contactLead('lead-001')">联系</button>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom:1px solid var(--border-color);">
+                                            <td style="padding:8px 12px;"><strong>上海智能制造有限公司</strong></td>
+                                            <td style="padding:8px 12px;">李强</td>
+                                            <td style="padding:8px 12px;">制造业</td>
+                                            <td style="padding:8px 12px;"><span class="score-badge high">78</span></td>
+                                            <td style="padding:8px 12px;"><span class="priority-badge high">高</span></td>
+                                            <td style="padding:8px 12px;"><span class="status-badge warm">已联系</span></td>
+                                            <td style="padding:8px 12px;">工商信息</td>
+                                            <td style="padding:8px 12px;">李明</td>
+                                            <td style="padding:8px 12px;">
+                                                <button class="btn-ghost" onclick="viewLeadDetail('lead-002')">详情</button>
+                                                <button class="btn-primary" onclick="contactLead('lead-002')">联系</button>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom:1px solid var(--border-color);">
+                                            <td style="padding:8px 12px;"><strong>深圳数据科技有限公司</strong></td>
+                                            <td style="padding:8px 12px;">王芳</td>
+                                            <td style="padding:8px 12px;">软件服务</td>
+                                            <td style="padding:8px 12px;"><span class="score-badge medium">65</span></td>
+                                            <td style="padding:8px 12px;"><span class="priority-badge medium">中</span></td>
+                                            <td style="padding:8px 12px;"><span class="status-badge">已认证</span></td>
+                                            <td style="padding:8px 12px;">招聘信息</td>
+                                            <td style="padding:8px 12px;">王芳</td>
+                                            <td style="padding:8px 12px;">
+                                                <button class="btn-ghost" onclick="viewLeadDetail('lead-003')">详情</button>
+                                                <button class="btn-primary" onclick="contactLead('lead-003')">联系</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:8px 12px;"><strong>广州智能科技有限公司</strong></td>
+                                            <td style="padding:8px 12px;">陈伟</td>
+                                            <td style="padding:8px 12px;">研究发展</td>
+                                            <td style="padding:8px 12px;"><span class="score-badge low">45</span></td>
+                                            <td style="padding:8px 12px;"><span class="priority-badge low">低</span></td>
+                                            <td style="padding:8px 12px;"><span class="status-badge">培育中</span></td>
+                                            <td style="padding:8px 12px;">工商信息</td>
+                                            <td style="padding:8px 12px;">刘洋</td>
+                                            <td style="padding:8px 12px;">
+                                                <button class="btn-ghost" onclick="viewLeadDetail('lead-004')">详情</button>
+                                                <button class="btn-primary" onclick="contactLead('lead-004')">联系</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 销售看板页面 -->
+                <div id="kanban" class="view">
+                    <div class="memory-hero">
+                        <h2>📊 销售看板</h2>
+                        <p>可视化漏斗 · 业绩追踪 · 实时监控</p>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stats-row">
+                            <div class="stat-card primary">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-1">
+                                        <span>💰</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 12.5%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" data-prefix="¥" id="kanban-revenue">856000</h3>
+                                    <p class="stat-label">本月销售额</p>
+                                </div>
+                            </div>
+                            <div class="stat-card success">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-2">
+                                        <span>✅</span>
+                                    </div>
+                                    <div class="stat-trend up">
+                                        <span>↑</span> 8.3%
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="kanban-deals">12</h3>
+                                    <p class="stat-label">已成交</p>
+                                </div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-3">
+                                        <span>🎯</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="kanban-target">68%</h3>
+                                    <p class="stat-label">目标完成</p>
+                                </div>
+                            </div>
+                            <div class="stat-card info">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-4">
+                                        <span>📈</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="kanban-pipeline">23</h3>
+                                    <p class="stat-label">管道中</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h3>🎯 销售漏斗</h3>
+                                <div class="card-actions">
+                                    <select id="funnel-period" onchange="refreshFunnel()" style="padding:6px 12px;border:1px solid var(--border-color);border-radius:6px;">
+                                        <option value="week">本周</option>
+                                        <option value="month" selected>本月</option>
+                                        <option value="quarter">本季度</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="funnel-container" style="display:flex;flex-direction:column;align-items:center;padding:20px;">
+                                    <div class="funnel-stage" style="width:100%;max-width:500px;">
+                                        <div class="funnel-stage-header" style="display:flex;justify-content:space-between;padding:8px 12px;background:#3b82f6;color:white;border-radius:8px 8px 0 0;">
+                                            <span>线索获取</span>
+                                            <span>58 → 100%</span>
+                                        </div>
+                                        <div class="funnel-stage-body" style="padding:12px;border-left:2px solid #3b82f6;border-right:2px solid #3b82f6;background:#eff6ff;">
+                                            <div style="display:flex;justify-content:space-between;">
+                                                <span style="color:#475569;">转化率</span>
+                                                <span style="font-weight:600;color:#1e293b;">45%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="funnel-stage" style="width:90%;max-width:450px;">
+                                        <div class="funnel-stage-header" style="display:flex;justify-content:space-between;padding:8px 12px;background:#60a5fa;color:white;border-radius:8px 8px 0 0;">
+                                            <span>需求确认</span>
+                                            <span>26 → 45%</span>
+                                        </div>
+                                        <div class="funnel-stage-body" style="padding:12px;border-left:2px solid #60a5fa;border-right:2px solid #60a5fa;background:#f0f9ff;">
+                                            <div style="display:flex;justify-content:space-between;">
+                                                <span style="color:#475569;">转化率</span>
+                                                <span style="font-weight:600;color:#1e293b;">65%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="funnel-stage" style="width:80%;max-width:400px;">
+                                        <div class="funnel-stage-header" style="display:flex;justify-content:space-between;padding:8px 12px;background:#f59e0b;color:white;border-radius:8px 8px 0 0;">
+                                            <span>方案报价</span>
+                                            <span>17 → 29%</span>
+                                        </div>
+                                        <div class="funnel-stage-body" style="padding:12px;border-left:2px solid #f59e0b;border-right:2px solid #f59e0b;background:#fffbeb;">
+                                            <div style="display:flex;justify-content:space-between;">
+                                                <span style="color:#475569;">转化率</span>
+                                                <span style="font-weight:600;color:#1e293b;">76%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="funnel-stage" style="width:70%;max-width:350px;">
+                                        <div class="funnel-stage-header" style="display:flex;justify-content:space-between;padding:8px 12px;background:#f97316;color:white;border-radius:8px 8px 0 0;">
+                                            <span>商务谈判</span>
+                                            <span>13 → 22%</span>
+                                        </div>
+                                        <div class="funnel-stage-body" style="padding:12px;border-left:2px solid #f97316;border-right:2px solid #f97316;background:#fff7ed;">
+                                            <div style="display:flex;justify-content:space-between;">
+                                                <span style="color:#475569;">转化率</span>
+                                                <span style="font-weight:600;color:#1e293b;">92%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="funnel-stage" style="width:60%;max-width:300px;">
+                                        <div class="funnel-stage-header" style="display:flex;justify-content:space-between;padding:8px 12px;background:#22c55e;color:white;border-radius:8px;">
+                                            <span>成功签约</span>
+                                            <span>12 → 21%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🏆 销售排行</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="ranking-list">
+                                    <div class="ranking-item top">
+                                        <div class="rank-badge gold">1</div>
+                                        <div class="rank-info">
+                                            <span class="rank-name">张伟</span>
+                                            <span class="rank-deals">成交 5 单</span>
+                                        </div>
+                                        <div class="rank-amount">¥320,000</div>
+                                    </div>
+                                    <div class="ranking-item">
+                                        <div class="rank-badge silver">2</div>
+                                        <div class="rank-info">
+                                            <span class="rank-name">李明</span>
+                                            <span class="rank-deals">成交 3 单</span>
+                                        </div>
+                                        <div class="rank-amount">¥215,000</div>
+                                    </div>
+                                    <div class="ranking-item">
+                                        <div class="rank-badge bronze">3</div>
+                                        <div class="rank-info">
+                                            <span class="rank-name">王芳</span>
+                                            <span class="rank-deals">成交 2 单</span>
+                                        </div>
+                                        <div class="rank-amount">¥186,000</div>
+                                    </div>
+                                    <div class="ranking-item">
+                                        <div class="rank-badge">4</div>
+                                        <div class="rank-info">
+                                            <span class="rank-name">刘洋</span>
+                                            <span class="rank-deals">成交 1 单</span>
+                                        </div>
+                                        <div class="rank-amount">¥95,000</div>
+                                    </div>
+                                    <div class="ranking-item">
+                                        <div class="rank-badge">5</div>
+                                        <div class="rank-info">
+                                            <span class="rank-name">陈静</span>
+                                            <span class="rank-deals">成交 1 单</span>
+                                        </div>
+                                        <div class="rank-amount">¥40,000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>⚠️ 风险预警</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="risk-list">
+                                    <div class="risk-item critical">
+                                        <span class="risk-icon">🔴</span>
+                                        <div class="risk-content">
+                                            <span class="risk-title">北京科技创新 - 流失风险</span>
+                                            <span class="risk-desc">超过14天未联系</span>
+                                        </div>
+                                        <button class="risk-action" onclick="handleRisk('risk-001')">处理</button>
+                                    </div>
+                                    <div class="risk-item high">
+                                        <span class="risk-icon">🟠</span>
+                                        <div class="risk-content">
+                                            <span class="risk-title">深圳数据科技 - 价格风险</span>
+                                            <span class="risk-desc">报价超出预算</span>
+                                        </div>
+                                        <button class="risk-action" onclick="handleRisk('risk-002')">处理</button>
+                                    </div>
+                                    <div class="risk-item medium">
+                                        <span class="risk-icon">🟡</span>
+                                        <div class="risk-content">
+                                            <span class="risk-title">广州智能科技 - 竞品风险</span>
+                                            <span class="risk-desc">检测到2个竞争对手</span>
+                                        </div>
+                                        <button class="risk-action" onclick="handleRisk('risk-003')">处理</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 外呼中心页面 -->
+                <div id="callcenter" class="view">
+                    <div class="memory-hero">
+                        <h2>📞 外呼中心</h2>
+                        <p>电话拨打 · 通话记录 · 录音分析</p>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stats-row">
+                            <div class="stat-card primary">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-1">
+                                        <span>📞</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="call-today">28</h3>
+                                    <p class="stat-label">今日通话</p>
+                                </div>
+                            </div>
+                            <div class="stat-card success">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-2">
+                                        <span>✅</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="call-success">15</h3>
+                                    <p class="stat-label">有效沟通</p>
+                                </div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-3">
+                                        <span>⏱️</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="call-duration">4.2</h3>
+                                    <p class="stat-label">平均时长(分)</p>
+                                </div>
+                            </div>
+                            <div class="stat-card info">
+                                <div class="stat-header">
+                                    <div class="stat-icon-wrapper bg-gradient-4">
+                                        <span>📊</span>
+                                    </div>
+                                </div>
+                                <div class="stat-body">
+                                    <h3 class="stat-value" id="call-conversion">54%</h3>
+                                    <p class="stat-label">转化率</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📞 通话面板</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="call-panel">
+                                    <div class="call-info">
+                                        <div class="call-customer">
+                                            <div class="customer-avatar">张</div>
+                                            <div>
+                                                <span class="customer-name">张先生</span>
+                                                <span class="customer-company">北京科技创新有限公司</span>
+                                            </div>
+                                        </div>
+                                        <div class="call-status" id="call-status">
+                                            <span class="status-icon">📱</span>
+                                            <span class="status-text">空闲</span>
+                                        </div>
+                                    </div>
+                                    <div class="call-number">
+                                        <input type="text" id="call-input" placeholder="输入电话号码..." style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;font-size:16px;text-align:center;">
+                                    </div>
+                                    <div class="call-buttons">
+                                        <button class="call-btn primary" onclick="makeCall()">
+                                            <span class="call-btn-icon">📞</span>
+                                            <span>拨打电话</span>
+                                        </button>
+                                        <button class="call-btn" onclick="endCall()">
+                                            <span class="call-btn-icon">📴</span>
+                                            <span>结束通话</span>
+                                        </button>
+                                    </div>
+                                    <div class="call-controls">
+                                        <button class="control-btn" onclick="toggleMute()" id="mute-btn">
+                                            <span>🔇 静音</span>
+                                        </button>
+                                        <button class="control-btn" onclick="toggleSpeaker()" id="speaker-btn">
+                                            <span>🔊 扬声器</span>
+                                        </button>
+                                        <button class="control-btn" onclick="toggleRecord()" id="record-btn">
+                                            <span>⏺️ 录音</span>
+                                        </button>
+                                        <button class="control-btn" onclick="transferCall()" id="transfer-btn">
+                                            <span>🔄 转接</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📋 待拨打列表</h3>
+                                <div class="card-actions">
+                                    <button class="btn-text" onclick="startAutoDial()">🚀 自动拨号</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="call-list">
+                                    <div class="call-item pending" onclick="selectCall('call-001')">
+                                        <div class="call-item-info">
+                                            <span class="call-name">张先生</span>
+                                            <span class="call-company">北京科技创新</span>
+                                        </div>
+                                        <div class="call-item-meta">
+                                            <span class="call-priority high">高</span>
+                                            <span class="call-time">10:30</span>
+                                        </div>
+                                    </div>
+                                    <div class="call-item pending" onclick="selectCall('call-002')">
+                                        <div class="call-item-info">
+                                            <span class="call-name">李女士</span>
+                                            <span class="call-company">上海智能制造</span>
+                                        </div>
+                                        <div class="call-item-meta">
+                                            <span class="call-priority medium">中</span>
+                                            <span class="call-time">10:45</span>
+                                        </div>
+                                    </div>
+                                    <div class="call-item pending" onclick="selectCall('call-003')">
+                                        <div class="call-item-info">
+                                            <span class="call-name">王芳</span>
+                                            <span class="call-company">深圳数据科技</span>
+                                        </div>
+                                        <div class="call-item-meta">
+                                            <span class="call-priority high">高</span>
+                                            <span class="call-time">11:00</span>
+                                        </div>
+                                    </div>
+                                    <div class="call-item completed">
+                                        <div class="call-item-info">
+                                            <span class="call-name">陈伟</span>
+                                            <span class="call-company">广州智能科技</span>
+                                        </div>
+                                        <div class="call-item-meta">
+                                            <span class="call-status-badge success">已完成</span>
+                                            <span class="call-duration-text">3分20秒</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🎯 通话记录</h3>
+                                <div class="card-actions">
+                                    <select id="record-filter" onchange="filterRecords()" style="padding:6px 12px;border:1px solid var(--border-color);border-radius:6px;">
+                                        <option value="all">全部</option>
+                                        <option value="today">今日</option>
+                                        <option value="week">本周</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="record-list">
+                                    <div class="record-item">
+                                        <div class="record-info">
+                                            <span class="record-name">张先生</span>
+                                            <span class="record-time">今天 09:30</span>
+                                        </div>
+                                        <div class="record-meta">
+                                            <span class="record-duration">4分15秒</span>
+                                            <span class="record-status success">有效</span>
+                                        </div>
+                                        <button class="record-action" onclick="playRecord('rec-001')">▶️ 播放</button>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-info">
+                                            <span class="record-name">李女士</span>
+                                            <span class="record-time">今天 08:45</span>
+                                        </div>
+                                        <div class="record-meta">
+                                            <span class="record-duration">2分30秒</span>
+                                            <span class="record-status warning">待跟进</span>
+                                        </div>
+                                        <button class="record-action" onclick="playRecord('rec-002')">▶️ 播放</button>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-info">
+                                            <span class="record-name">王芳</span>
+                                            <span class="record-time">昨天 15:20</span>
+                                        </div>
+                                        <div class="record-meta">
+                                            <span class="record-duration">6分40秒</span>
+                                            <span class="record-status success">成功</span>
+                                        </div>
+                                        <button class="record-action" onclick="playRecord('rec-003')">▶️ 播放</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>💬 话术提示</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="script-tips">
+                                    <div class="script-category">
+                                        <span class="category-title">开场话术</span>
+                                        <div class="script-items">
+                                            <button class="script-item" onclick="useScript('script-001')">您好，我是XX公司的销售顾问...</button>
+                                            <button class="script-item" onclick="useScript('script-002')">您好，通过招标信息了解到...</button>
+                                        </div>
+                                    </div>
+                                    <div class="script-category">
+                                        <span class="category-title">异议处理</span>
+                                        <div class="script-items">
+                                            <button class="script-item" onclick="useScript('script-003')">关于价格方面...</button>
+                                            <button class="script-item" onclick="useScript('script-004')">关于产品功能...</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+    /* ── 保密协议 ────────────────────────── */
+    (function(){
+        var SK='salesmaster_agent_confidential_2026';
+        var OV='<div id="confidential-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;"><div style="max-width:520px;padding:40px;text-align:center;"><div style="font-size:64px;margin-bottom:24px;">🔒</div><h1 style="font-size:24px;font-weight:700;margin-bottom:12px;color:#f1f5f9;">保密协议</h1><p style="font-size:14px;color:#94a3b8;line-height:1.7;margin-bottom:24px;">本系统为<strong style="color:#60a5fa;">Chat Sales 智能体系统</strong>内部测试版本，<br>包含专有技术和商业机密。<br><br>未经授权访问、复制、分发或逆向工程<br>均违反保密协议。</p><div style="margin-bottom:24px;"><input id="ci" type="password" placeholder="请输入访问密钥" style="width:100%;padding:12px 16px;border:1px solid #334155;border-radius:8px;background:#1e293b;color:#f1f5f9;font-size:15px;outline:none;box-sizing:border-box;" /><p id="ce" style="color:#ef4444;font-size:13px;margin-top:8px;display:none;">密钥错误，请重新输入</p></div><button id="cb" style="width:100%;padding:12px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">验证访问权限</button><p style="margin-top:20px;font-size:12px;color:#475569;">Copyright &copy; 2026 Chat Sales. All rights reserved.</p></div></div>';
+        try{
+            var s=typeof localStorage!=='undefined'?localStorage.getItem('sm_auth'):null;
+            if(s&&s.startsWith('v_')){var t=parseInt(s.replace('v_',''),10);if(!isNaN(t)&&(Date.now()-t)<86400000)return;}
+        }catch(e){}
+        function vk(i){var k=i.value.trim(),e=document.getElementById('ce');if(k===SK){if(e)e.style.display='none';var o=document.getElementById('confidential-overlay');if(o)o.style.display='none';try{if(typeof localStorage!=='undefined')localStorage.setItem('sm_auth','v_'+Date.now())}catch(e){}}else{if(e)e.style.display='block';i.style.borderColor='#ef4444';i.value='';i.focus()}}
+        function _initOverlay(){document.body.insertAdjacentHTML('beforeend',OV);var o=document.getElementById('confidential-overlay');if(o)o.style.pointerEvents='auto';var btn=document.getElementById('cb'),inp=document.getElementById('ci');if(btn&&inp){btn.addEventListener('click',function(){vk(inp)});inp.addEventListener('keypress',function(e){if(e.key==='Enter')vk(inp)});inp.focus()}}
+        if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',_initOverlay)}else{_initOverlay()}
+    })();
+    </script>
+    <script src="api_client.js"></script>
+    <script>
+    /* ── 全局视图切换函数（内联，保证加载即用）── */
+    function switchView(viewId) {
+        var views = document.querySelectorAll('.view');
+        var navs = document.querySelectorAll('.top-nav-item');
+        navs.forEach(function(n) { n.classList.remove('active'); });
+        var activeNav = document.querySelector('[data-view="' + viewId + '"]');
+        if (activeNav) activeNav.classList.add('active');
+        views.forEach(function(v) { v.classList.remove('active'); });
+        var target = document.getElementById(viewId);
+        if (target) target.classList.add('active');
+        // 懒加载：仅首次访问时请求数据
+        if (typeof window._loadedViews === 'undefined') window._loadedViews = {};
+        if (!window._loadedViews[viewId]) {
+            window._loadedViews[viewId] = true;
+            if (typeof loadViewData === 'function') loadViewData(viewId);
+        }
+        // 分析页专用：内联 XHR 兜底
+        if (viewId === 'analytics') {
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open('GET', '/api/analytics/summary', true);
+            xhr2.onload = function() {
+                try {
+                    var d = JSON.parse(xhr2.responseText);
+                    var el1 = document.getElementById('ana-total-leads');
+                    var el2 = document.getElementById('ana-avg-score');
+                    var el3 = document.getElementById('ana-conversion');
+                    var el4 = document.getElementById('ana-skills');
+                    if (el1) el1.textContent = d.total_leads || 0;
+                    if (el2) el2.textContent = d.avg_score || 0;
+                    if (el3) el3.textContent = (d.conversion || 0) + '%';
+                    if (el4) el4.textContent = d.skills_count || 0;
+                    // 漏斗图
+                    var fb = document.getElementById('funnel-body');
+                    if (fb && d.funnel) {
+                        var stageColors = {'discovery':'#3b82f6','research':'#60a5fa','contact':'#f59e0b','negotiation':'#f97316','closing':'#22c55e','after_sales':'#8b5cf6','listing':'#06b6d4'};
+                        fb.innerHTML = '<div style="padding:8px 0;">' + d.funnel.map(function(s) {
+                            return '<div style="display:flex;align-items:center;margin-bottom:10px;">' +
+                                '<span style="width:80px;font-size:13px;color:#475569;">' + s.name + '</span>' +
+                                '<div style="flex:1;height:22px;background:#f1f5f9;border-radius:11px;overflow:hidden;">' +
+                                    '<div style="width:' + Math.max(s.pct, 3) + '%;height:100%;background:' + s.color + ';border-radius:11px;"></div>' +
+                                '</div>' +
+                                '<span style="width:50px;text-align:right;font-size:13px;font-weight:600;color:#0f172a;">' + s.count + '</span>' +
+                                '<span style="width:40px;text-align:right;font-size:11px;color:#94a3b8;">' + s.pct + '%</span>' +
+                            '</div>';
+                        }).join('') + '</div>';
+                    }
+                    // Agent 效能
+                    var pb = document.getElementById('agent-perf-body');
+                    if (pb && d.agent_performance) {
+                        pb.innerHTML = '<div style="padding:8px 0;">' + d.agent_performance.map(function(a) {
+                            var bc = a.rate >= 70 ? '#22c55e' : a.rate >= 40 ? '#f59e0b' : '#ef4444';
+                            return '<div style="display:flex;align-items:center;margin-bottom:8px;padding:6px 0;border-bottom:1px solid #f1f5f9;">' +
+                                '<span style="width:90px;font-size:12px;color:#475569;">' + a.name + '</span>' +
+                                '<div style="flex:1;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden;margin:0 8px;">' +
+                                    '<div style="width:' + a.rate + '%;height:100%;background:' + bc + ';border-radius:3px;"></div>' +
+                                '</div>' +
+                                '<span style="width:36px;text-align:right;font-size:12px;font-weight:600;color:' + bc + ';">' + a.rate + '%</span>' +
+                                '<span style="width:60px;text-align:right;font-size:10px;color:#94a3b8;">' + a.success + '/' + a.total + '</span>' +
+                            '</div>';
+                        }).join('') + '</div>';
+                    }
+                } catch(e) {}
+            };
+            xhr2.send();
+        }
+        // LLM 状态检查（工作台专用，内联兜底）
+        if (viewId === 'workspace') {
+            var li = document.getElementById('llm-indicator');
+            if (li && li.textContent === '🤖 检测中') {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/api/llm/status', true);
+                xhr.onload = function() {
+                    try {
+                        var d = JSON.parse(xhr.responseText);
+                        if (d.available) { li.textContent = '🤖 已就绪'; li.style.background = '#f0fdf4'; li.style.color = '#16a34a'; }
+                        else { li.textContent = '⚙️ 未配置'; li.style.background = '#fef2f2'; li.style.color = '#dc2626'; }
+                    } catch(e) {}
+                };
+                xhr.send();
+            }
+        }
+    }
+
+    /* ── 快捷操作触发 ── */
+    function quickActionTrigger(action) {
+        if (action === '新建') {
+            switchView('workspace');
+            window.showToast && window.showToast('切换到AI对话消息创建新任务', 'success');
+        } else if (action === '批量') {
+            showImportDialog();
+        } else if (action === '报告') {
+            if (typeof SalesAPI !== 'undefined' && SalesAPI.getSummary) {
+                SalesAPI.getSummary().then(function(data) {
+                    window.showToast && window.showToast('报告已生成', 'success');
+                }).catch(function() {
+                    window.showToast && window.showToast('生成失败', 'fail');
+                });
+            }
+        } else if (action === '配置') {
+            switchView('settings');
+        }
+    }
+
+    /* ── 用户认证 ── */
+    var SESSION_TOKEN = localStorage.getItem('sales_session_token') || '';
+
+    function showLoginPage() {
+        document.getElementById('login-page').style.display = 'flex';
+        document.querySelector('.main-area').style.display = 'none';
+    }
+
+    function showApp() {
+        document.getElementById('login-page').style.display = 'none';
+        document.querySelector('.main-area').style.display = '';
+    }
+
+    function showLoginForm() {
+        document.getElementById('login-form').style.display = '';
+        document.getElementById('register-form').style.display = 'none';
+        hideMessage();
+    }
+
+    function showRegisterForm() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('register-form').style.display = '';
+        hideMessage();
+    }
+
+    function hideMessage() {
+        var m = document.getElementById('login-message');
+        if (m) { m.style.display = 'none'; m.textContent = ''; }
+    }
+
+    function showMessage(text, isError) {
+        var m = document.getElementById('login-message');
+        if (!m) return;
+        m.style.display = '';
+        m.textContent = text;
+        m.style.color = isError ? '#dc2626' : '#16a34a';
+    }
+
+    function submitLogin() {
+        var username = document.getElementById('login-username').value.trim();
+        var password = document.getElementById('login-password').value.trim();
+        if (!username || !password) { showMessage('请输入用户名和密码', true); return; }
+        showMessage('登录中...', false);
+        fetch('/api/auth/login', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: username, password: password}),
+        }).then(function(r) { return r.json().then(function(d) { return {status: r.status, data: d}; }); })
+        .then(function(res) {
+            if (res.status === 200) {
+                SESSION_TOKEN = res.data.session.token;
+                localStorage.setItem('sales_session_token', SESSION_TOKEN);
+                showApp();
+                showMessage('', false);
+                if (typeof loadSummary === 'function') {
+                    document.querySelector('#settings .view.active');
+                    switchView('dashboard');
+                }
+                window.showToast && window.showToast('登录成功', 'success');
+            } else {
+                showMessage(res.data.detail || '用户名或密码错误', true);
+            }
+        }).catch(function() { showMessage('网络错误', true); });
+    }
+
+    function submitRegister() {
+        var username = document.getElementById('reg-username').value.trim();
+        var email = document.getElementById('reg-email').value.trim();
+        var password = document.getElementById('reg-password').value.trim();
+        var displayName = document.getElementById('reg-displayname').value.trim();
+        if (!username || username.length < 2) { showMessage('用户名至少2个字符', true); return; }
+        if (!email || email.indexOf('@') < 0) { showMessage('请输入有效邮箱', true); return; }
+        if (!password || password.length < 6) { showMessage('密码至少6位', true); return; }
+        showMessage('注册中...', false);
+        fetch('/api/auth/register', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: username, email: email, password: password, display_name: displayName}),
+        }).then(function(r) { return r.json().then(function(d) { return {status: r.status, data: d}; }); })
+        .then(function(res) {
+            if (res.status === 200) {
+                showMessage('注册成功！请登录', false);
+                showLoginForm();
+                document.getElementById('login-username').value = username;
+            } else {
+                showMessage(res.data.detail || '注册失败', true);
+            }
+        }).catch(function() { showMessage('网络错误', true); });
+    }
+
+    function logoutUser() {
+        if (!SESSION_TOKEN) return;
+        fetch('/api/auth/logout', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({session_id: SESSION_TOKEN}),
+        }).catch(function() {});
+        SESSION_TOKEN = '';
+        localStorage.removeItem('sales_session_token');
+        showLoginPage();
+    }
+
+    function checkSession() {
+        if (!SESSION_TOKEN) { showLoginPage(); return; }
+        fetch('/api/auth/session/' + SESSION_TOKEN).then(function(r) {
+            if (r.status === 200) { showApp(); }
+            else { showLoginPage(); }
+        }).catch(function() { showLoginPage(); });
+    }
+
+    // 页面启动时检查登录状态
+    checkSession();
+    </script>
+    <script src="script.js"></script>
+    <script src="import_dialog.js"></script>
+    <footer style="text-align:center;padding:24px 16px;border-top:1px solid var(--border-color);color:var(--text-muted);font-size:12px;margin-top:24px;">
+        <div style="margin-bottom:8px;">
+            ⚠️ AI 建议仅供参考，重要决策请人工复核
+        </div>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+            <a href="#/terms" onclick="window.showToast('用户协议详见 TERMS_OF_SERVICE.md', 'info');return false;" style="color:var(--text-muted);text-decoration:none;">用户协议</a>
+            <a href="#/privacy" onclick="window.showToast('隐私政策详见 PRIVACY_POLICY.md', 'info');return false;" style="color:var(--text-muted);text-decoration:none;">隐私政策</a>
+            <span>© 2026 Gavvy 销售宗师</span>
+        </div>
+    </footer>
+</body>
+</html>

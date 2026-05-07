@@ -19,7 +19,7 @@ def test_calls():
 
     try:
         # 导入模块
-        from SentriKit_salesmaster.crm_pkg.calls import (
+        from gavvy_salesmaster.crm_pkg.calls import (
             CallManager,
             RecordingManager,
             ScriptManager,

@@ -1,25 +1,37 @@
+version: '3.8'
+
 services:
-  salesmaster:
+  gavvy-salesmaster:
     build: .
-    image: SentriKit-salesmaster:latest
+    container_name: gavvy-salesmaster
     ports:
-      - "8877:8877"
-    environment:
-      - SALES_API_KEY=${SALES_API_KEY:-dev-key}
-      - SentriKit_API_URL=${SentriKit_API_URL:-}
+      - "8000:8000"
     volumes:
-      - sales_data:/app/src/SentriKit_salesmaster/storage/_data
-      - sales_memory:/app/src/SentriKit_salesmaster/storage/_memory
-      - sales_messages:/app/src/SentriKit_salesmaster/web/_messages
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app/src
+      - LOG_LEVEL=INFO
+      - DATABASE_URL=sqlite:////app/data/tianlong_sales.db
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8877/health', timeout=3)"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
-      timeout: 5s
+      timeout: 3s
       retries: 3
-      start_period: 10s
+      start_period: 40s
 
-volumes:
-  sales_data:
-  sales_memory:
-  sales_messages:
+  # 可选：添加 Nginx 反向代理（生产环境推荐）
+  nginx:
+    image: nginx:alpine
+    container_name: gavvy-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/html:/usr/share/nginx/html
+    depends_on:
+      - gavvy-salesmaster
+    restart: unless-stopped

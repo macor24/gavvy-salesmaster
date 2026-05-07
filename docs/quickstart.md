@@ -9,7 +9,7 @@ pip install SentriKit-salesmaster
 启动 Web 管理后台：
 
 ```bash
-SentriKit-sales-fastapi
+gavvy-sales-fastapi
 ```
 
 浏览器打开 http://localhost:8877。
@@ -19,7 +19,7 @@ SentriKit-sales-fastapi
 ```bash
 pip install SentriKit-salesmaster[enterprise]
 export SALES_ENTERPRISE=1
-SentriKit-sales-fastapi
+gavvy-sales-fastapi
 ```
 
 ## Docker 部署

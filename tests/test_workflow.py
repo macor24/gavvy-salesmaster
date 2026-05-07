@@ -9,7 +9,7 @@ sys.path.insert(0, str(root_dir / "src"))
 
 def test_event_bus():
     """测试事件总线"""
-    from SentriKit_salesmaster.core.workflow import EventBus, WorkflowEvent, EventType
+    from gavvy_salesmaster.core.workflow import EventBus, WorkflowEvent, EventType
 
     bus = EventBus()
     events_received = []
@@ -35,7 +35,7 @@ def test_event_bus():
 
 def test_workflow_creation():
     """测试工作流创建"""
-    from SentriKit_salesmaster.core.workflow import Workflow, WorkflowStep, StepStatus
+    from gavvy_salesmaster.core.workflow import Workflow, WorkflowStep, StepStatus
 
     workflow = Workflow(
         name="Test Workflow",
@@ -65,7 +65,7 @@ def test_workflow_creation():
 
 def test_workflow_engine():
     """测试工作流引擎"""
-    from SentriKit_salesmaster.core.workflow.engine import WorkflowEngine, get_workflow_engine
+    from gavvy_salesmaster.core.workflow.engine import WorkflowEngine, get_workflow_engine
 
     engine = get_workflow_engine()
 
@@ -95,8 +95,8 @@ def test_workflow_engine():
 
 def test_workflow_execution():
     """测试工作流执行"""
-    from SentriKit_salesmaster.core.workflow.engine import get_workflow_engine
-    from SentriKit_salesmaster.core.workflow import FlowStatus, StepStatus
+    from gavvy_salesmaster.core.workflow.engine import get_workflow_engine
+    from gavvy_salesmaster.core.workflow import FlowStatus, StepStatus
 
     engine = get_workflow_engine()
 
@@ -119,7 +119,7 @@ def test_workflow_execution():
 
 def test_workflow_event_publishing():
     """测试工作流事件发布"""
-    from SentriKit_salesmaster.core.workflow import get_event_bus, EventType, WorkflowEvent
+    from gavvy_salesmaster.core.workflow import get_event_bus, EventType, WorkflowEvent
 
     bus = get_event_bus()
 
@@ -146,8 +146,8 @@ def test_workflow_event_publishing():
 
 def test_workflow_templates():
     """测试工作流模板"""
-    from SentriKit_salesmaster.core.workflow.engine import get_workflow_engine
-    from SentriKit_salesmaster.core.workflow import EventType
+    from gavvy_salesmaster.core.workflow.engine import get_workflow_engine
+    from gavvy_salesmaster.core.workflow import EventType
 
     engine = get_workflow_engine()
 

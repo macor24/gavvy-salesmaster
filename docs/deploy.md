@@ -4,7 +4,7 @@
 
 ```bash
 pip install SentriKit-salesmaster[fastapi]
-SentriKit-sales-fastapi --host 0.0.0.0 --port 8877
+gavvy-sales-fastapi --host 0.0.0.0 --port 8877
 ```
 
 ## Docker

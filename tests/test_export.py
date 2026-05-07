@@ -18,8 +18,8 @@ def test_export():
 
     try:
         # 导入模块
-        from SentriKit_salesmaster.crm_pkg.export import ExportManager
-        from SentriKit_salesmaster.crm_pkg.quotes import (
+        from gavvy_salesmaster.crm_pkg.export import ExportManager
+        from gavvy_salesmaster.crm_pkg.quotes import (
             ProductManager,
             QuoteManager,
             ContractManager,

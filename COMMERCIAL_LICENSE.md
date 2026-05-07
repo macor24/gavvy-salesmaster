@@ -1,4 +1,4 @@
-# Gavvy（销售宗师）· 商业授权
+# gavvy（销售引擎）· 商业授权
 
 ## 核心理念
 
@@ -43,7 +43,7 @@
 
 ```bash
 # 社区版（免费 — pip install 即用）
-pip install sentrikit-salesmaster
+pip install gavvy-salesmaster
 
 # 企业版（设置 API Key 即激活，无需安装额外包）
 export SENTRIKIT_API_KEY=***

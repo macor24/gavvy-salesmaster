@@ -4,7 +4,7 @@
 
 ```
 pip install SentriKit-salesmaster
-SentriKit-sales-fastapi
+gavvy-sales-fastapi
 # 浏览器打开 http://localhost:8877
 ```
 

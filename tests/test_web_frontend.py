@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from SentriKit_salesmaster.core.app import app
+from gavvy_salesmaster.core.app import app
 
 
 def _get_free_port():
@@ -53,7 +53,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
 
     def test_health_endpoint(self):
         self._skip_no_client()
-        resp = self.client.get("/health")
+        resp = self.client.get("/api/health")
         self.assertEqual(resp.status_code, 200)
         data = resp.json()
         self.assertEqual(data["status"], "ok")
@@ -77,7 +77,7 @@ class TestFastAPIEndpoints(unittest.TestCase):
         resp = self.client.get("/")
         html = resp.text
         self.assertIn("script.js", html)
-        self.assertIn("灯塔水母", html)
+        self.assertIn("gavvy", html)
 
     # ── 静态文件 ──
 
@@ -139,7 +139,7 @@ class TestFrontendRendering(unittest.TestCase):
         cls.port = _get_free_port()
         try:
             import uvicorn
-            from SentriKit_salesmaster.core.app import app
+            from gavvy_salesmaster.core.app import app
             cfg = uvicorn.Config(app, host="127.0.0.1", port=cls.port, log_level="error")
             cls.server = uvicorn.Server(cfg)
             cls.thread = threading.Thread(target=cls.server.run, daemon=True)
@@ -196,7 +196,7 @@ class TestHTMLStructure(unittest.TestCase):
 
     def setUp(self):
         self.web_dir = Path(__file__).resolve().parent.parent / \
-                       "src" / "SentriKit_salesmaster" / "core" / "web"
+                       "src" / "gavvy_salesmaster" / "core" / "web"
 
     def test_index_html_is_valid(self):
         path = self.web_dir / "index.html"

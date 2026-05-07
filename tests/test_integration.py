@@ -23,7 +23,7 @@ def test_all_modules():
         print("1️⃣  LLM 集成模块")
         print("-" * 40)
 
-        from SentriKit_salesmaster.team_pkg.llm import (
+        from gavvy_salesmaster.team_pkg.llm import (
             LLMManager, LLMConfig, LLMMessage,
             create_llm, MockLLM, AGENT_SYSTEM_PROMPTS
         )
@@ -59,7 +59,7 @@ def test_all_modules():
         print("2️⃣  消息触达模块")
         print("-" * 40)
 
-        from SentriKit_salesmaster.channels_pkg.channels import (
+        from gavvy_salesmaster.channels_pkg.channels import (
             MessageGateway, Message, MessageTemplates,
             EmailConfig, SMSConfig,
             MockSender, EmailSender, BaseSender, MessageResult
@@ -127,7 +127,7 @@ def test_all_modules():
         print("3️⃣  合同签署模块")
         print("-" * 40)
 
-        from SentriKit_salesmaster.trade_pkg.esign import (
+        from gavvy_salesmaster.trade_pkg.esign import (
             ESignManager, SignFlow, Signer, SignDocument,
             create_esign_manager, MockESign
         )
@@ -173,7 +173,7 @@ def test_all_modules():
         print("4️⃣  支付收款模块")
         print("-" * 40)
 
-        from SentriKit_salesmaster.trade_pkg.payment import (
+        from gavvy_salesmaster.trade_pkg.payment import (
             PaymentManager, PaymentOrder, PaymentItem,
             create_payment_manager, MockPayment
         )

@@ -18,11 +18,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from SentriKit_salesmaster.core.storage.compliance import (
+from gavvy_salesmaster.core.storage.compliance import (
     ComplianceGuard, mask_pii, PII_CLASSIFICATION,
     RetentionPolicy, get_compliance_guard,
 )
-from SentriKit_salesmaster.core.storage import (
+from gavvy_salesmaster.core.storage import (
     DatabaseKernel, DataRepository,
 )
 

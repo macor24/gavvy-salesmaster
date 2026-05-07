@@ -17,10 +17,10 @@ from unittest.mock import patch, MagicMock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from SentriKit_salesmaster.core.llm_engine import (
+from gavvy_salesmaster.core.llm_engine import (
     SalesLLM, SalesLLMConfig, FallbackChain, LocalLLM, RuleFallback,
 )
-from SentriKit_salesmaster.team_pkg.llm import (
+from gavvy_salesmaster.team_pkg.llm import (
     SalesLLM as SalesLLM_via_package,
     FallbackChain as FallbackChain_via_package,
 )
@@ -51,9 +51,9 @@ class TestLocalLLM(unittest.TestCase):
         result = self.llm.chat_json("system", "user")
         self.assertIsNone(result)
 
-    @patch("SentriKit_salesmaster.core.llm_engine.subprocess.run")
-    @patch("SentriKit_salesmaster.core.llm_engine.os.path.exists", return_value=True)
-    @patch("SentriKit_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
+    @patch("gavvy_salesmaster.core.llm_engine.subprocess.run")
+    @patch("gavvy_salesmaster.core.llm_engine.os.path.exists", return_value=True)
+    @patch("gavvy_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
     def test_chat_returns_output(self, mock_which, mock_exists, mock_run):
         """chat 返回子进程 stdout"""
         mock_run.return_value = MagicMock(
@@ -66,9 +66,9 @@ class TestLocalLLM(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertIn("Hello", result)
 
-    @patch("SentriKit_salesmaster.core.llm_engine.subprocess.run")
-    @patch("SentriKit_salesmaster.core.llm_engine.os.path.exists", return_value=True)
-    @patch("SentriKit_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
+    @patch("gavvy_salesmaster.core.llm_engine.subprocess.run")
+    @patch("gavvy_salesmaster.core.llm_engine.os.path.exists", return_value=True)
+    @patch("gavvy_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
     def test_chat_timeout_returns_none(self, mock_which, mock_exists, mock_run):
         """子进程超时时返回 None"""
         from subprocess import TimeoutExpired
@@ -77,9 +77,9 @@ class TestLocalLLM(unittest.TestCase):
         result = llm.chat("system", "user")
         self.assertIsNone(result)
 
-    @patch("SentriKit_salesmaster.core.llm_engine.subprocess.run")
-    @patch("SentriKit_salesmaster.core.llm_engine.os.path.exists", return_value=True)
-    @patch("SentriKit_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
+    @patch("gavvy_salesmaster.core.llm_engine.subprocess.run")
+    @patch("gavvy_salesmaster.core.llm_engine.os.path.exists", return_value=True)
+    @patch("gavvy_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
     def test_chat_nonzero_returncode(self, mock_which, mock_exists, mock_run):
         """子进程返回非零时返回 None"""
         mock_run.return_value = MagicMock(returncode=1, stdout="", stderr="error")
@@ -87,9 +87,9 @@ class TestLocalLLM(unittest.TestCase):
         result = llm.chat("system", "user")
         self.assertIsNone(result)
 
-    @patch("SentriKit_salesmaster.core.llm_engine.subprocess.run")
-    @patch("SentriKit_salesmaster.core.llm_engine.os.path.exists", return_value=True)
-    @patch("SentriKit_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
+    @patch("gavvy_salesmaster.core.llm_engine.subprocess.run")
+    @patch("gavvy_salesmaster.core.llm_engine.os.path.exists", return_value=True)
+    @patch("gavvy_salesmaster.core.llm_engine.shutil.which", return_value="/usr/bin/llama-cli")
     def test_chat_json_parses_json(self, mock_which, mock_exists, mock_run):
         """chat_json 解析返回的 JSON"""
         mock_run.return_value = MagicMock(
@@ -169,13 +169,13 @@ class TestFallbackChain(unittest.TestCase):
         self.assertFalse(self.chain._circuit_open)
         self.assertEqual(self.chain._api_fail_count, 0)
 
-    @patch("SentriKit_salesmaster.core.llm_engine.urlopen")
-    @patch("SentriKit_salesmaster.core.llm_engine.time.sleep", return_value=None)  # 跳过重试等待
+    @patch("gavvy_salesmaster.core.llm_engine.urlopen")
+    @patch("gavvy_salesmaster.core.llm_engine.time.sleep", return_value=None)  # 跳过重试等待
     def test_circuit_opens_after_threshold(self, mock_sleep, mock_urlopen):
         """连续失败达到阈值后熔断"""
         from urllib.error import URLError
         mock_urlopen.side_effect = URLError("connection refused")
-        from SentriKit_salesmaster.core.llm_engine import _CIRCUIT_BREAK_THRESHOLD
+        from gavvy_salesmaster.core.llm_engine import _CIRCUIT_BREAK_THRESHOLD
         chain = FallbackChain(
             api=SalesLLMConfig(api_key="sk-test-valid", timeout=1),
             local=LocalLLM(model_path="/nonexistent", cli_cmd="nonexistent"),
@@ -248,7 +248,7 @@ class TestFallbackChain(unittest.TestCase):
 
     # ── 重试机制 ──
 
-    @patch("SentriKit_salesmaster.core.llm_engine.urlopen")
+    @patch("gavvy_salesmaster.core.llm_engine.urlopen")
     def test_api_retry_on_failure(self, mock_urlopen):
         """API 调用失败时重试"""
         from urllib.error import URLError
@@ -304,8 +304,8 @@ class TestSalesLLMIntegration(unittest.TestCase):
 
     def test_sales_llm_importable(self):
         """SalesLLM 可以从两个路径导入"""
-        from SentriKit_salesmaster.team_pkg.llm import SalesLLM as ViaLlm
-        from SentriKit_salesmaster.core.llm_engine import SalesLLM as ViaEngine
+        from gavvy_salesmaster.team_pkg.llm import SalesLLM as ViaLlm
+        from gavvy_salesmaster.core.llm_engine import SalesLLM as ViaEngine
         self.assertEqual(ViaLlm.__name__, "SalesLLM")
         self.assertEqual(ViaEngine.__name__, "SalesLLM")
 

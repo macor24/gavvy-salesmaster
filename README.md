@@ -1,7 +1,7 @@
-# 销售宗师 · SalesMaster
+# gavvy 销售引擎
 
 > 开源销售引擎 — CRM + AI 虚拟销售团队 + 自动化 Pipeline  
-> `pip install SentriKit-salesmaster` 即用，零外部依赖跑通全流程
+> `pip install gavvy-salesmaster` 即用，零外部依赖跑通全流程
 
 ---
 
@@ -9,10 +9,10 @@
 
 ```bash
 # 1. 安装
-pip install SentriKit-salesmaster
+pip install gavvy-salesmaster
 
 # 2. 启动 Web 管理后台（带 API）
-SentriKit-sales-fastapi
+gavvy-sales-fastapi
 
 # 3. 浏览器打开
 open http://localhost:8877
@@ -26,7 +26,7 @@ open http://localhost:8877
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│                  销售宗师 SalesMaster                  │
+│                  gavvy 销售引擎                  │
 ├──────────────────────────────────────────────────────┤
 │                                                      │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
@@ -63,23 +63,23 @@ open http://localhost:8877
 
 | 命令 | 说明 |
 |------|------|
-| `SentriKit-sales-fastapi` | **推荐** 统一 API + Web 服务（8877端口） |
-| `SentriKit-sales-api` | 纯 API 服务（已弃用，建议用 FastAPI） |
+| `gavvy-sales-fastapi` | **推荐** 统一 API + Web 服务（8877端口） |
+| `gavvy-sales-api` | 纯 API 服务（已弃用，建议用 FastAPI） |
 
 ### 安装可选依赖
 
 ```bash
 # 激活 AI 销售引擎（企业版闭源）
-pip install SentriKit-salesmaster[enterprise]
+pip install gavvy-salesmaster[enterprise]
 
 # 激活 SentriKit 进化闭环集成
-pip install SentriKit-salesmaster[SentriKit]
+pip install gavvy-salesmaster[SentriKit]
 
 # 使用 FastAPI（推荐）
-pip install SentriKit-salesmaster[fastapi]
+pip install gavvy-salesmaster[fastapi]
 
 # 全部装齐
-pip install SentriKit-salesmaster[all]
+pip install gavvy-salesmaster[all]
 ```
 
 ---
@@ -176,7 +176,7 @@ docker compose up -d
 ## 项目结构
 
 ```
-SentriKit-salesmaster/
+gavvy-salesmaster/
 ├── src/SentriKit_salesmaster/
 │   ├── app.py              # FastAPI 统一服务（2485行，160路由）
 │   ├── master.py           # SalesMaster 六维引擎
@@ -195,5 +195,5 @@ SentriKit-salesmaster/
 ## 许可
 
 - **开源模块**: MIT License
-- **AI 销售引擎**: 企业版闭源（`SentriKit-sales-enterprise`）
+- **AI 销售引擎**: 企业版闭源（`gavvy-sales-enterprise`）
 - **联系方式**: [GitHub Issues](https://github.com/)

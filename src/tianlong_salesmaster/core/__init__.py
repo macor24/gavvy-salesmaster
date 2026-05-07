@@ -1,1 +1,0 @@
-"""SentriKit_salesmaster.core"""

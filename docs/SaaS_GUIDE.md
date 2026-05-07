@@ -17,7 +17,7 @@ export SALES_USE_SAAS=true
 
 ```bash
 # 使用命令行工具
-SentriKit-sales-fastapi
+gavvy-sales-fastapi
 
 # 或直接运行模块
 python -m SentriKit_salesmaster.app

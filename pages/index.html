@@ -1,0 +1,303 @@
+     1|<!DOCTYPE html>
+     2|<html lang="zh-CN">
+     3|<head>
+     4|    <meta charset="UTF-8">
+     5|    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6|    <title>gavvy · 开源销售引擎 — pip install 即用的AI销售团队系统</title>
+     7|    <meta name="description" content="gavvy - 开源AI销售引擎。CRM + 6大AI Agent + 智能话术 + Pipeline管理。pip install gavvy-salesmaster 即用。">
+     8|    <style>
+     9|        :root {
+    10|            --primary: #6366f1;
+    11|            --primary-dark: #4f46e5;
+    12|            --secondary: #10b981;
+    13|            --accent: #f59e0b;
+    14|            --dark: #0f172a;
+    15|            --gray: #64748b;
+    16|            --gray-light: #94a3b8;
+    17|            --light: #f8fafc;
+    18|            --white: #ffffff;
+    19|        }
+    20|        * { margin: 0; padding: 0; box-sizing: border-box; }
+    21|        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--dark); line-height: 1.6; }
+    22|        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    23|        .btn { display: inline-block; padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-size: 16px; }
+    24|        .btn-primary { background: var(--primary); color: white; }
+    25|        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    26|        .btn-secondary { background: white; color: var(--primary); border: 2px solid var(--primary); }
+    27|        .btn-secondary:hover { background: var(--primary); color: white; }
+    28|        .btn-demo { background: var(--secondary); color: white; padding: 16px 40px; font-size: 18px; }
+    29|        .btn-demo:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); }
+    30|        .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--gray); }
+    31|        .btn-ghost:hover { color: var(--primary); border-color: var(--primary); }
+    32|
+    33|        header { padding: 16px 0; position: fixed; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    34|        header .container { display: flex; justify-content: space-between; align-items: center; }
+    35|        .logo { font-size: 22px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+    36|        .logo span { color: var(--primary); }
+    37|        nav { display: flex; gap: 28px; align-items: center; }
+    38|        nav a { color: var(--gray); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.2s; }
+    39|        nav a:hover { color: var(--primary); }
+    40|
+    41|        .hero { padding: 140px 0 80px; text-align: center; background: linear-gradient(180deg, #f0f1ff 0%, white 100%); }
+    42|        .hero h1 { font-size: 52px; font-weight: 800; margin-bottom: 20px; line-height: 1.15; }
+    43|        .hero h1 .highlight { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    44|        .hero .subtitle { font-size: 18px; color: var(--gray); max-width: 600px; margin: 0 auto 32px; }
+    45|        .hero .pip-cmd { display: inline-block; background: var(--dark); color: #e2e8f0; padding: 10px 24px; border-radius: 8px; font-family: monospace; font-size: 15px; margin: 8px auto 32px; border: 1px solid #334155; }
+    46|        .hero .pip-cmd span { color: var(--secondary); }
+    47|        .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    48|        .demo-badge { display: inline-block; background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+    49|
+    50|        .stats { display: flex; justify-content: center; gap: 48px; margin: 48px 0 0; flex-wrap: wrap; }
+    51|        .stat-item { text-align: center; }
+    52|        .stat-item .number { font-size: 40px; font-weight: 800; color: var(--primary); }
+    53|        .stat-item .label { color: var(--gray); font-size: 13px; margin-top: 2px; }
+    54|
+    55|        .features { padding: 80px 0; background: white; }
+    56|        .features h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    57|        .features .subhead { text-align: center; color: var(--gray); font-size: 16px; margin-bottom: 48px; }
+    58|        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    59|        .feature-card { background: var(--light); border-radius: 14px; padding: 28px; transition: all 0.3s; border: 1px solid transparent; }
+    60|        .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(0,0,0,0.06); border-color: #e2e8f0; }
+    61|        .feature-icon { font-size: 40px; margin-bottom: 12px; }
+    62|        .feature-card h3 { font-size: 18px; margin-bottom: 10px; }
+    63|        .feature-card p { color: var(--gray); font-size: 14px; line-height: 1.7; }
+    64|
+    65|        .arch { padding: 80px 0; background: var(--light); }
+    66|        .arch h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 40px; }
+    67|        .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 900px; margin: 0 auto; }
+    68|        .arch-box { background: white; border-radius: 14px; padding: 28px; border: 1px solid #e2e8f0; }
+    69|        .arch-box h3 { font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    70|        .arch-box ul { list-style: none; }
+    71|        .arch-box li { padding: 5px 0; font-size: 14px; color: var(--gray); display: flex; align-items: center; gap: 8px; }
+    72|
+    73|        .pricing { padding: 80px 0; background: white; }
+    74|        .pricing h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    75|        .pricing .subhead { text-align: center; color: var(--gray); font-size: 16px; margin-bottom: 48px; }
+    76|        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+    77|        .price-card { background: var(--light); border-radius: 16px; padding: 32px; text-align: center; border: 2px solid transparent; transition: all 0.3s; }
+    78|        .price-card.featured { border-color: var(--primary); transform: scale(1.04); box-shadow: 0 16px 48px rgba(99, 102, 241, 0.12); background: white; }
+    79|        .price-card .badge { display: inline-block; background: var(--primary); color: white; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+    80|        .price-card h3 { font-size: 20px; margin-bottom: 4px; }
+    81|        .price-card .tagline { font-size: 13px; color: var(--gray-light); margin-bottom: 12px; }
+    82|        .price-card .price { font-size: 40px; font-weight: 800; color: var(--primary); margin: 12px 0; }
+    83|        .price-card .price span { font-size: 14px; color: var(--gray); font-weight: 400; }
+    84|        .price-card ul { list-style: none; text-align: left; margin: 20px 0; }
+    85|        .price-card li { padding: 6px 0; color: var(--gray); font-size: 13px; }
+    86|        .price-card li::before { content: "✓ "; color: var(--secondary); font-weight: 700; margin-right: 6px; }
+    87|
+    88|        .steps { padding: 80px 0; background: var(--dark); color: white; }
+    89|        .steps h2 { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 48px; }
+    90|        .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 900px; margin: 0 auto; }
+    91|        .step-card { text-align: center; }
+    92|        .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-weight: 800; font-size: 20px; }
+    93|        .step-card h3 { font-size: 18px; margin-bottom: 8px; }
+    94|        .step-card p { color: var(--gray-light); font-size: 14px; line-height: 1.6; }
+    95|        .step-card code { display: inline-block; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 4px; font-size: 13px; color: var(--accent); }
+    96|
+    97|        footer { padding: 32px 0; text-align: center; color: var(--gray); font-size: 13px; border-top: 1px solid #e2e8f0; }
+    98|        footer a { color: var(--primary); text-decoration: none; }
+    99|
+   100|        @media (max-width: 768px) {
+   101|            .hero h1 { font-size: 32px; }
+   102|            .hero .pip-cmd { font-size: 13px; padding: 8px 16px; }
+   103|            .feature-grid, .pricing-grid, .arch-grid, .step-grid { grid-template-columns: 1fr; }
+   104|            .price-card.featured { transform: scale(1); }
+   105|            nav { display: none; }
+   106|            .stats { gap: 20px; }
+   107|            .stat-item .number { font-size: 32px; }
+   108|        }
+   109|    </style>
+   110|</head>
+   111|<body>
+   112|    <header>
+   113|        <div class="container">
+   114|            <div class="logo"><span>gavvy</span> · 开源销售引擎</div>
+   115|            <nav>
+   116|                <a href="#features">功能</a>
+   117|                <a href="#pricing">定价</a>
+   118|                <a href="/docs">API</a>
+   119|                <a href="/">管理后台</a>
+   120|                <a href="https://github.com/macor24/gavvy-salesmaster" target="_blank" rel="noopener">GitHub</a>
+   121|                <a href="#start" class="btn btn-primary" style="padding: 8px 18px; font-size: 14px;">快速开始</a>
+   122|            </nav>
+   123|        </div>
+   124|    </header>
+   125|
+   126|    <section class="hero">
+   127|        <div class="container">
+   128|            <div class="demo-badge">🐙 完全开源 · MIT 协议 · pip install 即用</div>
+   129|            <h1>开源 <span class="highlight">AI 销售引擎</span><br>装好了就能用</h1>
+   130|            <p class="subtitle">CRM + 6大AI Agent + 智能话术 + Pipeline管理，<br>一行命令装完立刻跑通全流程，无需任何外部依赖。</p>
+   131|            <div class="pip-cmd">pip install <span>gavvy-salesmaster</span> && gavvy-sales-fastapi</div>
+   132|            <div class="hero-buttons">
+   133|                <a href="/" class="btn btn-demo">🚀 打开管理后台</a>
+   134|                <a href="https://github.com/macor24/gavvy-salesmaster" class="btn btn-secondary" target="_blank">GitHub 源码 →</a>
+   135|            </div>
+   136|            <div class="stats">
+   137|                <div class="stat-item"><div class="number">7</div><div class="label">AI Agent 角色</div></div>
+   138|                <div class="stat-item"><div class="number">160+</div><div class="label">REST API</div></div>
+   139|                <div class="stat-item"><div class="number">20+</div><div class="label">功能模块</div></div>
+   140|                <div class="stat-item"><div class="number">MIT</div><div class="label">开源协议</div></div>
+   141|            </div>
+   142|        </div>
+   143|    </section>
+   144|
+   145|    <section class="features" id="features">
+   146|        <div class="container">
+   147|            <h2>开箱即用的销售工具集</h2>
+   148|            <p class="subhead">不需要数据库、不需要配置，装完就能跑</p>
+   149|            <div class="feature-grid">
+   150|                <div class="feature-card">
+   151|                    <div class="feature-icon">🤖</div>
+   152|                    <h3>AI 虚拟销售团队</h3>
+   153|                    <p>7大Agent角色：市场调研、竞品分析、售前谈判、售后维护、运营管理、采购、平台运营。自动协同作战。</p>
+   154|                </div>
+   155|                <div class="feature-card">
+   156|                    <div class="feature-icon">👥</div>
+   157|                    <h3>CRM 客户管理</h3>
+   158|                    <p>客户/商机/合同/活动全生命周期管理。支持自定义字段、标签筛选、批量导入导出。</p>
+   159|                </div>
+   160|                <div class="feature-card">
+   161|                    <div class="feature-icon">📊</div>
+   162|                    <h3>销售 Pipeline</h3>
+   163|                    <p>可视化漏斗，从线索到成交4步走。自动跟进、超时提醒、阶段转化分析。</p>
+   164|                </div>
+   165|                <div class="feature-card">
+   166|                    <div class="feature-icon">📚</div>
+   167|                    <h3>知识库 + 话术训练</h3>
+   168|                    <p>LLM知识库自动FAQ生成。话术评分系统，6大场景训练模拟，AI教练实时反馈。</p>
+   169|                </div>
+   170|                <div class="feature-card">
+   171|                    <div class="feature-icon">💬</div>
+   172|                    <h3>多渠道消息</h3>
+   173|                    <p>企业微信、钉钉、飞书、邮件、短信统一收归。嵌入式 Widget 在任意网页捕获线索。</p>
+   174|                </div>
+   175|                <div class="feature-card">
+   176|                    <div class="feature-icon">🔐</div>
+   177|                    <h3>RBAC 权限体系</h3>
+   178|                    <p>用户/角色/权限三维管理。企业版支持多租户SaaS，开账号给团队成员。</p>
+   179|                </div>
+   180|            </div>
+   181|        </div>
+   182|    </section>
+   183|
+   184|    <section class="arch">
+   185|        <div class="container">
+   186|            <h2>架构一目了然</h2>
+   187|            <div class="arch-grid">
+   188|                <div class="arch-box">
+   189|                    <h3>📦 开源版（MIT）</h3>
+   190|                    <ul>
+   191|                        <li>✓ CRM、报价、合同、支付</li>
+   192|                        <li>✓ LLM 多模型接入</li>
+   193|                        <li>✓ 工作流引擎</li>
+   194|                        <li>✓ RBAC 权限管理</li>
+   195|                        <li>✓ 消息渠道集成</li>
+   196|                        <li>✓ Web 管理后台 SPA</li>
+   197|                        <li>✓ 300+ 自动化测试</li>
+   198|                    </ul>
+   199|                </div>
+   200|                <div class="arch-box">
+   201|                    <h3>🔒 企业版（SaaS API）</h3>
+   202|                    <ul>
+   203|                        <li>✓ AI 销售团队编排器</li>
+   204|                        <li>✓ 7 Agent 智能协同</li>
+   205|                        <li>✓ 学习记忆库</li>
+   206|                        <li>✓ 多租户管理</li>
+   207|                        <li>✓ 销售数据分析</li>
+   208|                        <li>✓ 优先技术支持</li>
+   209|                        <li>💡 设置 SENTRIKIT_API_KEY 激活</li>
+   210|                    </ul>
+   211|                </div>
+   212|            </div>
+   213|        </div>
+   214|    </section>
+   215|
+   216|    <section class="pricing" id="pricing">
+   217|        <div class="container">
+   218|            <h2>定价</h2>
+   219|            <p class="subhead">开源免费，升级按需</p>
+   220|            <div class="pricing-grid">
+   221|                <div class="price-card">
+   222|                    <h3>开源版</h3>
+   223|                    <div class="tagline">自己部署，完全免费</div>
+   224|                    <div class="price">¥0 <span>/ 永久</span></div>
+   225|                    <ul>
+   226|                        <li>全部开源代码</li>
+   227|                        <li>私有部署，数据在自己手里</li>
+   228|                        <li>无限用户、不限API</li>
+   229|                        <li>社区支持</li>
+   230|                        <li>可商用（MIT协议）</li>
+   231|                    </ul>
+   232|                    <a href="#start" class="btn btn-secondary" style="width:100%;">🏗️ 自行部署</a>
+   233|                </div>
+   234|                <div class="price-card featured">
+   235|                    <div class="badge">推荐</div>
+   236|                    <h3>专业版</h3>
+   237|                    <div class="tagline">云托管，即开即用</div>
+   238|                    <div class="price">$29 <span>/ 月</span></div>
+   239|                    <ul>
+   240|                        <li>云端托管，免运维</li>
+   241|                        <li>AI 销售团队全功能</li>
+   242|                        <li>学习记忆库</li>
+   243|                        <li>数据自动备份</li>
+   244|                        <li>邮件技术支持</li>
+   245|                    </ul>
+   246|                    <a href="#waitlist" class="btn btn-primary" style="width:100%;">📋 加入等待列表</a>
+   247|                </div>
+   248|                <div class="price-card">
+   249|                    <h3>企业版</h3>
+   250|                    <div class="tagline">专属部署 + 定制</div>
+   251|                    <div class="price">$99 <span>/ 月</span></div>
+   252|                    <ul>
+   253|                        <li>私有化部署</li>
+   254|                        <li>无限 API 调用</li>
+   255|                        <li>专属客户成功经理</li>
+   256|                        <li>SLA 保障</li>
+   257|                        <li>定制开发</li>
+   258|                    </ul>
+   259|                    <a href="#waitlist" class="btn btn-secondary" style="width:100%;">📧 联系销售</a>
+   260|                </div>
+   261|            </div>
+   262|        </div>
+   263|    </section>
+   264|
+   265|    <section class="steps" id="start">
+   266|        <div class="container">
+   267|            <h2>3 步开始</h2>
+   268|            <div class="step-grid">
+   269|                <div class="step-card">
+   270|                    <div class="step-num">1</div>
+   271|                    <h3>安装</h3>
+   272|                    <p>Python 3.11+ 环境，<br>一行命令搞定：</p>
+   273|                    <p><code>pip install gavvy-salesmaster</code></p>
+   274|                </div>
+   275|                <div class="step-card">
+   276|                    <div class="step-num">2</div>
+   277|                    <h3>启动</h3>
+   278|                    <p>内置 FastAPI 服务，<br>零配置直接运行：</p>
+   279|                    <p><code>gavvy-sales-fastapi</code></p>
+   280|                </div>
+   281|                <div class="step-card">
+   282|                    <div class="step-num">3</div>
+   283|                    <h3>使用</h3>
+   284|                    <p>浏览器打开管理后台，<br>立刻开始销售流程：</p>
+   285|                    <p><code>open http://localhost:8877</code></p>
+   286|                </div>
+   287|            </div>
+   288|        </div>
+   289|    </section>
+   290|
+   291|    <footer>
+   292|        <div class="container">
+   293|            <p>© 2026 gavvy · 开源销售引擎</p>
+   294|            <p style="margin-top:4px;">
+   295|                <a href="https://github.com/macor24/gavvy-salesmaster">GitHub</a> ·
+   296|                <a href="/docs">API文档</a> ·
+   297|                <a href="/">管理后台</a>
+   298|            </p>
+   299|        </div>
+   300|    </footer>
+   301|</body>
+   302|</html>
+   303|

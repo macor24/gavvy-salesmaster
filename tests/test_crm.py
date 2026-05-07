@@ -15,13 +15,13 @@ def test_crm():
 
     try:
         # 设置存储目录
-        from SentriKit_salesmaster.core.storage.db import set_storage_dir, get_kernel
+        from gavvy_salesmaster.core.storage.db import set_storage_dir, get_kernel
         set_storage_dir(temp_dir)
         # 重置单例
-        import SentriKit_salesmaster.core.storage.db as db
+        import gavvy_salesmaster.core.storage.db as db
         db._global_kernel = None
 
-        from SentriKit_salesmaster.crm_pkg.crm import (
+        from gavvy_salesmaster.crm_pkg.crm import (
             Customer, Contact, Deal, Contract, Activity,
             CRMManager, get_crm,
         )

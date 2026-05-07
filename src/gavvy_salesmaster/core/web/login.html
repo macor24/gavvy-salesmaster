@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gavvy 销售宗师 - 登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .login-container {
+            background: #2a2a2a;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 24px 20px;
+                border-radius: 12px;
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007aff;
+        }
+
+        .form-group input::placeholder {
+            color: #555;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007aff 0%, #0066e6 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: #3a3a3a;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #444;
+        }
+
+        .error-message {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: #ff3b30;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(52, 199, 89, 0.1);
+            border: 1px solid rgba(52, 199, 89, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: #34c759;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-toggle a {
+            color: #007aff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>⚡ Gavvy 销售宗师</h1>
+            <p>Sales Master</p>
+        </div>
+
+        <div class="error-message" id="error-message"></div>
+        <div class="success-message" id="success-message"></div>
+
+        <!-- 登录表单 -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="请输入密码" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="login-btn">
+                <span id="login-text">登 录</span>
+                <span id="login-loading" class="loading" style="display: none;"></span>
+            </button>
+        </form>
+
+        <div class="form-toggle">
+            <a href="#" id="show-register">没有账号？立即注册</a>
+        </div>
+
+        <!-- 注册表单 -->
+        <form id="register-form" style="display: none;">
+            <div class="form-group">
+                <label for="reg-username">用户名</label>
+                <input type="text" id="reg-username" placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="reg-email">邮箱</label>
+                <input type="email" id="reg-email" placeholder="请输入邮箱" required>
+            </div>
+            <div class="form-group">
+                <label for="reg-password">密码</label>
+                <input type="password" id="reg-password" placeholder="请输入密码（至少6位）" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="register-btn">
+                <span id="register-text">注 册</span>
+                <span id="register-loading" class="loading" style="display: none;"></span>
+            </button>
+        </form>
+
+        <div class="form-toggle" id="register-toggle" style="display: none;">
+            <a href="#" id="show-login">已有账号？立即登录</a>
+        </div>
+
+        <div class="footer">
+            默认账号: admin / admin123
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '';
+
+        function showError(message) {
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            document.getElementById('success-message').textContent = message;
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('error-message').style.display = 'none';
+        }
+
+        function hideMessages() {
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        // 登录表单
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessages();
+            
+            const btn = document.getElementById('login-btn');
+            const text = document.getElementById('login-text');
+            const loading = document.getElementById('login-loading');
+            
+            text.style.display = 'none';
+            loading.style.display = 'inline-block';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status === 'ok') {
+                    // 保存会话
+                    localStorage.setItem('salesmaster_token', data.session.token);
+                    localStorage.setItem('salesmaster_user', JSON.stringify({
+                        id: data.session.user_id,
+                        username: data.session.username
+                    }));
+                    showSuccess('登录成功！正在跳转...');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } else {
+                    showError(data.detail || '登录失败');
+                }
+            } catch (error) {
+                showError('网络错误，请稍后重试');
+            } finally {
+                text.style.display = 'inline';
+                loading.style.display = 'none';
+                btn.disabled = false;
+            }
+        });
+
+        // 注册表单
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessages();
+            
+            const btn = document.getElementById('register-btn');
+            const text = document.getElementById('register-text');
+            const loading = document.getElementById('register-loading');
+            
+            text.style.display = 'none';
+            loading.style.display = 'inline-block';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: document.getElementById('reg-username').value,
+                        email: document.getElementById('reg-email').value,
+                        password: document.getElementById('reg-password').value,
+                        display_name: document.getElementById('reg-username').value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status === 'ok') {
+                    showSuccess('注册成功！请登录');
+                    setTimeout(() => {
+                        document.getElementById('register-form').style.display = 'none';
+                        document.getElementById('login-form').style.display = 'block';
+                        document.getElementById('register-toggle').style.display = 'none';
+                        document.getElementById('show-register').style.display = 'inline';
+                    }, 1500);
+                } else {
+                    showError(data.detail || '注册失败');
+                }
+            } catch (error) {
+                showError('网络错误，请稍后重试');
+            } finally {
+                text.style.display = 'inline';
+                loading.style.display = 'none';
+                btn.disabled = false;
+            }
+        });
+
+        // 切换表单
+        document.getElementById('show-register').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+            document.getElementById('show-register').style.display = 'none';
+            document.getElementById('register-toggle').style.display = 'block';
+            hideMessages();
+        });
+
+        document.getElementById('show-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('register-toggle').style.display = 'none';
+            document.getElementById('show-register').style.display = 'block';
+            hideMessages();
+        });
+
+        // 检查是否已登录
+        const token = localStorage.getItem('salesmaster_token');
+        if (token && window.location.pathname === '/login.html') {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>

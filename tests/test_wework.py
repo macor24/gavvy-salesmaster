@@ -16,8 +16,8 @@ from unittest.mock import patch, MagicMock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from SentriKit_salesmaster.channels_pkg.channels.wework import WeWorkChannel
-from SentriKit_salesmaster.channels_pkg.channels.base import Message
+from gavvy_salesmaster.channels_pkg.channels.wework import WeWorkChannel
+from gavvy_salesmaster.channels_pkg.channels.base import Message
 
 
 VALID_CONFIG = {
@@ -63,7 +63,7 @@ class TestWeWorkChannel(unittest.TestCase):
 
     # ── Token 管理 ──
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_get_token_success(self, mock_urlopen):
         """获取 Token 成功"""
         mock_resp = MagicMock()
@@ -78,7 +78,7 @@ class TestWeWorkChannel(unittest.TestCase):
         self.assertEqual(token, "mock-token-123")
         self.assertEqual(self.channel._token, "mock-token-123")
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_get_token_failure(self, mock_urlopen):
         """Token 获取失败返回 None"""
         mock_resp = MagicMock()
@@ -91,7 +91,7 @@ class TestWeWorkChannel(unittest.TestCase):
         token = self.channel._get_token()
         self.assertIsNone(token)
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_get_token_network_error(self, mock_urlopen):
         """网络错误返回 None"""
         from urllib.error import URLError
@@ -105,7 +105,7 @@ class TestWeWorkChannel(unittest.TestCase):
         token = c._get_token()
         self.assertIsNone(token)
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_token_caching(self, mock_urlopen):
         """Token 缓存避免重复请求"""
         mock_resp = MagicMock()
@@ -134,8 +134,8 @@ class TestWeWorkChannel(unittest.TestCase):
 
     # ── 消息发送 ──
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_send_text_success(self, mock_urlopen, mock_token):
         """发送文本消息成功"""
         mock_token.return_value = "valid-token"
@@ -151,8 +151,8 @@ class TestWeWorkChannel(unittest.TestCase):
         self.assertTrue(result)
         self.assertEqual(msg.status, "sent")
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_send_text_api_error(self, mock_urlopen, mock_token):
         """API 返回错误码时标记失败"""
         mock_token.return_value = "valid-token"
@@ -176,7 +176,7 @@ class TestWeWorkChannel(unittest.TestCase):
         self.assertFalse(result)
         self.assertEqual(msg.status, "failed")
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
     def test_send_token_expired(self, mock_token):
         """Token 过期时自动清除并标记失败"""
         mock_token.return_value = None
@@ -188,8 +188,8 @@ class TestWeWorkChannel(unittest.TestCase):
 
     # ── send_markdown ──
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_send_markdown(self, mock_urlopen, mock_token):
         """发送 markdown 消息"""
         mock_token.return_value = "token"
@@ -204,8 +204,8 @@ class TestWeWorkChannel(unittest.TestCase):
 
     # ── send_news ──
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_send_news(self, mock_urlopen, mock_token):
         """发送图文消息"""
         mock_token.return_value = "token"
@@ -226,8 +226,8 @@ class TestWeWorkChannel(unittest.TestCase):
         msgs = self.channel.receive()
         self.assertEqual(msgs, [])
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_get_contacts(self, mock_urlopen, mock_token):
         """获取联系人列表"""
         mock_token.return_value = "token"
@@ -275,8 +275,8 @@ class TestWeWorkChannel(unittest.TestCase):
         self.assertEqual(status["sent"], 0)
         self.assertEqual(status["failed"], 0)
 
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
-    @patch("SentriKit_salesmaster.channels_pkg.channels.wework.urlopen")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.WeWorkChannel._get_token")
+    @patch("gavvy_salesmaster.channels_pkg.channels.wework.urlopen")
     def test_get_send_status_after_send(self, mock_urlopen, mock_token):
         """发送后状态更新正确"""
         mock_token.return_value = "token"

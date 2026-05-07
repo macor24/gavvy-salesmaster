@@ -76,7 +76,7 @@ def create_html_report(output_path):
         </div>
         <h2 id="structure">一、项目整体结构</h2>
         <pre>SentriKit-salesmaster/
-├── src/SentriKit_salesmaster/
+├── src/gavvy_salesmaster/
 │   ├── __init__.py
 │   ├── master.py
 │   ├── team/

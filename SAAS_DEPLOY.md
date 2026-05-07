@@ -1,4 +1,4 @@
-# Gavvy 销售宗师 SaaS 部署指南
+# gavvy 销售引擎 SaaS 部署指南
 
 ## 🚀 快速部署
 
@@ -6,8 +6,8 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-repo/SentriKit-salesmaster.git
-cd SentriKit-salesmaster
+git clone https://github.com/your-repo/gavvy-salesmaster.git
+cd gavvy-salesmaster
 
 # 启动服务
 docker-compose up -d
@@ -29,7 +29,7 @@ cp .env.example .env
 # 编辑 .env 填入你的配置
 
 # 启动服务
-SentriKit-sales-fastapi
+gavvy-sales-fastapi
 ```
 
 ---
@@ -87,7 +87,7 @@ DATABASE_URL=your-database-url
 ├── data/               # 数据存储
 ├── backups/            # 自动备份
 ├── src/
-│   └── SentriKit_salesmaster/
+│   └── gavvy_salesmaster/
 │       ├── saas/      # SaaS 多租户模块
 │       └── web/       # 前端页面
 ├── scripts/

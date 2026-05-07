@@ -10,7 +10,7 @@ sys.path.insert(0, str(root_dir / "src"))
 def test_database_import():
     """测试数据库模型导入"""
     try:
-        from SentriKit_salesmaster.core.storage.database import (
+        from gavvy_salesmaster.core.storage.database import (
             Base, Tenant, TenantUser,
             Customer, Lead, Deal, Quote, Contract, Payment,
             AuditLog, WorkflowInstance,
@@ -44,7 +44,7 @@ def test_database_import():
 def test_repository_import():
     """测试 Repository 导入"""
     try:
-        from SentriKit_salesmaster.core.storage.pgrepo import (
+        from gavvy_salesmaster.core.storage.pgrepo import (
             CustomerRepository, LeadRepository, DealRepository,
             QuoteRepository, ContractRepository, AuditLogRepository,
             get_customer_repository, get_audit_log_repository,
@@ -64,7 +64,7 @@ def test_repository_import():
 def test_migration_import():
     """测试迁移工具导入"""
     try:
-        from SentriKit_salesmaster.core.storage.migration import (
+        from gavvy_salesmaster.core.storage.migration import (
             DataMigrator, migrate_to_postgres, MigrationRecord,
         )
 
@@ -81,7 +81,7 @@ def test_migration_import():
 def test_database_models():
     """测试数据库模型结构"""
     try:
-        from SentriKit_salesmaster.core.storage.database import (
+        from gavvy_salesmaster.core.storage.database import (
             Tenant, TenantUser, Customer, Lead, Deal,
             Quote, Contract, Payment, AuditLog,
         )
@@ -106,7 +106,7 @@ def test_database_models():
 def test_jsonb_support():
     """测试 JSONB 列支持"""
     try:
-        from SentriKit_salesmaster.core.storage.database import Customer
+        from gavvy_salesmaster.core.storage.database import Customer
 
         from sqlalchemy import inspect
 
@@ -126,7 +126,7 @@ def test_jsonb_support():
 def test_partition_info():
     """测试分区表信息"""
     try:
-        from SentriKit_salesmaster.core.storage.database import AuditLog
+        from gavvy_salesmaster.core.storage.database import AuditLog
 
         assert hasattr(AuditLog, "__table_args__")
 
@@ -183,7 +183,7 @@ if __name__ == "__main__":
         print("\n📋 To initialize PostgreSQL database:")
         print("   1. Install dependencies: pip install sqlalchemy psycopg2-binary")
         print("   2. Set DATABASE_URL environment variable")
-        print("   3. Run: python -c 'from SentriKit_salesmaster.core.storage.database import init_database; init_database()'")
+        print("   3. Run: python -c 'from gavvy_salesmaster.core.storage.database import init_database; init_database()'")
         sys.exit(0)
     else:
         print(f"\n⚠️ {len(tests) - passed} test(s) failed")

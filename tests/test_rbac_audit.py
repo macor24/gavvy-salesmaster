@@ -9,7 +9,7 @@ sys.path.insert(0, str(root_dir / "src"))
 
 def test_rbac_permissions():
     """测试权限定义"""
-    from SentriKit_salesmaster.crm_pkg.rbac import Permission, PERMISSION_GROUPS, ALL_PERMISSIONS
+    from gavvy_salesmaster.crm_pkg.rbac import Permission, PERMISSION_GROUPS, ALL_PERMISSIONS
 
     assert len(ALL_PERMISSIONS) > 0
     assert "customer:view" in ALL_PERMISSIONS
@@ -22,7 +22,7 @@ def test_rbac_permissions():
 
 def test_rbac_roles():
     """测试角色定义"""
-    from SentriKit_salesmaster.crm_pkg.rbac import Role, get_system_roles
+    from gavvy_salesmaster.crm_pkg.rbac import Role, get_system_roles
 
     roles = get_system_roles()
     assert len(roles) >= 5
@@ -54,7 +54,7 @@ def test_rbac_roles():
 
 def test_audit_logger():
     """测试审计日志"""
-    from SentriKit_salesmaster.crm_pkg.rbac.audit import AuditLogger, AuditQuery, AuditLevel, get_audit_logger
+    from gavvy_salesmaster.crm_pkg.rbac.audit import AuditLogger, AuditQuery, AuditLevel, get_audit_logger
 
     audit = get_audit_logger()
     audit._logs.clear()
@@ -88,7 +88,7 @@ def test_audit_logger():
 
 def test_audit_query():
     """测试审计查询"""
-    from SentriKit_salesmaster.crm_pkg.rbac.audit import get_audit_logger, AuditQuery
+    from gavvy_salesmaster.crm_pkg.rbac.audit import get_audit_logger, AuditQuery
 
     audit = get_audit_logger()
     audit._logs.clear()
@@ -117,7 +117,7 @@ def test_audit_query():
 
 def test_audit_compliance_report():
     """测试合规报告"""
-    from SentriKit_salesmaster.crm_pkg.rbac.audit import get_audit_logger
+    from gavvy_salesmaster.crm_pkg.rbac.audit import get_audit_logger
 
     audit = get_audit_logger()
     audit._logs.clear()
@@ -157,7 +157,7 @@ def test_rbac_context():
         print("⏭️  RBAC context (starlette not available): SKIP")
         return True
 
-    from SentriKit_salesmaster.crm_pkg.rbac.middleware import RBACContext
+    from gavvy_salesmaster.crm_pkg.rbac.middleware import RBACContext
 
     RBACContext.set_user(
         user_id="user_001",
@@ -184,7 +184,7 @@ def test_rbac_context():
 
 def test_audit_user_activity():
     """测试用户活动记录"""
-    from SentriKit_salesmaster.crm_pkg.rbac.audit import get_audit_logger
+    from gavvy_salesmaster.crm_pkg.rbac.audit import get_audit_logger
 
     audit = get_audit_logger()
     audit._logs.clear()

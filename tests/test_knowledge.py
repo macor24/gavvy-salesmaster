@@ -17,7 +17,7 @@ def test_knowledge_base():
 
     try:
         # 导入模块
-        from SentriKit_salesmaster.crm_pkg.knowledge import (
+        from gavvy_salesmaster.crm_pkg.knowledge import (
             KnowledgeBase,
             get_knowledge_base
         )

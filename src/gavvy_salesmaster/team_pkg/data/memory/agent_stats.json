@@ -1,0 +1,17 @@
+{
+  "agent": {
+    "total": 1,
+    "success": 1,
+    "failed": 0
+  },
+  "market_research_agent": {
+    "total": 10,
+    "success": 10,
+    "failed": 0
+  },
+  "competitor_intel_agent": {
+    "total": 30,
+    "success": 30,
+    "failed": 0
+  }
+}

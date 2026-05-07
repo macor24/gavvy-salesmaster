@@ -7,7 +7,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from SentriKit_salesmaster.channels_pkg.channels import (
+from gavvy_salesmaster.channels_pkg.channels import (
     ChannelType, MessageType, Message, MessageResult,
     EmailConfig, SMSConfig, WeChatWorkConfig, DingTalkConfig,
 )

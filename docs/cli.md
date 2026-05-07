@@ -2,20 +2,20 @@
 
 | 命令 | 说明 | 依赖 |
 |------|------|------|
-| `SentriKit-sales-fastapi` | 统一 API + Web 服务（端口 8877） | 无 |
-| `SentriKit-sales-api` | 纯 API 服务（已弃用） | 无 |
+| `gavvy-sales-fastapi` | 统一 API + Web 服务（端口 8877） | 无 |
+| `gavvy-sales-api` | 纯 API 服务（已弃用） | 无 |
 
 ## 常用选项
 
 ```bash
 # 指定端口
-SentriKit-sales-fastapi --port 8877
+gavvy-sales-fastapi --port 8877
 
 # 指定监听地址
-SentriKit-sales-fastapi --host 0.0.0.0
+gavvy-sales-fastapi --host 0.0.0.0
 
 # 设置 API Key
-SALES_API_KEY=my-key SentriKit-sales-fastapi
+SALES_API_KEY=my-key gavvy-sales-fastapi
 ```
 
 ## API 文档

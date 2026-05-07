@@ -10,7 +10,7 @@ sys.path.insert(0, str(root_dir / "src"))
 def test_payment_stripe():
     """测试 Stripe 支付"""
     try:
-        from SentriKit_salesmaster.trade_pkg.payment.stripe_payment import StripePayment, StripePaymentConfig
+        from gavvy_salesmaster.trade_pkg.payment.stripe_payment import StripePayment, StripePaymentConfig
 
         config = StripePaymentConfig(api_key="sk_test_mock")
         payment = StripePayment(config)
@@ -35,7 +35,7 @@ def test_payment_stripe():
 def test_payment_alipay():
     """测试支付宝"""
     try:
-        from SentriKit_salesmaster.trade_pkg.payment.chinese_payment import AlipayService, AlipayConfig
+        from gavvy_salesmaster.trade_pkg.payment.chinese_payment import AlipayService, AlipayConfig
 
         config = AlipayConfig(
             app_id="mock_app_id",
@@ -62,7 +62,7 @@ def test_payment_alipay():
 def test_payment_wechatpay():
     """测试微信支付"""
     try:
-        from SentriKit_salesmaster.trade_pkg.payment.chinese_payment import WeChatPayService, WeChatPayConfig
+        from gavvy_salesmaster.trade_pkg.payment.chinese_payment import WeChatPayService, WeChatPayConfig
 
         config = WeChatPayConfig(
             mch_id="mock_mch_id",
@@ -90,7 +90,7 @@ def test_payment_wechatpay():
 def test_esign_bytedance():
     """测试字节跳动电子签"""
     try:
-        from SentriKit_salesmaster.trade_pkg.esign.bytedance_esign import ByteDanceESign, ByteDanceESignConfig
+        from gavvy_salesmaster.trade_pkg.esign.bytedance_esign import ByteDanceESign, ByteDanceESignConfig
 
         config = ByteDanceESignConfig(
             app_id="mock_app_id",
@@ -118,7 +118,7 @@ def test_esign_bytedance():
 def test_esign_tencent():
     """测试腾讯电子签"""
     try:
-        from SentriKit_salesmaster.trade_pkg.esign.tencent_esign import TencentESign, TencentESignConfig
+        from gavvy_salesmaster.trade_pkg.esign.tencent_esign import TencentESign, TencentESignConfig
 
         config = TencentESignConfig(
             secret_id="mock_secret_id",
@@ -146,7 +146,7 @@ def test_esign_tencent():
 def test_webhook_handler():
     """测试 Webhook 处理器"""
     try:
-        from SentriKit_salesmaster.core.webhook import get_webhook_handler, WebhookEvent
+        from gavvy_salesmaster.core.webhook import get_webhook_handler, WebhookEvent
 
         handler = get_webhook_handler()
 

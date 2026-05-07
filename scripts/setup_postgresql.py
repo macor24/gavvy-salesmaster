@@ -38,7 +38,7 @@ def init_database():
     os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/SentriKit_sales"
 
     try:
-        from SentriKit_salesmaster.storage.database import init_database as db_init
+        from gavvy_salesmaster.storage.database import init_database as db_init
 
         print("\n📦 创建表结构...")
         db_init()
@@ -69,14 +69,14 @@ def migrate_data():
 
     os.environ["DATABASE_URL"] = "postgresql://salesadmin:sales123@localhost:5432/SentriKit_sales"
 
-    data_dir = PROJECT_ROOT / "src" / "SentriKit_salesmaster" / "storage" / "_data"
+    data_dir = PROJECT_ROOT / "src" / "gavvy_salesmaster" / "storage" / "_data"
     tenant_id = "00000000-0000-0000-0000-000000000001"
 
     print(f"\n📂 数据目录: {data_dir}")
     print(f"🏢 租户ID: {tenant_id}")
 
     try:
-        from SentriKit_salesmaster.storage.migration import migrate_to_postgres
+        from gavvy_salesmaster.storage.migration import migrate_to_postgres
 
         print("\n🚀 开始迁移...")
         results = migrate_to_postgres(data_dir=str(data_dir), tenant_id=tenant_id)

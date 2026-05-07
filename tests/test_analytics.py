@@ -18,7 +18,7 @@ def test_analytics():
 
     try:
         # 导入模块
-        from SentriKit_salesmaster.crm_pkg.analytics import (
+        from gavvy_salesmaster.crm_pkg.analytics import (
             DashboardManager,
             KPICalculator,
             TrendAnalyzer,

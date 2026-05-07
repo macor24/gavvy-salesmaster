@@ -12,12 +12,12 @@ def test_scripts():
     print(f"   存储目录: {temp_dir}")
 
     try:
-        from SentriKit_salesmaster.core.storage.db import set_storage_dir, get_kernel
+        from gavvy_salesmaster.core.storage.db import set_storage_dir, get_kernel
         set_storage_dir(temp_dir)
-        import SentriKit_salesmaster.core.storage.db as db
+        import gavvy_salesmaster.core.storage.db as db
         db._global_kernel = None
 
-        from SentriKit_salesmaster.crm_pkg.scripts import (
+        from gavvy_salesmaster.crm_pkg.scripts import (
             ScriptsEngine, Script, TrainingSession, Rating,
         )
 
