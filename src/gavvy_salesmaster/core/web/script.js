@@ -376,9 +376,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ── Automation 数据加载 ──────────────────────
     function loadAutomationData() {
+        // 加载流程开关状态
+        SalesAPI.getFlowToggles().then(function(data){
+            var toggles = data.toggles || {};
+            document.querySelectorAll('.toggle-switch').forEach(function(el){
+                var name = el.getAttribute('data-flow-name');
+                if (name && toggles[name] !== undefined) {
+                    el.classList.toggle('active', toggles[name] === true);
+                }
+            });
+        }).catch(function(){});
+        
+        // 加载管道阶段
+        fetch('/api/pipeline/stages').then(function(r){return r.json()}).then(function(data){
+            var stages = data.stages || [];
+            var container = document.getElementById('pipeline-stages-inline');
+            if (!container) return;
+            container.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;">' +
+              stages.map(function(s){
+                var pct = data.total > 0 ? Math.round(s.count / data.total * 100) : 0;
+                return '<div style="text-align:center;padding:12px 8px;background:var(--bg-secondary);border-radius:var(--radius-md);">' +
+                  '<div style="font-size:24px;font-weight:700;">' + s.count + '</div>' +
+                  '<div style="font-size:13px;color:var(--text-secondary);">' + (s.label || s.name) + '</div>' +
+                  '<div style="margin-top:4px;height:4px;background:#e2e8f0;border-radius:2px;overflow:hidden;">' +
+                  '<div style="height:100%;width:' + pct + '%;background:var(--accent-secondary);border-radius:2px;transition:width 0.3s;"></div></div>' +
+                  '<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">' + pct + '%</div></div>';
+              }).join('') + '</div>';
+        }).catch(function(){});
+
+        // 加载 leads 阶段状态列表
         SalesAPI.getLeads().then(data => {
             const leads = data.leads || [];
-            // 展示当前自动化流程状态
             const stageCounts = { discovery: 0, research: 0, contact: 0, negotiation: 0,
                                   closing: 0, after_sales: 0, listing: 0 };
             leads.forEach(l => { const s = l.stage || 'discovery'; if (stageCounts[s] !== undefined) stageCounts[s]++; });
@@ -1007,12 +1035,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 流程开关点击切换
+    var FLOW_NAME_MAP = {
+        auto_discovery: 'auto_discovery',
+        auto_competitor_monitor: 'auto_competitor_monitor',
+        auto_chat_response: 'smart_response',
+        auto_quote_deal: 'auto_quote_deal',
+        auto_scheduled_publish: 'auto_scheduled_publish',
+    };
     document.addEventListener('click', function(e) {
         var el = e.target.closest('[data-flow-name]');
         if (el && el.classList.contains('toggle-switch')) {
             var name = el.getAttribute('data-flow-name');
+            var backendName = FLOW_NAME_MAP[name] || name;
             var enabled = !el.classList.contains('active');
-            SalesAPI.setFlowToggle(name, enabled).then(function(res) {
+            SalesAPI.setFlowToggle(backendName, enabled).then(function(res) {
                 updateToggleUI(el, res.enabled);
                 var labels = {
                     auto_discovery: '自动客户发现',

@@ -1295,6 +1295,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card" style="grid-column:1/-1;">
+                            <div class="card-header">
+                                <h3>📊 管道当前状态</h3>
+                                <div class="card-actions">
+                                    <button class="btn-ghost" onclick="triggerPipelineAuto()">🔄 自动推进</button>
+                                    <button class="btn-ghost" onclick="triggerAutoEvolve()">🧬 学习进化</button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="pipeline-stages-inline">
+                                <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
