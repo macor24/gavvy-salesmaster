@@ -1,0 +1,23 @@
+[
+  {
+    "title": "「negotiate」策略成功率 80%",
+    "detail": "执行 10 次，成功 8 次，建议优先使用",
+    "confidence": 0.8,
+    "created_at": "2026-05-07 18:49:04",
+    "source": "data_flywheel"
+  },
+  {
+    "title": "「research」策略成功率 80%",
+    "detail": "执行 10 次，成功 8 次，建议优先使用",
+    "confidence": 0.8,
+    "created_at": "2026-05-07 18:49:04",
+    "source": "data_flywheel"
+  },
+  {
+    "title": "「contact」策略成功率 80%",
+    "detail": "执行 10 次，成功 8 次，建议优先使用",
+    "confidence": 0.8,
+    "created_at": "2026-05-07 18:49:04",
+    "source": "data_flywheel"
+  }
+]

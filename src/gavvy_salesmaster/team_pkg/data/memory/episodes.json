@@ -1,394 +1,242 @@
 [
   {
-    "agent": "agent",
-    "timestamp": "2026-05-04 21:39:41",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "ok",
-    "action": "x"
+    "agent": "presales_agent",
+    "timestamp": "2026-05-001 10:000:00",
+    "status": "failed",
+    "input_summary": "客户咨询 #0",
+    "output_summary": "已回复 #0",
+    "action": "negotiate"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-002 10:001:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #1",
+    "output_summary": "已回复 #1",
+    "action": "research"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-003 10:002:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #2",
+    "output_summary": "已回复 #2",
+    "action": "contact"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-004 10:003:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #3",
+    "output_summary": "已回复 #3",
+    "action": "negotiate"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-005 10:004:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #4",
+    "output_summary": "已回复 #4",
+    "action": "research"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-006 10:005:00",
+    "status": "failed",
+    "input_summary": "客户咨询 #5",
+    "output_summary": "已回复 #5",
+    "action": "contact"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-007 10:006:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #6",
+    "output_summary": "已回复 #6",
+    "action": "negotiate"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-001 10:007:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #7",
+    "output_summary": "已回复 #7",
+    "action": "research"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-002 10:008:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #8",
+    "output_summary": "已回复 #8",
+    "action": "contact"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-003 10:009:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #9",
+    "output_summary": "已回复 #9",
+    "action": "negotiate"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-004 10:010:00",
+    "status": "failed",
+    "input_summary": "客户咨询 #10",
+    "output_summary": "已回复 #10",
+    "action": "research"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-005 10:011:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #11",
+    "output_summary": "已回复 #11",
+    "action": "contact"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-006 10:012:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #12",
+    "output_summary": "已回复 #12",
+    "action": "negotiate"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-007 10:013:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #13",
+    "output_summary": "已回复 #13",
+    "action": "research"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-001 10:014:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #14",
+    "output_summary": "已回复 #14",
+    "action": "contact"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-002 10:015:00",
+    "status": "failed",
+    "input_summary": "客户咨询 #15",
+    "output_summary": "已回复 #15",
+    "action": "negotiate"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-003 10:016:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #16",
+    "output_summary": "已回复 #16",
+    "action": "research"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-004 10:017:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #17",
+    "output_summary": "已回复 #17",
+    "action": "contact"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-005 10:018:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #18",
+    "output_summary": "已回复 #18",
+    "action": "negotiate"
+  },
+  {
+    "agent": "presales_agent",
+    "timestamp": "2026-05-006 10:019:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #19",
+    "output_summary": "已回复 #19",
+    "action": "research"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-04 21:55:04",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:55:04",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:55:05",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:55:05",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-007 10:020:00",
+    "status": "failed",
+    "input_summary": "客户咨询 #20",
+    "output_summary": "已回复 #20",
+    "action": "contact"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-04 21:57:50",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:57:50",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:57:50",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:57:50",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-001 10:021:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #21",
+    "output_summary": "已回复 #21",
+    "action": "negotiate"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-04 21:59:11",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:59:12",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:59:12",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 21:59:12",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-002 10:022:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #22",
+    "output_summary": "已回复 #22",
+    "action": "research"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-04 22:00:47",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 22:00:47",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 22:00:47",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 22:00:47",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-003 10:023:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #23",
+    "output_summary": "已回复 #23",
+    "action": "contact"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-04 22:01:37",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 22:01:37",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 22:01:37",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-04 22:01:37",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-004 10:024:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #24",
+    "output_summary": "已回复 #24",
+    "action": "negotiate"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-05 11:53:54",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-05 11:53:54",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-05 11:53:54",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-05 11:53:54",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-005 10:025:00",
+    "status": "failed",
+    "input_summary": "客户咨询 #25",
+    "output_summary": "已回复 #25",
+    "action": "research"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-06 11:29:21",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:29:22",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:29:22",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:29:22",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-006 10:026:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #26",
+    "output_summary": "已回复 #26",
+    "action": "contact"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-06 11:30:40",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:30:41",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:30:41",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:30:41",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-007 10:027:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #27",
+    "output_summary": "已回复 #27",
+    "action": "negotiate"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-06 11:31:42",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:31:42",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:31:42",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-06 11:31:42",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-001 10:028:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #28",
+    "output_summary": "已回复 #28",
+    "action": "research"
   },
   {
     "agent": "market_research_agent",
-    "timestamp": "2026-05-07 14:40:49",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 14:40:49",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 14:40:49",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 14:40:49",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "market_research_agent",
-    "timestamp": "2026-05-07 15:51:34",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 15:51:34",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 15:51:34",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 15:51:35",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "market_research_agent",
-    "timestamp": "2026-05-07 15:55:29",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "调研完成：有Agent（未知） | 成熟度评分 30.0%",
-    "action": "市场调研与线索评分"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 15:55:29",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：历史客户 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 15:55:29",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：推进测试 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
-  },
-  {
-    "agent": "competitor_intel_agent",
-    "timestamp": "2026-05-07 15:55:29",
-    "status": "success",
-    "input_summary": "",
-    "output_summary": "竞品分析完成：自动推进 | 差异化空间 60%",
-    "action": "竞品对标与差异化分析"
+    "timestamp": "2026-05-002 10:029:00",
+    "status": "completed",
+    "input_summary": "客户咨询 #29",
+    "output_summary": "已回复 #29",
+    "action": "contact"
   }
 ]

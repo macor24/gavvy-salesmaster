@@ -67,10 +67,37 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+
+# ── 全局异常处理器 ────────────────────────────
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """捕获所有未处理的异常，返回 JSON 而非空白 500"""
+    import traceback
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "服务器内部错误",
+            "detail": str(exc),
+            "path": request.url.path,
+        },
+    )
+
+
+@app.exception_handler(404)
+async def not_found_handler(request: Request, exc):
+    return JSONResponse(
+        status_code=404,
+        content={"error": "接口不存在", "path": request.url.path},
+    )
+
+
 # ── 认证路由（必须放在 API Key 中间件之前） ──────
 from .routers.auth import router as auth_router
-app.include_router(auth_router)
 
+
+app.include_router(auth_router)
 # ── 注册路由模块（逐步从 app.py 拆分） ──────────
 from .routers.crm import router as crm_router
 from .routers.rbac import router as rbac_router
@@ -1525,6 +1552,17 @@ async def api_scheduler_dispatch_hunt():
     scheduler = _get_scheduler()
     count = scheduler.dispatch_from_hunt()
     return {"status": "ok", "dispatched": count}
+
+
+@app.post("/api/flywheel/cycle")
+async def api_flywheel_cycle():
+    """触发数据飞轮：分析Agent执行数据 → 生成洞察/技能 → 反馈评分权重"""
+    from gavvy_salesmaster.team_pkg.memory import MemoryKernel
+    from gavvy_salesmaster.team_pkg.memory.flywheel import DataFlywheel
+    kernel = MemoryKernel()
+    flywheel = DataFlywheel(kernel=kernel)
+    result = flywheel.cycle()
+    return {"status": "ok", "result": result}
 
 
 # ── 记忆库-销售闭环 API ─────────────────────

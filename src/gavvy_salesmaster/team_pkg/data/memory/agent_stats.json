@@ -1,17 +1,12 @@
 {
-  "agent": {
-    "total": 1,
-    "success": 1,
-    "failed": 0
+  "presales_agent": {
+    "total": 20,
+    "success": 16,
+    "failed": 4
   },
   "market_research_agent": {
-    "total": 12,
-    "success": 12,
-    "failed": 0
-  },
-  "competitor_intel_agent": {
-    "total": 36,
-    "success": 36,
-    "failed": 0
+    "total": 10,
+    "success": 9,
+    "failed": 1
   }
 }

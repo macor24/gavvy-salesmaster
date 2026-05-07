@@ -483,6 +483,28 @@ class PipelineTrigger:
         orch.update_lead_stage(lead_id, next_stage)
         result = orch.assign_task(lead_id, stage=next_stage)
 
+        # 推进通知：通过渠道发送阶段变更通知
+        try:
+            from gavvy_salesmaster.channels_pkg.channels.dispatcher import MessageDispatcher
+            dispatcher = MessageDispatcher()
+            stage_label = STAGE_LABELS.get(next_stage, next_stage)
+            if "email" in dispatcher.channel_names:
+                dispatcher.send(
+                    channel_name="email",
+                    to=lead.name,
+                    subject=f"[销售Pipeline] {lead.name} 已进入 {stage_label} 阶段",
+                    body=(
+                        f"尊敬的 {lead.name}，\n\n"
+                        f"您的商机已进入「{stage_label}」阶段。\n"
+                        f"我们将安排 {STAGE_LABELS.get(next_stage, '')} 阶段专属顾问跟进。\n\n"
+                        f"如有任何问题，请随时回复此邮件。\n"
+                        f"-- Gavvy 销售引擎"
+                    ),
+                    metadata={"action": "stage_advance", "lead_id": lead_id, "stage": next_stage},
+                )
+        except Exception:
+            pass
+
         return {
             "success": result.status == "success",
             "lead_id": lead_id,

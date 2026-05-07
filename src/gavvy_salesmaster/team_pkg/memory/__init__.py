@@ -232,7 +232,7 @@ def get_capabilities() -> List[Dict]:
 
 __all__ = [
     "get_memory_dir", "set_memory_dir",
-    "MemoryKernel", "MemoryStore", "Learner", "SkillEvolver",
+    "MemoryKernel", "MemoryStore", "Learner", "SkillEvolver", "DataFlywheel",
     "get_memory_store", "get_learner", "get_evolver", "get_capabilities",
     "_HAS_ENTERPRISE", "_ENTERPRISE_IMPORT_ERROR",
 ]

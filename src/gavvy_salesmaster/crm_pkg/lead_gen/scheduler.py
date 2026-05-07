@@ -250,7 +250,7 @@ class AutoScheduler:
                 # 使用 Orchestrator 的已注册 Agent
                 agent = self._orch.get_agent(task.agent_role)
                 if agent:
-                    from .team.base import AgentContext
+                    from gavvy_salesmaster.team_pkg.team.base import AgentContext
                     ctx = AgentContext(
                         customer_name=task.lead_company,
                         message=task.message,
@@ -260,6 +260,42 @@ class AutoScheduler:
                     result = agent.execute(ctx)
                     summary = result.summary or f"{task.agent_name} 处理完成"
                     output = result.output_text or summary
+
+                    # 记忆库-销售闭环
+                    try:
+                        from gavvy_salesmaster.team_pkg.memory import get_learner
+                        learner = get_learner()
+                        if learner:
+                            learner.learn_from_result(task.agent_role, {
+                                "customer_name": task.lead_company,
+                                "message": task.message,
+                                "product_info": "",
+                            }, {
+                                "status": "completed",
+                                "action": result.action or "",
+                                "summary": summary,
+                                "output_text": output,
+                            })
+                    except Exception:
+                        pass
+
+                    # 渠道自动发送：通过已注册的渠道把Agent回复发给客户
+                    try:
+                        from gavvy_salesmaster.channels_pkg.channels.dispatcher import MessageDispatcher
+                        dispatcher = MessageDispatcher()
+                        # 只发 email（目前最通用的渠道，其他渠道需要配置）
+                        channel_to_use = "email"
+                        if channel_to_use in dispatcher.channel_names:
+                            dispatcher.send(
+                                channel_name=channel_to_use,
+                                to=task.lead_company,
+                                subject=f"[{task.agent_name}] {task.lead_company} 跟进",
+                                body=output,
+                                metadata={"agent": task.agent_role, "task_id": task_id},
+                            )
+                    except Exception:
+                        pass
+
                     self._update_task(
                         task_id,
                         status="completed",

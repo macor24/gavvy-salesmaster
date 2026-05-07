@@ -500,6 +500,23 @@ class HuntEngine:
 
         result.total_found = len(all_new)
 
+        # 评分模型联动：对每个新线索过 LeadScoringService 评分
+        try:
+            from .scoring import LeadScoringModel, LeadInfo as ScoringLeadInfo
+            scorer = LeadScoringModel()
+            for lead in all_new:
+                slead = ScoringLeadInfo(
+                    id=lead.company,
+                    company_name=lead.company,
+                    industry=lead.industry,
+                    source=lead.source,
+                )
+                score_result = scorer.score(slead)
+                lead.score = int(score_result.total_score)
+                lead.notes = score_result.recommended_action
+        except Exception:
+            pass  # 评分失败不影响主流程
+
         # 去重 + 入库（按公司名去重，保留分数高的）
         new_count = 0
         with self._lock:
