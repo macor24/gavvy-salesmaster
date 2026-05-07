@@ -259,3 +259,60 @@ class EnterpriseAPIClient:
                 return result
         except Exception as e:
             return {"error": str(e), "mode": "error"}
+
+    # ── Agent 智能对话（服务端LLM） ────────────
+
+    def chat_agent(self, agent_role: str, context: Dict[str, Any]) -> Dict[str, Any]:
+        """调用服务端 Agent 智能分析
+
+        社区版：返回模板降级结果 + 升级提示
+        企业版：服务端 LLM + 完整 prompt 生成分析
+        """
+        if not self.config.is_enterprise:
+            return {
+                "content": f"[社区版模板] {agent_role} 分析：基于客户信息生成的模板分析报告。{UPGRADE_HINT}",
+                "mode": "template",
+                "hint": UPGRADE_HINT,
+            }
+        return self._call_api("/agent/chat", {
+            "agent_role": agent_role,
+            "context": context,
+        })
+
+    # ── 智能评分（服务端AI评分） ────────────────
+
+    def score_lead_enterprise(self, lead_info: Dict[str, Any]) -> Dict[str, Any]:
+        """调用服务端 AI 智能评分
+
+        社区版：简易因子评分
+        企业版：服务端 LLM 多维度评分
+        """
+        if not self.config.is_enterprise:
+            return self._local_score(lead_info)
+        return self._call_api("/scorer/lead", {"lead_info": lead_info})
+
+    # ── 策略进化分析（服务端分析） ──────────────
+
+    def evolve_analysis(self, deals_data: Dict[str, Any]) -> Dict[str, Any]:
+        """调用服务端策略进化分析
+
+        社区版：返回本地简化分析
+        企业版：服务端完整进化分析
+        """
+        if not self.config.is_enterprise:
+            return {
+                "hidden_pattern": None,
+                "suggestion": "社区版策略进化分析（简化版）",
+                "mode": "template",
+                "hint": UPGRADE_HINT,
+            }
+        return self._call_api("/evolver/analyze", {"deals_data": deals_data})
+
+
+__all__ = [
+    "EnterpriseConfig",
+    "EnterpriseAPIClient",
+    "detect_api_key",
+    "is_enterprise",
+    "UPGRADE_HINT",
+]

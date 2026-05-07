@@ -59,8 +59,8 @@ class LeadScorer:
         return [self.score(lead) for lead in leads]
 
     def _enterprise_score(self, lead_info: Dict) -> LeadScore:
-        """企业版：LLM 智能评分"""
-        result = self._client.score_lead(lead_info)
+        """企业版：LLM 智能评分（调服务端 API）"""
+        result = self._client.score_lead_enterprise(lead_info)
         return LeadScore(
             score=result.get("score", 0),
             level=self._float_to_level(result.get("score", 0)),

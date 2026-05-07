@@ -32,7 +32,28 @@ class StrategyEvolver:
         self._cross_industry_patterns: Dict[str, List[str]] = {}
 
     def analyze_deal(self, deal: DealAnalysis) -> DealAnalysis:
-        """分析成交/失败案例，发现隐藏模式。"""
+        """分析成交/失败案例，发现隐藏模式。
+        
+        企业版：调服务端 API 做深度分析
+        社区版：本地简化规则
+        """
+        try:
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient, EnterpriseConfig
+            client = EnterpriseAPIClient(EnterpriseConfig.from_env())
+            if client.config.is_enterprise:
+                result = client.evolve_analysis({
+                    "deals": [deal.__dict__],
+                    "action": "analyze_deal",
+                })
+                if result.get("mode") == "enterprise_api":
+                    if result.get("hidden_pattern"):
+                        deal.hidden_pattern = result["hidden_pattern"]
+                    self._deals.append(deal)
+                    return deal
+        except Exception:
+            pass
+        
+        # 社区版：本地简化规则
         # 发现"未知的未知"：对话顺畅但最终失败
         if deal.smoothness > 0.7 and deal.result == "lost":
             deal.hidden_pattern = (

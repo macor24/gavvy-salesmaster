@@ -96,28 +96,20 @@ class MarketResearchAgent(BaseAgent):
             text = self._template_research(company, industry, description)
             return text + COMMUNITY_UPGRADE_HINT
 
-        # 企业版：尝试 LLM
+        # 企业版：调用服务端 API
         try:
-            from ..llm import get_llm
-            from .prompts import MARKET_RESEARCH_SYSTEM, MARKET_RESEARCH_USER, build_agent_history_section
-            llm = get_llm()
-            if llm and llm.available:
-                prompt = MARKET_RESEARCH_USER.format(
-                    customer_name=company or "未知客户",
-                    industry=industry or "未知行业",
-                    product_description=description or "暂无描述",
-                    agent_history_section=build_agent_history_section(history),
-                )
-                response = llm.chat([
-                    {"role": "system", "content": MARKET_RESEARCH_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ])
-                if response and response.content:
-                    return response.content
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient
+            client = EnterpriseAPIClient()
+            context = {"company": company, "industry": industry,
+                       "description": description, "agent_history": history,
+                       "client_name": company or "未知客户"}
+            resp = client.chat_agent("market_research_agent", context)
+            if resp.get("mode") == "enterprise_api" and resp.get("content"):
+                return resp["content"]
         except Exception:
             pass
 
-        # LLM 失败时模板降级
+        # API 失败时模板降级
         text = self._template_research(company, industry, description)
         return text
 
@@ -291,28 +283,19 @@ class CompetitorIntelAgent(BaseAgent):
             text = self._template_analysis(competitor, industry, description)
             return text + COMMUNITY_UPGRADE_HINT
 
-        # 企业版：尝试 LLM
+        # 企业版：调用服务端 API
         try:
-            from ..llm import get_llm
-            from .prompts import COMPETITOR_SYSTEM, COMPETITOR_USER, build_agent_history_section
-            llm = get_llm()
-            if llm and llm.available:
-                prompt = COMPETITOR_USER.format(
-                    competitor_name=competitor or "未知竞品",
-                    industry=industry or "未知行业",
-                    description=description or "暂无描述",
-                    agent_history_section=build_agent_history_section(history),
-                )
-                response = llm.chat([
-                    {"role": "system", "content": COMPETITOR_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ])
-                if response and response.content:
-                    return response.content
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient
+            client = EnterpriseAPIClient()
+            context = {"competitor_name": competitor, "industry": industry,
+                       "description": description, "agent_history": history}
+            resp = client.chat_agent("competitor_intel_agent", context)
+            if resp.get("mode") == "enterprise_api" and resp.get("content"):
+                return resp["content"]
         except Exception:
             pass
 
-        # LLM 失败时模板降级
+        # API 失败时模板降级
         text = self._template_analysis(competitor, industry, description)
         return text
 
@@ -434,31 +417,21 @@ class PresalesAgent(BaseAgent):
             text = self._template_response(customer, message, stage)
             return text + COMMUNITY_UPGRADE_HINT
 
-        # 企业版：尝试 LLM
+        # 企业版：调用服务端 API
         try:
-            from ..llm import get_llm
-            from .prompts import PRESALES_SYSTEM, PRESALES_USER, build_agent_history_section
-            llm = get_llm()
-            if llm and llm.available:
-                private_info = f"\n内部参考 - 定价: {pricing}" if pricing else ""
-                prompt = PRESALES_USER.format(
-                    customer_name=customer or "客户",
-                    product_info=product or "我们的产品",
-                    message=message,
-                    stage=stage,
-                    agent_history_section=build_agent_history_section(history),
-                    private_section=private_info,
-                )
-                response = llm.chat([
-                    {"role": "system", "content": PRESALES_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ])
-                if response and response.content:
-                    return response.content
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient
+            client = EnterpriseAPIClient()
+            private_info = f"\n内部参考 - 定价: {pricing}" if pricing else ""
+            context = {"customer_name": customer, "product_info": product,
+                       "message": message, "stage": stage,
+                       "agent_history": history, "private_info": private_info}
+            resp = client.chat_agent("presales_agent", context)
+            if resp.get("mode") == "enterprise_api" and resp.get("content"):
+                return resp["content"]
         except Exception:
             pass
 
-        # LLM 失败时模板降级
+        # API 失败时模板降级
         text = self._template_response(customer, message, stage)
         return text
 
@@ -614,20 +587,12 @@ class AftersalesAgent(BaseAgent):
             text = self._template_response(customer, message)
             return text + COMMUNITY_UPGRADE_HINT
         try:
-            from ..llm import get_llm
-            llm = get_llm()
-            if llm and llm.available:
-                from .prompts import AFTERSALES_SYSTEM, AFTERSALES_USER
-                prompt = AFTERSALES_USER.format(
-                    customer_name=customer or "客户",
-                    message=message,
-                )
-                response = llm.chat([
-                    {"role": "system", "content": AFTERSALES_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ])
-                if response and response.content:
-                    return response.content
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient
+            client = EnterpriseAPIClient()
+            context = {"customer_name": customer, "message": message}
+            resp = client.chat_agent("aftersales_agent", context)
+            if resp.get("mode") == "enterprise_api" and resp.get("content"):
+                return resp["content"]
         except Exception:
             pass
         return self._template_response(customer, message)
@@ -691,17 +656,12 @@ class ProcurementAgent(BaseAgent):
             text = self._template_analysis(requirements)
             return text + COMMUNITY_UPGRADE_HINT
         try:
-            from ..llm import get_llm
-            llm = get_llm()
-            if llm and llm.available:
-                from .prompts import PROCUREMENT_SYSTEM, PROCUREMENT_USER
-                prompt = PROCUREMENT_USER.format(requirements=requirements)
-                response = llm.chat([
-                    {"role": "system", "content": PROCUREMENT_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ])
-                if response and response.content:
-                    return response.content
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient
+            client = EnterpriseAPIClient()
+            context = {"requirements": requirements, "pricing": pricing, "cost": cost}
+            resp = client.chat_agent("procurement_agent", context)
+            if resp.get("mode") == "enterprise_api" and resp.get("content"):
+                return resp["content"]
         except Exception:
             pass
         return self._template_analysis(requirements)
@@ -757,17 +717,12 @@ class OperationsAgent(BaseAgent):
             text = self._template_report(data_summary)
             return text + COMMUNITY_UPGRADE_HINT
         try:
-            from ..llm import get_llm
-            llm = get_llm()
-            if llm and llm.available:
-                from .prompts import OPERATIONS_SYSTEM, OPERATIONS_USER
-                prompt = OPERATIONS_USER.format(data_summary=data_summary)
-                response = llm.chat([
-                    {"role": "system", "content": OPERATIONS_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ])
-                if response and response.content:
-                    return response.content
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient
+            client = EnterpriseAPIClient()
+            context = {"data_summary": data_summary}
+            resp = client.chat_agent("operations_agent", context)
+            if resp.get("mode") == "enterprise_api" and resp.get("content"):
+                return resp["content"]
         except Exception:
             pass
         return self._template_report(data_summary)
@@ -825,17 +780,12 @@ class PlatformOpsAgent(BaseAgent):
             text = self._template_check(product_info, forbidden_phrases)
             return text + COMMUNITY_UPGRADE_HINT
         try:
-            from ..llm import get_llm
-            llm = get_llm()
-            if llm and llm.available:
-                from .prompts import PLATFORM_OPS_SYSTEM, PLATFORM_OPS_USER
-                prompt = PLATFORM_OPS_USER.format(product_info=product_info)
-                response = llm.chat([
-                    {"role": "system", "content": PLATFORM_OPS_SYSTEM},
-                    {"role": "user", "content": prompt},
-                ])
-                if response and response.content:
-                    return response.content
+            from gavvy_salesmaster.core.enterprise_client import EnterpriseAPIClient
+            client = EnterpriseAPIClient()
+            context = {"product_info": product_info, "forbidden_phrases": forbidden_phrases}
+            resp = client.chat_agent("platform_ops_agent", context)
+            if resp.get("mode") == "enterprise_api" and resp.get("content"):
+                return resp["content"]
         except Exception:
             pass
         return self._template_check(product_info, forbidden_phrases)

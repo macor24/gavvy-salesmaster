@@ -538,10 +538,9 @@ body {
 .conversation-item:hover { background: var(--bg-primary); }
 .conversation-item.active { background: rgba(59, 130, 246, 0.1); }
 .conversation-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-.conversation-meta { margin-bottom: 4px; }
 .conversation-preview { font-size: 11px; color: var(--text-muted); }
 
-.chat-main { background: white; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; overflow: hidden; }
+.chat-main { background: white; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; }
 .chat-header { padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
 .chat-header h3 { font-size: 15px; font-weight: 600; }
 .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
@@ -571,8 +570,8 @@ body {
     cursor: pointer;
 }
 
-.chat-panel { background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
-.panel-section { margin-bottom: 24px; flex-shrink: 0; }
+.chat-panel { background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 20px; }
+.panel-section { margin-bottom: 24px; }
 .panel-section:last-child { margin-bottom: 0; }
 .panel-section h4 { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; }
 
@@ -1053,15 +1052,15 @@ body {
             <div class="page" id="page-chat">
                 <div class="topbar">
                     <div class="topbar-left"><h1>💬 AI对话</h1><p>与您的虚拟销售团队实时沟通</p></div>
-                    <div class="topbar-right"><button class="btn-primary" onclick="showToast('正在创建新对话...','info');setTimeout(function(){showToast('新对话已创建','success')},800)">➕ 新建对话</button></div>
+                    <div class="topbar-right"><button class="btn-primary">➕ 新建对话</button></div>
                 </div>
                 <div class="chat-layout">
                     <div class="chat-sidebar">
                         <div class="chat-sidebar-header"><h3>📁 对话列表</h3></div>
                         <div class="chat-conversations">
-                            <div class="conversation-item active"><div class="conversation-title">张先生 - 产品咨询</div><div class="conversation-meta"><span class="tag warning" style="font-size:10px;padding:2px 6px;">议价中</span></div><div class="conversation-preview">这个价格还能再优惠吗？</div></div>
-                            <div class="conversation-item"><div class="conversation-title">李女士 - 议价中</div><div class="conversation-meta"><span class="tag" style="font-size:10px;padding:2px 6px;">需求确认</span></div><div class="conversation-preview">我考虑一下再回复你</div></div>
-                            <div class="conversation-item"><div class="conversation-title">王先生 - 已成交</div><div class="conversation-meta"><span class="tag success" style="font-size:10px;padding:2px 6px;">已成交</span></div><div class="conversation-preview">产品收到了，质量不错</div></div>
+                            <div class="conversation-item active"><div class="conversation-title">张先生 - 产品咨询</div><div class="conversation-preview">这个价格还能再优惠吗？</div></div>
+                            <div class="conversation-item"><div class="conversation-title">李女士 - 议价中</div><div class="conversation-preview">我考虑一下再回复你</div></div>
+                            <div class="conversation-item"><div class="conversation-title">王先生 - 已成交</div><div class="conversation-preview">产品收到了，质量不错</div></div>
                         </div>
                     </div>
                     <div class="chat-main">
@@ -1759,7 +1758,7 @@ body {
 
         <div class="toast-container" id="toast-container"></div>
 
-    <script>
+        <script>
             function switchPage(pageId) {
                 document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
                 document.querySelectorAll('.nav-group-btn').forEach(btn => btn.classList.remove('active'));
@@ -1802,9 +1801,39 @@ body {
                     expandEl.classList.toggle('active');
                 });
             });
-    </script>
-    <script src="dashboard_v2.js?v=2"></script>
-    <script>
+
+            function showToast(message, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+
+            function animateNumbers() {
+                document.querySelectorAll('.kpi-value').forEach(el => {
+                    const target = parseInt(el.dataset.target) || 0;
+                    const prefix = el.dataset.prefix || '';
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        if (prefix === '¥') {
+                            el.textContent = prefix + current.toLocaleString();
+                        } else if (el.textContent.includes('%')) {
+                            el.textContent = current.toFixed(1) + '%';
+                        } else {
+                            el.textContent = Math.floor(current).toLocaleString();
+                        }
+                    }, 20);
+                });
+            }
+
             document.querySelectorAll('.settings-nav-item').forEach(item => {
                 item.addEventListener('click', () => {
                     document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
@@ -1922,7 +1951,10 @@ body {
                 showToast('正在添加客户到客户列表...', 'info');
                 setTimeout(() => showToast('客户添加成功！', 'success'), 1000);
             }
+            
+        }
     </script>
+    <script src="dashboard_v2.js"></script>
     </div>
 </body>
 </html>

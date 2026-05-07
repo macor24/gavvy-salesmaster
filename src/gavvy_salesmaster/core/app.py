@@ -272,6 +272,10 @@ _PUBLIC_API_PREFIXES = (
     "/api/chat/", "/api/leads/", "/api/session/",
     "/api/config/",    "/api/quickstart/",
     "/api/scripts",  # 包含/exact和/scenarios
+    "/api/sessions",
+    "/api/hunt/",
+    "/api/scheduler/",
+    "/api/channels/",
 )
 
 
@@ -330,11 +334,76 @@ def _get_orch():
     if _orchestrator_instance is None:
         from gavvy_salesmaster.team_pkg.team.coordinator import SalesOrchestrator
         _orchestrator_instance = SalesOrchestrator()
+        _register_default_agents(_orchestrator_instance)
+        _sync_crm_to_pipeline(_orchestrator_instance)
     return _orchestrator_instance
 
 
+def _register_default_agents(orch):
+    """注册7个默认Agent到编排器"""
+    try:
+        from gavvy_salesmaster.team_pkg.team.agents import (
+            MarketResearchAgent, CompetitorIntelAgent, PresalesAgent,
+            AftersalesAgent, ProcurementAgent, OperationsAgent,
+            PlatformOpsAgent,
+        )
+        agents = [
+            MarketResearchAgent(),
+            CompetitorIntelAgent(),
+            PresalesAgent(),
+            AftersalesAgent(),
+            ProcurementAgent(),
+            OperationsAgent(),
+            PlatformOpsAgent(),
+        ]
+        for agent in agents:
+            orch.register_agent(agent)
+    except Exception:
+        pass
+
+
+def _sync_crm_to_pipeline(orch):
+    """将CRM客户同步到Pipeline _leads"""
+    try:
+        from gavvy_salesmaster.crm_pkg.crm import CRMManager
+        from gavvy_salesmaster.team_pkg.team.coordinator import LeadInfo
+        from datetime import datetime
+        mgr = CRMManager()
+        customers = mgr.list_customers()
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with orch._leads_lock:
+            existing_names = {v.name for v in orch._leads.values()}
+            for i, c in enumerate(customers):
+                name = c.get("company", "") or c.get("name", "未知客户")
+                if not name or name in existing_names:
+                    continue
+                lid = f"crm_sync_{i}"
+                stage_map = {"lead": "discovery", "prospect": "research",
+                             "qualified": "contact", "customer": "closing"}
+                stage = stage_map.get(c.get("stage", ""), "discovery")
+                orch._leads[lid] = LeadInfo(
+                    id=lid, name=name, stage=stage,
+                    created_at=now, updated_at=now,
+                    context_extra={
+                        "source": c.get("source", "crm"),
+                        "phone": c.get("phone", ""),
+                        "email": c.get("email", ""),
+                        "industry": c.get("industry", ""),
+                        "address": c.get("address", ""),
+                        "website": c.get("website", ""),
+                        "notes": c.get("notes", ""),
+                        "score": c.get("score", 0),
+                        "tags": c.get("tags", []),
+                        "customer_id": c.get("id", ""),
+                    },
+                )
+                existing_names.add(name)
+    except Exception:
+        pass  # CRM同步失败不影响核心功能
+
+
 def _get_session_memory():
-    from .team.session import get_session_memory
+    from gavvy_salesmaster.team_pkg.team.session import get_session_memory
     return get_session_memory()
 
 
