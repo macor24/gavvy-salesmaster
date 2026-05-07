@@ -1453,11 +1453,22 @@
                                     </div>
                                     <div class="form-group" style="margin-bottom:20px;">
                                         <label>默认安全模式</label>
-                                        <select style="width:100%;padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-secondary);">
-                                            <option selected>保守模式（所有成交需人工确认）</option>
-                                            <option>开放模式（阈值内自动成交）</option>
-                                            <option>自定义模式（按条件规则）</option>
+                                        <select id="safety-mode-select" style="width:100%;padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-secondary);">
+                                            <option value="conservative" selected>保守模式（所有成交需人工确认）</option>
+                                            <option value="open">开放模式（阈值内自动成交）</option>
+                                            <option value="custom">自定义模式（按条件规则）</option>
                                         </select>
+                                        <div id="safety-thresholds" style="display:none;margin-top:16px;padding:16px;background:var(--bg-secondary);border-radius:8px;">
+                                            <div class="form-group"><label>价格天花板（元）</label><input id="threshold-price-ceiling" type="number" value="50000" style="width:100%"></div>
+                                            <div class="form-group"><label>折扣底线（%）</label><input id="threshold-discount-floor" type="number" value="70" style="width:100%"></div>
+                                            <div class="form-group"><label>日成交上限（单）</label><input id="threshold-daily-limit" type="number" value="10" style="width:100%"></div>
+                                            <div class="form-group"><label>敏感词（逗号分隔）</label><input id="threshold-sensitive-words" type="text" value="投诉,退款,法律" style="width:100%"></div>
+                                            <button class="btn-primary" onclick="saveSafetyThresholds()" style="margin-top:8px;">保存阈值</button>
+                                        </div>
+                                        <div id="safety-logs-section" style="margin-top:20px;">
+                                            <h4 style="font-size:14px;margin-bottom:8px;">📋 安全日志</h4>
+                                            <div id="safety-logs" style="max-height:200px;overflow-y:auto;font-size:12px;line-height:1.6;color:var(--text-secondary);"></div>
+                                        </div>
                                     </div>
                                     <div class="form-group" style="margin-bottom:20px;">
                                         <label>通知设置</label>

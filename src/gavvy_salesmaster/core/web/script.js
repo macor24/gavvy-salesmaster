@@ -895,10 +895,67 @@ document.addEventListener('DOMContentLoaded', function() {
     // 加载安全模式状态 → 更新安全配置面板
     function loadSafetyStatus() {
         SalesAPI.getSafetyStatus().then(data => {
-            const modeLabel = data.mode_label || data.mode || 'conservative';
+            const mode = data.mode || 'conservative';
+            const modeLabel = data.mode_label || '保守模式';
+            // 更新安全模式标签
             const modeEl = document.querySelector('.safety-mode-label');
             if (modeEl) modeEl.textContent = modeLabel;
+            // 更新安全模式select
+            const sel = document.getElementById('safety-mode-select');
+            if (sel) sel.value = mode;
+            // 显示/隐藏阈值区域
+            const thresh = document.getElementById('safety-thresholds');
+            if (thresh) thresh.style.display = (mode === 'open' || mode === 'custom') ? 'block' : 'none';
+            // 填充阈值（如有返回）
+            if (data.price_ceiling != null) {
+                var el = document.getElementById('threshold-price-ceiling');
+                if (el) el.value = data.price_ceiling;
+            }
+            if (data.discount_floor != null) {
+                var el = document.getElementById('threshold-discount-floor');
+                if (el) el.value = data.discount_floor;
+            }
+            if (data.daily_limit != null) {
+                var el = document.getElementById('threshold-daily-limit');
+                if (el) el.value = data.daily_limit;
+            }
+            if (data.sensitive_words != null) {
+                var el = document.getElementById('threshold-sensitive-words');
+                if (el) el.value = data.sensitive_words;
+            }
+            // 渲染安全日志
+            var logsContainer = document.getElementById('safety-logs');
+            if (logsContainer && data.logs && data.logs.length > 0) {
+                logsContainer.innerHTML = data.logs.slice(-20).map(function(log) {
+                    var ts = log.timestamp || log.time || '';
+                    var agent = log.agent_name || '';
+                    var action = log.action || '';
+                    var result = log.approved ? '✅ 通过' : (log.approved === false ? '⛔ 拦截' : '');
+                    var summary = log.summary || log.reason || '';
+                    return '<div style="padding:4px 0;border-bottom:1px solid var(--border-color);">' +
+                        '<span style="color:var(--text-muted);">' + ts + '</span> ' +
+                        '<strong>' + agent + '</strong> ' + action + ' ' + result +
+                        (summary ? '<br><span style="color:var(--text-secondary);">' + summary + '</span>' : '') +
+                        '</div>';
+                }).join('');
+            } else if (logsContainer) {
+                logsContainer.innerHTML = '<div style="color:var(--text-muted);">暂无安全日志</div>';
+            }
         }).catch(() => {});
+    }
+
+    // 保存安全阈值
+    window.saveSafetyThresholds = function() {
+        var thresholds = {
+            price_ceiling: parseInt(document.getElementById('threshold-price-ceiling')?.value) || 50000,
+            discount_floor: parseInt(document.getElementById('threshold-discount-floor')?.value) || 70,
+            daily_limit: parseInt(document.getElementById('threshold-daily-limit')?.value) || 10,
+            sensitive_words: document.getElementById('threshold-sensitive-words')?.value || ''
+        };
+        SalesAPI.saveSettings({ config: { safety_thresholds: thresholds } }).then(function(resp) {
+            if (resp.saved || resp.status === 'ok') { showToast('安全阈值已保存', 'success'); }
+            else { showToast('保存失败', 'fail'); }
+        }).catch(function() { showToast('保存失败', 'fail'); });
     }
 
     // 加载 SentriKit 集成状态
@@ -1342,6 +1399,23 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAgents();
     loadCustomerList();
     loadSafetyStatus();
+    // 安全模式select变更事件
+    var _safetyModeSelect = document.getElementById('safety-mode-select');
+    if (_safetyModeSelect) {
+        _safetyModeSelect.addEventListener('change', function() {
+            var mode = this.value;
+            SalesAPI.setSafetyMode(mode).then(function(resp) {
+                if (resp.status === 'ok') {
+                    showToast('安全模式已切换为: ' + (resp.mode_label || mode), 'success');
+                    loadSafetyStatus();
+                } else {
+                    showToast('安全模式切换失败', 'fail');
+                }
+            }).catch(function() {
+                showToast('安全模式切换失败', 'fail');
+            });
+        });
+    }
     loadSentriKitStatus();
     loadMemoryStats();
     if (typeof window.loadMemorySkills === 'function') window.loadMemorySkills();
