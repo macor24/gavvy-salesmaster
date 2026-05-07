@@ -311,14 +311,27 @@ class TestSalesLLMIntegration(unittest.TestCase):
 
     def test_available_false_without_key(self):
         """无 Key 时 available 为 False"""
-        llm = SalesLLM()
-        self.assertEqual(llm.available, False)
+        # 保存并清除环境变量，避免被SENTRIKIT_API_KEY污染
+        old_sk = os.environ.pop("SENTRIKIT_API_KEY", None)
+        old_ds = os.environ.pop("DEEPSEEK_API_KEY", None)
+        try:
+            llm = SalesLLM()
+            self.assertEqual(llm.available, False)
+        finally:
+            if old_sk: os.environ["SENTRIKIT_API_KEY"] = old_sk
+            if old_ds: os.environ["DEEPSEEK_API_KEY"] = old_ds
 
     def test_call_returns_none_without_key(self):
         """无 Key 时 _call 返回 None（因为降级链全不可用）"""
-        llm = SalesLLM()
-        result = llm._call("system prompt", "user prompt")
-        self.assertIsNone(result)
+        old_sk = os.environ.pop("SENTRIKIT_API_KEY", None)
+        old_ds = os.environ.pop("DEEPSEEK_API_KEY", None)
+        try:
+            llm = SalesLLM()
+            result = llm._call("system prompt", "user prompt")
+            self.assertIsNone(result)
+        finally:
+            if old_sk: os.environ["SENTRIKIT_API_KEY"] = old_sk
+            if old_ds: os.environ["DEEPSEEK_API_KEY"] = old_ds
 
     def test_call_with_rules_returns_something(self):
         """直接使用 FallbackChain 时规则引擎返回响应"""
