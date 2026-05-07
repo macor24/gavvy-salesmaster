@@ -47,6 +47,37 @@ class QuickstartGuide:
         """获取行业模板列表"""
         return self._client.get_quickstart_industries()
 
+    def get_status(self) -> Dict:
+        """获取快速启动完成状态"""
+        import os
+        from pathlib import Path
+        status_file = Path(os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "data", "quickstart.json"
+        ))
+        completed = False
+        if status_file.exists():
+            try:
+                import json
+                data = json.loads(status_file.read_text())
+                completed = data.get("completed", False)
+            except Exception:
+                pass
+        return {"completed": completed, "show_guide": not completed}
+
+    def complete(self) -> "QuickstartGuide":
+        """标记快速启动已完成"""
+        import os
+        import json
+        from pathlib import Path
+        status_file = Path(os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "data", "quickstart.json"
+        ))
+        status_file.parent.mkdir(parents=True, exist_ok=True)
+        status_file.write_text(json.dumps({"completed": True, "timestamp": __import__("datetime").datetime.now().isoformat()}))
+        return self
+
     def apply_template(self, industry: str, product_name: str) -> Dict:
         """应用行业模板"""
         if self._client.config.is_enterprise:

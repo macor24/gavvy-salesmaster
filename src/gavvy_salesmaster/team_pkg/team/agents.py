@@ -21,88 +21,8 @@ from .base import BaseAgent, AgentContext, AgentResult, Kernels, is_enterprise, 
 # ── Agent 提示词 ──────────────────────────────────
 
 
-MARKET_RESEARCH_SYSTEM = """你是一个专业的市场调研官。你的任务是：
-1. 分析潜在客户背景和行业信息
-2. 评估客户的 AI 成熟度和安全需求
-3. 识别商机切入点
-4. 输出结构化的调研报告
 
-分析维度：
-- 客户基本信息与行业定位
-- AI 技术栈成熟度
-- 安全运维需求
-- 商机评估与切入点
-"""
-
-MARKET_RESEARCH_USER = """请对以下客户进行市场调研分析：
-
-客户名称：{customer_name}
-行业：{industry}
-产品描述：{product_description}
-
-{agent_history_section}
-
-请给出结构化分析报告。"""
-
-COMPETITOR_SYSTEM = """你是一个专业的竞品分析官。你的任务是：
-1. 分析竞争对手的产品和市场定位
-2. 进行差异化分析
-3. 制定竞争优势策略
-4. 输出竞品对标报告
-
-分析维度：
-- 竞品核心功能与定位
-- 市场占有率与影响力
-- 差异化机会
-- 竞争优势策略
-"""
-
-COMPETITOR_USER = """请对以下竞品进行深度分析：
-
-竞品名称：{competitor_name}
-行业分类：{industry}
-初步信息：{description}
-
-{agent_history_section}
-
-请输出竞品对标报告。"""
-
-PRESALES_SYSTEM = """你是一个专业的售前谈判官。你的任务是：
-1. 与客户进行有价值沟通
-2. 识别客户需求和痛点
-3. 传递产品价值和差异化优势
-4. 处理异议、促成成交
-
-谈判原则：
-- 先用价值打动，再用价格成交
-- 关注客户实际业务痛点而非功能列表
-- 使用合规成交话术
-"""
-
-PRESALES_USER = """请处理以下销售场景：
-
-客户名称：{customer_name}
-产品信息：{product_info}
-客户消息：{message}
-当前阶段：{stage}
-
-{agent_history_section}
-{private_section}
-
-请给出专业回复和行动计划。"""
-
-
-def build_agent_history_section(history: List[Dict]) -> str:
-    """构建跨 Agent 历史数据上下文"""
-    if not history:
-        return ""
-    lines = ["\n前期调研数据参考："]
-    for h in history:
-        lines.append(f"- [{h.get('agent', '?')}] {h.get('summary', '')}")
-    return "\n".join(lines)
-
-
-# ══════════════════════════════════════════════════
+# ── Agent 类定义 ───────────────────────────────
 # Agent 实现
 # ══════════════════════════════════════════════════
 
@@ -179,6 +99,7 @@ class MarketResearchAgent(BaseAgent):
         # 企业版：尝试 LLM
         try:
             from ..llm import get_llm
+            from .prompts import MARKET_RESEARCH_SYSTEM, MARKET_RESEARCH_USER, build_agent_history_section
             llm = get_llm()
             if llm and llm.available:
                 prompt = MARKET_RESEARCH_USER.format(
@@ -373,6 +294,7 @@ class CompetitorIntelAgent(BaseAgent):
         # 企业版：尝试 LLM
         try:
             from ..llm import get_llm
+            from .prompts import COMPETITOR_SYSTEM, COMPETITOR_USER, build_agent_history_section
             llm = get_llm()
             if llm and llm.available:
                 prompt = COMPETITOR_USER.format(
@@ -515,6 +437,7 @@ class PresalesAgent(BaseAgent):
         # 企业版：尝试 LLM
         try:
             from ..llm import get_llm
+            from .prompts import PRESALES_SYSTEM, PRESALES_USER, build_agent_history_section
             llm = get_llm()
             if llm and llm.available:
                 private_info = f"\n内部参考 - 定价: {pricing}" if pricing else ""

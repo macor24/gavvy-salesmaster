@@ -1488,6 +1488,36 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 消息渠道配置 -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📨 消息渠道配置</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="padding:12px 0;">
+                                    <div id="channels-list">
+                                        <div style="padding:20px;text-align:center;color:var(--text-muted);">加载中...</div>
+                                    </div>
+                                    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border-color);">
+                                        <h4 style="font-size:13px;margin-bottom:12px;">配置新渠道</h4>
+                                        <div class="form-group" style="margin-bottom:12px;">
+                                            <label>渠道类型</label>
+                                            <select id="channel-type-select" style="width:100%;padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-secondary);">
+                                                <option value="email">📧 邮件 (SMTP)</option>
+                                                <option value="wework">💬 企业微信</option>
+                                                <option value="dingtalk">🔔 钉钉</option>
+                                                <option value="feishu">📢 飞书</option>
+                                            </select>
+                                        </div>
+                                        <div id="channel-config-fields">
+                                            <p style="font-size:12px;color:var(--text-muted);">选择渠道类型后显示配置项</p>
+                                        </div>
+                                        <button class="btn-primary" onclick="saveChannelConfig()" style="margin-top:8px;">保存配置</button>
+                                        <span id="channel-save-result" style="margin-left:8px;font-size:12px;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card">
                             <div class="card-header">
                                 <h3>🔗 SentriKit 集成</h3>

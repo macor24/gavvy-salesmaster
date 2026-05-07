@@ -171,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'settings':
                 loadSafetyStatus();
                 loadSentriKitStatus();
+                loadChannels();
                 break;
         }
     }
@@ -956,6 +957,94 @@ document.addEventListener('DOMContentLoaded', function() {
             if (resp.saved || resp.status === 'ok') { showToast('安全阈值已保存', 'success'); }
             else { showToast('保存失败', 'fail'); }
         }).catch(function() { showToast('保存失败', 'fail'); });
+    }
+
+    // ── 渠道配置 ──────────────────────────────
+    function loadChannels() {
+        fetch('/api/channels').then(r=>r.json()).then(function(data){
+            var channels = data.channels || {};
+            var list = document.getElementById('channels-list');
+            if (!list) return;
+            if (Object.keys(channels).length === 0) {
+                list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">暂无已配置的渠道</div>';
+                return;
+            }
+            var html = '<div style="display:grid;gap:8px;">';
+            for (var name in channels) {
+                var ch = channels[name];
+                var statusColor = ch.configured ? '#22c55e' : '#94a3b8';
+                var statusText = ch.configured ? '已配置' : '未配置';
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg-primary);border-radius:8px;">'
+                    + '<div><strong>' + name + '</strong><span style="margin-left:8px;font-size:12px;color:var(--text-muted);">模式: ' + (ch.mode || '标准') + '</span></div>'
+                    + '<div><span style="color:' + statusColor + ';font-size:12px;font-weight:600;">● ' + statusText + '</span></div>'
+                    + '</div>';
+            }
+            html += '</div>';
+            list.innerHTML = html;
+        }).catch(function(){
+            var list = document.getElementById('channels-list');
+            if (list) list.innerHTML = '<div style="padding:20px;text-align:center;color:#ef4444;">无法加载渠道配置</div>';
+        });
+    }
+
+    // 渠道类型切换 → 显示对应配置字段
+    document.addEventListener('change', function(e){
+        if (e.target.id === 'channel-type-select') {
+            var v = e.target.value;
+            var fields = document.getElementById('channel-config-fields');
+            if (!fields) return;
+            var html = '';
+            if (v === 'email') {
+                html = '<div class="form-group"><label>SMTP 服务器</label><input id="cfg-smtp-host" type="text" placeholder="smtp.example.com" style="width:100%"></div>'
+                    + '<div class="form-group"><label>端口</label><input id="cfg-smtp-port" type="number" value="587" style="width:100%"></div>'
+                    + '<div class="form-group"><label>用户名</label><input id="cfg-smtp-user" type="text" placeholder="user@example.com" style="width:100%"></div>'
+                    + '<div class="form-group"><label>密码</label><input id="cfg-smtp-pass" type="password" placeholder="********" style="width:100%"></div>'
+                    + '<div class="form-group"><label>发件地址</label><input id="cfg-from-addr" type="text" placeholder="noreply@example.com" style="width:100%"></div>';
+            } else if (v === 'wework') {
+                html = '<div class="form-group"><label>企业ID (corp_id)</label><input id="cfg-corp-id" type="text" placeholder="wwxxxx" style="width:100%"></div>'
+                    + '<div class="form-group"><label>AgentID</label><input id="cfg-agent-id" type="text" placeholder="1000001" style="width:100%"></div>'
+                    + '<div class="form-group"><label>Secret</label><input id="cfg-secret" type="password" placeholder="********" style="width:100%"></div>';
+            } else if (v === 'dingtalk') {
+                html = '<div class="form-group"><label>Webhook URL</label><input id="cfg-webhook" type="text" placeholder="https://oapi.dingtalk.com/..." style="width:100%"></div>'
+                    + '<div class="form-group"><label>加签密钥</label><input id="cfg-ding-secret" type="password" placeholder="可选" style="width:100%"></div>'
+                    + '<div class="form-group"><label>AppKey</label><input id="cfg-app-key" type="text" placeholder="可选" style="width:100%"></div>'
+                    + '<div class="form-group"><label>AppSecret</label><input id="cfg-app-secret" type="password" placeholder="可选" style="width:100%"></div>';
+            } else if (v === 'feishu') {
+                html = '<div class="form-group"><label>Webhook URL</label><input id="cfg-webhook" type="text" placeholder="https://open.feishu.cn/..." style="width:100%"></div>'
+                    + '<div class="form-group"><label>App ID</label><input id="cfg-app-id" type="text" placeholder="cli_xxxx" style="width:100%"></div>'
+                    + '<div class="form-group"><label>App Secret</label><input id="cfg-app-secret" type="password" placeholder="********" style="width:100%"></div>';
+            }
+            fields.innerHTML = html;
+        }
+    });
+
+    function saveChannelConfig() {
+        var name = document.getElementById('channel-type-select').value;
+        var config = {};
+        var els = document.querySelectorAll('#channel-config-fields input');
+        els.forEach(function(el){
+            var key = el.id.replace('cfg-', '').replace(/-/g, '_');
+            config[key] = el.value;
+        });
+        var btn = document.querySelector('.btn-primary');
+        btn.disabled = true;
+        btn.textContent = '保存中...';
+        var result = document.getElementById('channel-save-result');
+        fetch('/api/channels/config', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name: name, config: config})
+        }).then(function(r){return r.json()}).then(function(data){
+            result.textContent = '✅ 已保存';
+            result.style.color = '#22c55e';
+            loadChannels();
+        }).catch(function(){
+            result.textContent = '❌ 保存失败';
+            result.style.color = '#ef4444';
+        }).finally(function(){
+            btn.disabled = false;
+            btn.textContent = '保存配置';
+        });
     }
 
     // ── 渠道集成 ──────────────────────────────
@@ -2668,10 +2757,11 @@ function qsSelectMode(mode) {
 function qsComplete() {
   fetch('/api/quickstart/complete', {method: 'POST'})
   .then(function(r){return r.json()}).then(function(data){
-    window.showToast('🚀 销售团队已启动！', 'success');
     document.getElementById('quickstart-overlay').style.display = 'none';
     var card = document.getElementById('quickstart-card');
     if (card) card.style.display = 'none';
-    location.reload();
+    // 显示欢迎消息后刷新
+    showToast('🎉 欢迎使用 gavvy 销售引擎！正在加载您的专属销售团队...', 'success');
+    setTimeout(function(){ location.reload(); }, 1500);
   }).catch(function(){ window.showToast('启动失败', 'fail'); });
 }

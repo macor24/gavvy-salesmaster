@@ -13,6 +13,7 @@ import json
 import os
 import secrets
 import sys
+import threading
 import uuid
 import time
 from pathlib import Path
@@ -594,7 +595,7 @@ async def api_orch_assign_agent(body: dict):
 async def api_orch_agents():
     orch = _get_orch()
     agents_info = {}
-    for name, agent in orch.agents.items():
+    for name, agent in orch.get_registered_agents().items():
         agents_info[name] = {
             "role_en": getattr(agent, "role_en", name),
             "display_name": getattr(agent, "role_cn", name),
@@ -608,7 +609,7 @@ async def api_orch_agent_enabled():
     """获取所有 Agent 的启用状态"""
     orch = _get_orch()
     states = {}
-    for name, agent in orch.agents.items():
+    for name, agent in orch.get_registered_agents().items():
         states[name] = {
             "enabled": agent.enabled,
             "role_cn": getattr(agent, "role_cn", name),
@@ -1764,7 +1765,7 @@ async def api_llm_config(body: dict):
 @app.get("/api/llm/status")
 async def api_llm_status():
     """检查 LLM 是否可用"""
-    from .llm.deepseek import DeepSeekEngine
+    from gavvy_salesmaster.team_pkg.llm.deepseek import DeepSeekEngine
     engine = DeepSeekEngine()
     return {
         "available": engine.available,
@@ -1883,12 +1884,14 @@ def start_app(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> None:
         pass
 
     print(f"🚀 Chat Sales FastAPI 启动: http://{host}:{port}")
-    print(f"   API Key: {api_key}")
-    print(f"   认证方式: 请求头 X-API-Key: {api_key}")
-    print(f"   📖 API 文档: http://{host}:{port}/docs")
-    print(f"   📖 ReDoc:    http://{host}:{port}/redoc")
+    print(f"   🔑 默认账号: admin / admin123")
     print(f"   🌐 Web 管理后台: http://{host}:{port}/")
+    print(f"   📖 API 文档: http://{host}:{port}/docs")
+    print(f"   🔌 API Key: {api_key}")
     print(f"   按 Ctrl+C 停止")
+    print()
+    print(f"   💡 首次使用？用 admin / admin123 登录后按引导配置即可")
+    print(f"   📦 快速安装: pip install gavvy-salesmaster")
 
     uvicorn.run(app, host=host, port=port, log_level="info")
 

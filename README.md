@@ -1,7 +1,7 @@
 # gavvy 销售引擎
 
 > 开源销售引擎 — CRM + AI 虚拟销售团队 + 自动化 Pipeline  
-> `pip install gavvy-salesmaster` 即用，零外部依赖跑通全流程
+> `pip install gavvy-salesmaster` 即用，1分钟启动全流程
 
 ---
 
@@ -11,14 +11,14 @@
 # 1. 安装
 pip install gavvy-salesmaster
 
-# 2. 启动 Web 管理后台（带 API）
+# 2. 启动 Web 管理后台
 gavvy-sales-fastapi
 
-# 3. 浏览器打开
-open http://localhost:8877
+# 3. 浏览器打开 http://localhost:8877
+#    默认账号: admin / admin123
 ```
 
-就这么简单。不需要数据库，不需要配置，不需要 API Key。
+启动后控制台会输出访问地址和默认密码。
 
 ---
 
@@ -26,13 +26,13 @@ open http://localhost:8877
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│                  gavvy 销售引擎                  │
+│                  gavvy 销售引擎                       │
 ├──────────────────────────────────────────────────────┤
 │                                                      │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
-│  │ CRM 客户  │  │ 报价系统  │  │ 电子签    │           │
-│  │ 管理      │  │ Quotes   │  │ ESign    │  开源     │
-│  └──────────┘  └──────────┘  └──────────┘  (MIT)    │
+│  │ CRM 客户  │  │ 报价系统  │  │ 电子签    │  开源   │
+│  │ 管理      │  │ Quotes   │  │ ESign    │  (MIT)   │
+│  └──────────┘  └──────────┘  └──────────┘           │
 │                                                      │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
 │  │ 支付系统  │  │ 权限管理  │  │ 消息渠道  │           │
@@ -45,13 +45,14 @@ open http://localhost:8877
 │  └──────────┘  └──────────┘  └──────────┘           │
 │                                                      │
 │  ┌────────────────────────────────────────────┐      │
-│  │  AI 销售引擎（企业版）                        │ ← 闭源 │
-│  │  SalesOrchestrator + 7 Agent + MemoryStore │        │
+│  │  AI 销售引擎                                │      │
+│  │  SalesOrchestrator + 7 Agent + MemoryStore │      │
+│  │  + HuntEngine(自动寻客) + AutoScheduler    │      │
 │  └────────────────────────────────────────────┘      │
 │                                                      │
 │  ┌────────────────────────────────────────────┐      │
-│  │  Web 管理后台（14页面 SPA）                   │      │
-│  │  REST API（160 路由）                       │      │
+│  │  Web 管理后台（14页面 SPA）                  │      │
+│  │  REST API（187 路由）                       │      │
 │  │  嵌入式获客 widget                          │      │
 │  └────────────────────────────────────────────┘      │
 └──────────────────────────────────────────────────────┘
@@ -64,19 +65,15 @@ open http://localhost:8877
 | 命令 | 说明 |
 |------|------|
 | `gavvy-sales-fastapi` | **推荐** 统一 API + Web 服务（8877端口） |
-| `gavvy-sales-api` | 纯 API 服务（已弃用，建议用 FastAPI） |
 
-### 安装可选依赖
+### 可选增强
 
 ```bash
-# 激活 AI 销售引擎（企业版闭源）
-pip install gavvy-salesmaster[enterprise]
+# 激活 SentriKit 进化闭环集成（需安装 sentrikit）
+pip install gavvy-salesmaster[gavvy]
 
-# 激活 SentriKit 进化闭环集成
-pip install gavvy-salesmaster[SentriKit]
-
-# 使用 FastAPI（推荐）
-pip install gavvy-salesmaster[fastapi]
+# 使用 PostgreSQL 数据库（默认使用 JSON 文件存储）
+pip install gavvy-salesmaster[database]
 
 # 全部装齐
 pip install gavvy-salesmaster[all]
@@ -84,36 +81,34 @@ pip install gavvy-salesmaster[all]
 
 ---
 
-## 功能模块
+## Docker 部署
 
-### 开源版（MIT，pip install 即得）
+```bash
+docker build -t gavvy-salesmaster .
+docker run -d -p 8877:8877 --name gavvy gavvy-salesmaster
+# 访问 http://localhost:8877，默认账号 admin / admin123
+```
 
-| 模块 | 功能 | 行数 |
-|------|------|------|
-| `crm` | 客户管理：Customer/Deal/Contract/Activity CRUD | 484 |
-| `payment` | 支付系统：多渠道支付/退款/对账 | 1,326 |
-| `channels` | 消息渠道：企业微信/钉钉/飞书/邮件/SMS | 2,109 |
-| `rbac` | 权限体系：User/Role/Permission 完整 RBAC | 2,114 |
-| `quotes` | 报价系统：自动报价/合同/多级价格 | 922 |
-| `esign` | 电子签章：字节跳动签 + 腾讯签双引擎 | 1,206 |
-| `workflow` | 工作流引擎：Step/Event/Template | 1,165 |
-| `saas` | SaaS 多租户：Tenant/Subscription/Plan | 1,161 |
-| `knowledge` | 知识库：条目/FAQ/分类/搜索 | 738 |
-| `scripts` | 话术训练：场景/评分/模拟对话 | 613 |
-| `analytics` | 分析报表：KPI/漏斗/趋势/预测 | 637 |
-| `export` | 导出引擎：Excel/PDF/HTML/Word | 676 |
-| `tasks` | 任务管理：调度/队列/定时 | 902 |
-| `webhook` | Webhook：Stripe/支付宝/微信支付集成 | 565 |
-| `storage` | 文件数据库内核（线程安全 JSON 存储） | 3,392 |
-| `llm` | 多模型 LLM 接入：DeepSeek/OpenAI/Claude | 946 |
-| `calls` | 通话系统：记录/录音/分析 | 763 |
+---
 
-### 企业版（闭源，需商业授权）
+## 首次使用
 
-| 模块 | 功能 | 行数 |
-|------|------|------|
-| `team` | AI 销售团队：SalesOrchestrator + 7Agent + LeadScorer + SafetyGuard | 4,661 |
-| `memory` | 学习记忆库：MemoryStore + Learner + SkillEvolver | 624 |
+1. 浏览器打开 `http://localhost:8877`
+2. 用 `admin` / `admin123` 登录
+3. 系统会弹出快速配置向导，引导你完成行业和产品设置
+4. 配置完成后即可开始使用
+
+### 主要功能入口
+
+| 页面 | 功能 |
+|------|------|
+| 📊 仪表盘 | 销售总览、管道状态、Agent 运行状态 |
+| 💬 工作台 | 客户对话、消息管理、AI 调度 |
+| 👥 客户 | CRM 客户/商机/合同管理 |
+| 📈 分析 | 销售漏斗、Agent 效能、KPI 看板 |
+| 🤖 团队 | 7 个 AI Agent 管理和状态监控 |
+| 🧠 记忆库 | 销售数据学习、技能进化、模式识别 |
+| ⚙️ 设置 | 安全模式、渠道配置、SentriKit 集成 |
 
 ---
 
@@ -125,62 +120,46 @@ pip install gavvy-salesmaster[all]
 - **ReDoc**: http://localhost:8877/redoc
 - **健康检查**: http://localhost:8877/health
 
-### 核心 API（部分）
+### 示例 API
 
 ```http
-POST /api/orchestrator/lead    # 添加销售线索
-GET  /api/orchestrator/leads   # 线索列表
-POST /api/orchestrator/dispatch # 派发到AI Agent
-POST /api/pipeline/run         # 触发销售管道
-GET  /api/analytics/summary    # 分析摘要
+POST /api/hunt/run          # 触发自动寻客
+GET  /api/hunt/leads        # 查看寻客线索
+POST /api/scheduler/submit  # 提交消息到 AI Agent 处理
+GET  /api/orchestrator/summary  # 销售总览
+POST /api/flywheel/cycle    # 触发数据飞轮学习
 ```
 
 ---
 
-## 嵌入式获客
+## 环境变量
 
-在任意网页嵌入一行 script 即可收集销售线索：
-
-```html
-<script src="http://你的域名/widget.js" 
-  data-api-url="http://你的域名"
-  data-welcome="您好！有什么可以帮您？">
-</script>
-```
-
----
-
-## Docker 部署
-
-```bash
-# 一键启动
-docker compose up -d
-
-# 访问 http://localhost:8877
-```
-
----
-
-## 与 SentriKit 集成
-
-销售宗师可与 SentriKit（SentriKit-toolkit）集成，获得完整的自进化闭环能力：
-
-1. 启动 SentriKit API：`SentriKit-api --port 8899`
-2. 设置环境变量：`export SentriKit_API_URL=http://127.0.0.1:8899`
-3. 销售宗师自动检测并激活进化闭环
-
-可调用：退化检测 → 提案评分 → 完整进化闭环（学习→分析→判断→进化→验证→反射→清理）
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| `SALES_API_KEY` | API 认证密钥 | 自动生成 |
+| `LLM_API_KEY` | DeepSeek/OpenAI API Key | 空（社区版用模板回复） |
+| `SENTRIKIT_API_KEY` | SentriKit 企业版 API Key | 空 |
 
 ---
 
 ## 项目结构
 
-```\ngavvy-salesmaster/\n├── src/gavvy_salesmaster/\n│   ├── __init__.py          # 包入口(社区版/企业版检测)\n│   ├── app.py               # FastAPI 统一服务（160路由，14页面SPA）\n│   ├── master.py            # SalesMaster 六维引擎\n│   ├── enterprise_client.py # SentriKit API 客户端\n│   ├── core/                # 核心：api/app/storage/workflow/routers/web\n│   ├── team_pkg/            # AI 销售团队(7Agent+Orchestrator) ← 社区版可用\n│   ├── crm_pkg/             # CRM完整管理\n│   ├── trade_pkg/           # esign+payment\n│   ├── channels_pkg/        # 消息渠道\n│   └── web/                 # 前端 SPA（index.html+script.js+styles.css）\n├── tests/                   # 302测试\n└── pyproject.toml           # pip install 即用\n```
+```
+gavvy-salesmaster/
+├── src/gavvy_salesmaster/
+│   ├── core/              # FastAPI 服务、API 路由、Web SPA
+│   ├── team_pkg/          # AI 销售团队（7Agent + Orchestrator + 记忆库）
+│   ├── crm_pkg/           # CRM、寻客引擎、调度器、RBAC
+│   ├── trade_pkg/         # 支付、电子签章
+│   ├── channels_pkg/      # 消息渠道（企微/钉钉/飞书/邮件）
+│   └── data/              # JSON 文件存储
+├── tests/                 # 测试
+└── pyproject.toml
+```
 
 ---
 
 ## 许可
 
-- **开源模块**: MIT License
-- **AI 销售引擎**: 企业版闭源（`gavvy-sales-enterprise`）
-- **联系方式**: [GitHub Issues](https://github.com/)
+- **社区版**: MIT License（pip install 即得）
+- **企业版**: 闭源（核心 Prompt 和 AI 策略在服务端）

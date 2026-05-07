@@ -140,26 +140,37 @@ def build():
         else:
             print(f"  WARNING: {built_so} not found")
     
-    # Step 3: Backup .py files (we need to remove them from wheel)
-    print("\n[3/4] Backing up .py source files...")
+    # Step 3: 先构建 sdist（此时所有 .py 都在，ARM用户可源码安装）
+    print("\n[3/4] Building sdist (含全部源码)...")
+    result_sdist = subprocess.run(
+        [sys.executable, "-m", "build", "--sdist", "--no-isolation"],
+        capture_output=True, text=True, cwd=os.path.dirname(os.path.abspath(__file__))
+    )
+    if result_sdist.returncode != 0:
+        print(f"sdist STDERR: {result_sdist.stderr[-300:]}")
+    else:
+        for f in sorted(os.listdir("dist")):
+            if f.endswith(".tar.gz"):
+                print(f"  {f} ({os.path.getsize(f'dist/{f}') / 1024:.0f} KB)")
+
+    # Step 4: 替换 .py 为 .so（仅用于 wheel 构建）
+    print("\n[4/4] Replacing .py with .so for wheel build...")
     backup_dir = "build/source-backup"
     for mod in PRO_MODULES:
         pyfile = _get_py_file(mod)
         if os.path.isfile(pyfile):
-            # Keep the original __init__.py in place for team_pkg (shim)
             if mod.endswith("/__init__"):
                 print(f"  KEEP: {pyfile} (shim)")
             else:
-                # Backup and remove the .py (only .so stays)
                 rel = os.path.relpath(pyfile, SRC_DIR)
                 bk = os.path.join(backup_dir, rel)
                 os.makedirs(os.path.dirname(bk), exist_ok=True)
                 shutil.copy2(pyfile, bk)
                 os.remove(pyfile)
-                print(f"  REMOVE: {pyfile}")
-    
-    # Step 4: Build wheel
-    print("\n[4/4] Building wheel...")
+                print(f"  REPLACE: {pyfile} -> .so")
+
+    # Step 5: Build wheel (移除 .py 只留 .so)
+    print("\n[5/4] Building wheel (二进制)...")
     result = subprocess.run(
         [sys.executable, "-m", "build", "--wheel", "--no-isolation"],
         capture_output=True, text=True, cwd=os.path.dirname(os.path.abspath(__file__))
