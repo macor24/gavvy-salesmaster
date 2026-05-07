@@ -1,7 +1,10 @@
-include LICENSE
 include README.md
-recursive-include src/gavvy_salesmaster/core/web *.html *.js *.css *.json
-graft src/gavvy_salesmaster/core/web
-recursive-exclude tests *
-global-exclude __pycache__
-global-exclude *.pyc
+include LICENSE
+include COMMERCIAL_LICENSE.md
+include pyproject.toml
+include setup.py
+recursive-include src *.py
+recursive-include src *.html
+recursive-include src *.js
+recursive-include src *.css
+recursive-include src *.json

@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=64", "wheel"]
+requires = ["setuptools>=64", "wheel", "cython>=3.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "gavvy-salesmaster"
-version = "2.6.0"
+version = "2.7.0"
 description = "开源销售引擎 — CRM + AI销售团队 + 自动化Pipeline，pip install 即用"
 readme = "README.md"
 license = {file = "LICENSE"}

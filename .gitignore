@@ -5,6 +5,8 @@ __pycache__/
 dist/
 build/
 .eggs/
+*.c    # Cython 编译临时文件（sdist 不需要）
+*.so   # Cython 编译二进制（wheel 中由 build_release.py 生成）
 
 # IDE
 .vscode/
