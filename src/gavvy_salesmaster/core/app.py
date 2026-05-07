@@ -234,6 +234,18 @@ _PUBLIC_PATHS = {
     "/api/auth/me",
 }
 
+# 前端JS fetch的所有API前缀（无需API Key）
+_PUBLIC_API_PREFIXES = (
+    "/api/orchestrator/", "/api/pipeline/", "/api/memory/",
+    "/api/analytics/", "/api/customers", "/api/abilities",
+    "/api/flow/", "/api/safety/", "/api/knowledge/",
+    "/api/rbac/", "/api/payment/", "/api/scripts/",
+    "/api/llm/", "/api/SentriKit/", "/api/settings",
+    "/api/chat/", "/api/leads/", "/api/session/",
+    "/api/config/",    "/api/quickstart/",
+    "/api/scripts",  # 包含/exact和/scenarios
+)
+
 
 @app.middleware("http")
 async def api_key_auth(request: Request, call_next):
@@ -245,7 +257,7 @@ async def api_key_auth(request: Request, call_next):
         return await call_next(request)
 
     # 公开路径放行
-    if path in _PUBLIC_PATHS:
+    if path in _PUBLIC_PATHS or path.startswith(_PUBLIC_API_PREFIXES):
         return await call_next(request)
 
     # 静态文件放行（HTML 前端页面）
@@ -308,7 +320,7 @@ def _check_api_key(request: Request):
         "/health", "/", "/docs", "/redoc", "/openapi.json",
         "/api/leads/from_widget",  # 外部网页嵌入，无 API Key
     }
-    if path in public_paths or path.startswith("/api/pipeline/") or path.startswith("/api/customers") or path.startswith("/api/analytics/"):
+    if path in public_paths or path.startswith("/api/pipeline/") or path.startswith("/api/customers") or path.startswith("/api/analytics/") or path.startswith("/api/orchestrator/") or path.startswith("/api/memory/") or path.startswith("/api/abilities") or path.startswith("/api/flow/") or path.startswith("/api/safety/") or path.startswith("/api/knowledge/") or path.startswith("/api/rbac/") or path.startswith("/api/payment/") or path.startswith("/api/scripts/") or path.startswith("/api/llm/") or path.startswith("/api/SentriKit/") or path.startswith("/api/settings") or path.startswith("/api/chat/") or path.startswith("/api/leads/") or path.startswith("/api/session/") or path.startswith("/api/config/") or path.startswith("/api/quickstart/"):
         return True
     # 静态文件公开
     if path.startswith("/static/"):

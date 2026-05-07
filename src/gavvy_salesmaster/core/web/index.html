@@ -2289,12 +2289,9 @@
         views.forEach(function(v) { v.classList.remove('active'); });
         var target = document.getElementById(viewId);
         if (target) target.classList.add('active');
-        // 懒加载：仅首次访问时请求数据
+        // 懒加载：每次访问时都请求数据（移除了首次限制）
         if (typeof window._loadedViews === 'undefined') window._loadedViews = {};
-        if (!window._loadedViews[viewId]) {
-            window._loadedViews[viewId] = true;
-            if (typeof loadViewData === 'function') loadViewData(viewId);
-        }
+        if (typeof loadViewData === 'function') loadViewData(viewId);
         // 分析页专用：内联 XHR 兜底
         if (viewId === 'analytics') {
             var xhr2 = new XMLHttpRequest();

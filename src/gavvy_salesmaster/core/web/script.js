@@ -2085,18 +2085,26 @@ function loadKnowledgeData() {
     var faqs = results[1].faqs || [];
     var items = results[2].items || [];
 
+    // 构建分类ID→中文名映射
+    _categoryNameMap = {};
+    categories.forEach(function(cat) {
+      if (cat.id && cat.name) _categoryNameMap[cat.id] = cat.name;
+    });
+
     renderKnowledgeCategories(categories);
     renderKnowledgeFaqs(faqs);
     renderKnowledgeItems(items);
   }).catch(function() {
-    document.getElementById('knowledge-categories').innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
-    document.getElementById('knowledge-faqs').innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
-    document.getElementById('knowledge-items').innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
+    var el;
+    el = document.getElementById('knowledge-categories'); if (el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
+    el = document.getElementById('knowledge-faqs'); if (el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
+    el = document.getElementById('knowledge-items'); if (el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
   });
 }
 
 function renderKnowledgeCategories(categories) {
   var container = document.getElementById('knowledge-categories');
+  if (!container) { console.warn('renderKnowledgeCategories: #knowledge-categories not found'); return; }
   if (!categories || categories.length === 0) {
     container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">暂无分类</div>';
     return;
@@ -2108,8 +2116,12 @@ function renderKnowledgeCategories(categories) {
   }).join('');
 }
 
+// 分类ID → 中文名映射（用于知识条目表格）
+var _categoryNameMap = {};
+
 function renderKnowledgeFaqs(faqs) {
   var container = document.getElementById('knowledge-faqs');
+  if (!container) { console.warn('renderKnowledgeFaqs: #knowledge-faqs not found'); return; }
   if (!faqs || faqs.length === 0) {
     container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">暂无FAQ</div>';
     return;
@@ -2123,6 +2135,7 @@ function renderKnowledgeFaqs(faqs) {
 
 function renderKnowledgeItems(items) {
   var container = document.getElementById('knowledge-items');
+  if (!container) { console.warn('renderKnowledgeItems: #knowledge-items not found'); return; }
   if (!items || items.length === 0) {
     container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">暂无知识条目</div>';
     return;
@@ -2130,9 +2143,11 @@ function renderKnowledgeItems(items) {
   container.innerHTML = '<table style="width:100%;border-collapse:collapse;"><thead><tr style="border-bottom:1px solid var(--border-color);text-align:left;">' +
     '<th style="padding:8px 12px;">标题</th><th style="padding:8px 12px;">分类</th><th style="padding:8px 12px;">标签</th><th style="padding:8px 12px;">操作</th></tr></thead><tbody>' +
     items.map(function(item) {
+      // 把分类ID映射为中文名
+      var catName = _categoryNameMap[item.category] || item.category || '';
       return '<tr style="border-bottom:1px solid var(--border-color);">' +
         '<td style="padding:8px 12px;">' + escHtml(item.title || '') + '</td>' +
-        '<td style="padding:8px 12px;">' + escHtml(item.category || '') + '</td>' +
+        '<td style="padding:8px 12px;">' + escHtml(catName) + '</td>' +
         '<td style="padding:8px 12px;">' + ((item.tags || []).join(', ') || '-') + '</td>' +
         '<td style="padding:8px 12px;"><button class="btn-ghost" onclick="viewKnowledgeItem(\'' + item.id + '\')">查看</button></td></tr>';
     }).join('') + '</tbody></table>';
@@ -2160,24 +2175,27 @@ function loadPermissionsData() {
   ]).then(function(results) {
     var users = results[0].users || [];
     var roles = results[1].roles || [];
-    var permGroups = results[2].permission_groups || [];
+    var permGroups = results[2].permission_groups || results[2].groups || [];
 
-    document.getElementById('perm-user-count').textContent = users.length;
-    document.getElementById('perm-role-count').textContent = roles.length;
-    document.getElementById('perm-perm-count').textContent = permGroups.length;
+    var el;
+    el = document.getElementById('perm-user-count'); if (el) el.textContent = users.length;
+    el = document.getElementById('perm-role-count'); if (el) el.textContent = roles.length;
+    el = document.getElementById('perm-perm-count'); if (el) el.textContent = permGroups.length;
 
     renderPermissionUsers(users);
     renderPermissionRoles(roles);
     renderPermissionGroups(permGroups);
   }).catch(function() {
-    document.getElementById('perm-users').innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
-    document.getElementById('perm-roles').innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
-    document.getElementById('perm-permission-groups').innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
+    var el;
+    el = document.getElementById('perm-users'); if (el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
+    el = document.getElementById('perm-roles'); if (el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
+    el = document.getElementById('perm-permission-groups'); if (el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">加载失败</div>';
   });
 }
 
 function renderPermissionUsers(users) {
   var container = document.getElementById('perm-users');
+  if (!container) { console.warn('renderPermissionUsers: #perm-users not found'); return; }
   if (!users || users.length === 0) {
     container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">暂无用户</div>';
     return;
@@ -2185,10 +2203,13 @@ function renderPermissionUsers(users) {
   container.innerHTML = '<table style="width:100%;border-collapse:collapse;"><thead><tr style="border-bottom:1px solid var(--border-color);text-align:left;">' +
     '<th style="padding:8px 12px;">用户</th><th style="padding:8px 12px;">角色</th><th style="padding:8px 12px;">状态</th><th style="padding:8px 12px;">操作</th></tr></thead><tbody>' +
     users.map(function(u) {
+      var userName = u.full_name || u.username || u.email || '';
+      var userEmail = u.email || '';
+      var roleName = u.role_name || u.role_id || u.role || 'member';
       var statusClass = u.status === 'active' ? 'success' : 'warning';
       return '<tr style="border-bottom:1px solid var(--border-color);">' +
-        '<td style="padding:8px 12px;"><strong>' + escHtml(u.name || u.email || '') + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(u.email || '') + '</span></td>' +
-        '<td style="padding:8px 12px;"><span class="status-badge">' + escHtml(u.role || 'member') + '</span></td>' +
+        '<td style="padding:8px 12px;"><strong>' + escHtml(userName) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(userEmail) + '</span></td>' +
+        '<td style="padding:8px 12px;"><span class="status-badge">' + escHtml(roleName) + '</span></td>' +
         '<td style="padding:8px 12px;"><span class="status-badge ' + statusClass + '">' + escHtml(u.status || 'active') + '</span></td>' +
         '<td style="padding:8px 12px;"><button class="btn-ghost" onclick="editUser(\'' + u.id + '\')">编辑</button></td></tr>';
     }).join('') + '</tbody></table>';
@@ -2196,6 +2217,7 @@ function renderPermissionUsers(users) {
 
 function renderPermissionRoles(roles) {
   var container = document.getElementById('perm-roles');
+  if (!container) { console.warn('renderPermissionRoles: #perm-roles not found'); return; }
   if (!roles || roles.length === 0) {
     container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">暂无角色</div>';
     return;
@@ -2209,14 +2231,17 @@ function renderPermissionRoles(roles) {
 
 function renderPermissionGroups(groups) {
   var container = document.getElementById('perm-permission-groups');
+  if (!container) { console.warn('renderPermissionGroups: #perm-permission-groups not found'); return; }
   if (!groups || groups.length === 0) {
     container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">暂无权限组</div>';
     return;
   }
   container.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
     groups.map(function(g) {
+      var perms = g.permissions || [];
+      var permCodes = perms.map(function(p) { return typeof p === 'string' ? p : (p.code || p.name || ''); });
       return '<div style="padding:8px 16px;background:var(--bg-secondary);border-radius:8px;font-size:13px;">' +
-        '<strong>' + escHtml(g.name || '') + '</strong>: ' + ((g.permissions || []).slice(0, 3).join(', ')) + '...</div>';
+        '<strong>' + escHtml(g.name || '') + '</strong>: ' + escHtml(permCodes.slice(0, 3).join(', ')) + '...</div>';
     }).join('') + '</div>';
 }
 
