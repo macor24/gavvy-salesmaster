@@ -12,7 +12,7 @@ requires-python = ">=3.11"
 keywords = ["sales", "crm", "pipeline", "lead-generation", "proposal", "ai-agent"]
 
 authors = [
-    {name = "gavvy Team", email = "gavvy@example.com"},
+    {name = "Gavvy Team", email = "oss@gavvy.dev"},
 ]
 
 classifiers = [
@@ -41,14 +41,14 @@ gavvy-sales-api = "gavvy_salesmaster.core.api:main"
 gavvy-sales-fastapi = "gavvy_salesmaster.core.app:main"
 
 [project.urls]
-Homepage = "https://github.com/"
-Documentation = "https://github.com/"
-Source = "https://github.com/"
-"Bug Tracker" = "https://github.com/issues"
+Homepage = "https://github.com/macor24/gavvy-salesmaster"
+Documentation = "https://github.com/macor24/gavvy-salesmaster"
+Source = "https://github.com/macor24/gavvy-salesmaster"
+"Issue Tracker" = "https://github.com/macor24/gavvy-salesmaster/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["gavvy_salesmaster*"]
 
 [tool.setuptools.package-data]
-"gavvy_salesmaster" = ["web/*.html", "web/*.js", "web/*.css", "web/_customers.json", "storage/_data/*.json", "storage/_memory/*.json", "team/_leads.json"]
+"gavvy_salesmaster" = ["web/*.html", "web/*.js", "web/*.css", "web/_customers.json", "web/_messages/*.json"]
