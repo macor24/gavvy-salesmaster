@@ -175,20 +175,7 @@ docker compose up -d
 
 ## 项目结构
 
-```
-gavvy-salesmaster/
-├── src/SentriKit_salesmaster/
-│   ├── app.py              # FastAPI 统一服务（2485行，160路由）
-│   ├── master.py           # SalesMaster 六维引擎
-│   ├── SentriKit_client.py  # SentriKit API 客户端
-│   ├── team/               # (shim) AI 销售团队 ← 指向企业版
-│   ├── memory/             # (shim) 学习记忆库 ← 指向企业版
-│   ├── web/                # 前端 SPA（index.html+script.js+styles.css）
-│   ├── crm/ payment/ rbac/ quotes/ ...  # 20+业务模块
-│   └── storage/            # 文件数据库内核
-├── tests/                  # 5,236 行测试
-└── pyproject.toml          # pip install 即用
-```
+```\ngavvy-salesmaster/\n├── src/gavvy_salesmaster/\n│   ├── __init__.py          # 包入口(社区版/企业版检测)\n│   ├── app.py               # FastAPI 统一服务（160路由，14页面SPA）\n│   ├── master.py            # SalesMaster 六维引擎\n│   ├── enterprise_client.py # SentriKit API 客户端\n│   ├── core/                # 核心：api/app/storage/workflow/routers/web\n│   ├── team_pkg/            # AI 销售团队(7Agent+Orchestrator) ← 社区版可用\n│   ├── crm_pkg/             # CRM完整管理\n│   ├── trade_pkg/           # esign+payment\n│   ├── channels_pkg/        # 消息渠道\n│   └── web/                 # 前端 SPA（index.html+script.js+styles.css）\n├── tests/                   # 302测试\n└── pyproject.toml           # pip install 即用\n```
 
 ---
 
