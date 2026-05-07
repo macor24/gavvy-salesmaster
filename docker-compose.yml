@@ -5,7 +5,7 @@ services:
     build: .
     container_name: gavvy-salesmaster
     ports:
-      - "8000:8000"
+      - "8877:8877"
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs

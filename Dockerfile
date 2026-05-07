@@ -32,11 +32,11 @@ COPY docs/ docs/
 RUN mkdir -p /app/data /app/logs
 
 # 暴露端口
-EXPOSE 8000
+EXPOSE 8877
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8877/health || exit 1
 
 # 启动命令
-CMD ["python", "-m", "gavvy_salesmaster.web"]
+CMD ["python3", "-c", "import sys; sys.path.insert(0, '/app/src'); from gavvy_salesmaster.core.app import start_app; start_app()"]

@@ -1554,6 +1554,39 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 渠道集成 -->
+                        <div class="card" style="grid-column:1/-1;">
+                            <div class="card-header">
+                                <h3>🔗 渠道集成</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px 0;">
+                                    <div class="channel-card" data-channel="wecom" style="padding:16px;background:var(--bg-secondary);border-radius:8px;text-align:center;cursor:pointer;" onclick="showChannelConfig('wecom')">
+                                        <div style="font-size:28px;">💬</div>
+                                        <div style="font-weight:600;">企业微信</div>
+                                        <div style="font-size:11px;color:var(--text-muted);">Webhook</div>
+                                        <div class="channel-status" style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#fef2f2;color:#dc2626;">未配置</div>
+                                    </div>
+                                    <div class="channel-card" data-channel="dingtalk" style="padding:16px;background:var(--bg-secondary);border-radius:8px;text-align:center;cursor:pointer;" onclick="showChannelConfig('dingtalk')">
+                                        <div style="font-size:28px;">🔔</div>
+                                        <div style="font-weight:600;">钉钉</div>
+                                        <div style="font-size:11px;color:var(--text-muted);">群机器人</div>
+                                        <div class="channel-status" style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#fef2f2;color:#dc2626;">未配置</div>
+                                    </div>
+                                    <div class="channel-card" data-channel="feishu" style="padding:16px;background:var(--bg-secondary);border-radius:8px;text-align:center;cursor:pointer;" onclick="showChannelConfig('feishu')">
+                                        <div style="font-size:28px;">📘</div>
+                                        <div style="font-weight:600;">飞书</div>
+                                        <div style="font-size:11px;color:var(--text-muted);">Webhook</div>
+                                        <div class="channel-status" style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#fef2f2;color:#dc2626;">未配置</div>
+                                    </div>
+                                </div>
+                                <div id="channel-config-form" style="display:none;padding:16px;background:var(--bg-secondary);border-radius:8px;">
+                                    <div style="font-weight:600;margin-bottom:12px;" id="channel-config-title">配置渠道</div>
+                                    <div class="form-group"><label>Webhook URL</label><input id="channel-webhook-url" type="text" style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border-color);"></div>
+                                    <button class="btn-primary" onclick="saveChannelConfig()" style="margin-top:12px;">保存</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

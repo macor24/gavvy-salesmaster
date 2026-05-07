@@ -958,6 +958,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }).catch(function() { showToast('保存失败', 'fail'); });
     }
 
+    // ── 渠道集成 ──────────────────────────────
+    var _currentChannel = '';
+    window.showChannelConfig = function(channel) {
+        _currentChannel = channel;
+        var names = {wecom: '企业微信', dingtalk: '钉钉', feishu: '飞书'};
+        var title = document.getElementById('channel-config-title');
+        if (title) title.textContent = '配置 ' + (names[channel] || channel);
+        var form = document.getElementById('channel-config-form');
+        if (form) form.style.display = 'block';
+        SalesAPI.getSettings().then(function(data) {
+            var channels = data.channels || {};
+            var cfg = channels[channel] || {};
+            var urlEl = document.getElementById('channel-webhook-url');
+            if (urlEl) urlEl.value = cfg.webhook_url || '';
+        }).catch(function(){});
+    };
+    window.saveChannelConfig = function() {
+        var urlEl = document.getElementById('channel-webhook-url');
+        if (!urlEl) return;
+        var webhookUrl = urlEl.value.trim();
+        if (!webhookUrl) { window.showToast('请输入 Webhook URL', 'warning'); return; }
+        SalesAPI.saveSettings({channels: (_channels||{})[_currentChannel] = {webhook_url: webhookUrl, enabled: true}}).then(function() {
+            window.showToast('渠道已保存', 'success');
+        }).catch(function() { window.showToast('保存失败', 'fail'); });
+    };
+
     // 加载 SentriKit 集成状态
     function loadSentriKitStatus() {
         SalesAPI.getSentriKitStatus().then(data => {
