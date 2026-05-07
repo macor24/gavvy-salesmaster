@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadSummary();
                 loadMemoryStats(); // 仪表盘有记忆库概览
                 loadPipelineStages();
+                checkQuickstartStatus();
                 break;
             case 'workspace':
                 loadCustomerList();
@@ -2496,3 +2497,81 @@ function viewLeadDetail(id) { window.showToast('查看线索详情: ' + id, 'suc
 function contactLead(id) { window.showToast('联系线索: ' + id, 'success'); }
 function handleRisk(id) { window.showToast('⚡ 处理风险: ' + id, 'success'); }
 function useScript(id) { window.showToast('📋 使用话术: ' + id, 'success'); }
+
+/* ── 冷启动向导 ───────────────────────── */
+var _qsIndustry = '';
+var _qsSelectedIndustry = '';
+var _qsMode = 'conservative';
+
+function checkQuickstartStatus() {
+  fetch('/api/quickstart/status').then(function(r){return r.json()}).then(function(data){
+    if (!data.completed) {
+      var card = document.getElementById('quickstart-card');
+      if (card) card.style.display = 'block';
+      setTimeout(function(){ showQuickstart(); }, 1000);
+    } else {
+      var card = document.getElementById('quickstart-card');
+      if (card) card.style.display = 'none';
+    }
+  }).catch(function(){});
+}
+
+function showQuickstart() {
+  var overlay = document.getElementById('quickstart-overlay');
+  if (overlay) overlay.style.display = 'flex';
+  fetch('/api/quickstart/industries').then(function(r){return r.json()}).then(function(data){
+    var industries = data.industries || data || [];
+    var container = document.getElementById('qs-industries');
+    if (!container) return;
+    container.innerHTML = industries.map(function(ind){
+      var name = ind.name || ind.industry || ind;
+      return '<div class="qs-industry-card" onclick="qsSelectIndustry(\'' + name + '\',this)" style="padding:16px;background:var(--bg-primary,#0f172a);border:2px solid transparent;border-radius:8px;text-align:center;cursor:pointer;transition:all 0.2s;">'
+        + '<div style="font-size:32px;">' + (ind.icon || '🏢') + '</div>'
+        + '<div style="font-weight:600;margin-top:8px;font-size:13px;">' + name + '</div>'
+        + '<div style="font-size:11px;color:var(--text-muted,#94a3b8);margin-top:4px;">' + (ind.description || '') + '</div>'
+        + '</div>';
+    }).join('');
+  }).catch(function(){});
+}
+
+function qsSelectIndustry(name, el) {
+  _qsSelectedIndustry = name;
+  document.querySelectorAll('.qs-industry-card').forEach(function(c){c.style.borderColor='transparent'});
+  if (el) el.style.borderColor = '#3b82f6';
+}
+
+function qsNext() {
+  if (!_qsSelectedIndustry) { window.showToast('请先选择行业', 'warning'); return; }
+  document.getElementById('qs-step-1').style.display = 'none';
+  document.getElementById('qs-step-2').style.display = 'block';
+  document.getElementById('qs-industry-name').textContent = _qsSelectedIndustry;
+}
+
+function qsApply() {
+  var product = document.getElementById('qs-product').value.trim();
+  if (!product) { window.showToast('请输入产品名称', 'warning'); return; }
+  fetch('/api/quickstart/apply', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({industry: _qsSelectedIndustry, product_name: product})
+  }).then(function(r){return r.json()}).then(function(data){
+    window.showToast('模板已应用', 'success');
+    document.getElementById('qs-step-2').style.display = 'none';
+    document.getElementById('qs-step-3').style.display = 'block';
+  }).catch(function(){ window.showToast('应用失败', 'fail'); });
+}
+
+function qsSelectMode(mode) {
+  _qsMode = mode;
+  document.querySelectorAll('#qs-step-3 > div:nth-child(2) > div').forEach(function(c){c.style.borderColor='transparent'});
+}
+
+function qsComplete() {
+  fetch('/api/quickstart/complete', {method: 'POST'})
+  .then(function(r){return r.json()}).then(function(data){
+    window.showToast('🚀 销售团队已启动！', 'success');
+    document.getElementById('quickstart-overlay').style.display = 'none';
+    var card = document.getElementById('quickstart-card');
+    if (card) card.style.display = 'none';
+    location.reload();
+  }).catch(function(){ window.showToast('启动失败', 'fail'); });
+}

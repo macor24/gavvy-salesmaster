@@ -1048,19 +1048,19 @@ async def api_health_detailed():
 
 @app.get("/api/quickstart/status")
 async def api_qs_status():
-    from .team.quickstart import QuickstartGuide
+    from gavvy_salesmaster.team_pkg.team.quickstart import QuickstartGuide
     return QuickstartGuide().get_status()
 
 
 @app.get("/api/quickstart/industries")
 async def api_qs_industries():
-    from .team.quickstart import QuickstartGuide
+    from gavvy_salesmaster.team_pkg.team.quickstart import QuickstartGuide
     return QuickstartGuide().get_industries()
 
 
 @app.post("/api/quickstart/apply")
 async def api_qs_apply(body: dict):
-    from .team.quickstart import QuickstartGuide
+    from gavvy_salesmaster.team_pkg.team.quickstart import QuickstartGuide
     industry = body.get("industry", "")
     product = body.get("product_name", "")
     return QuickstartGuide().apply_template(industry, product)
@@ -1068,13 +1068,13 @@ async def api_qs_apply(body: dict):
 
 @app.post("/api/quickstart/complete")
 async def api_qs_complete():
-    from .team.quickstart import QuickstartGuide
+    from gavvy_salesmaster.team_pkg.team.quickstart import QuickstartGuide
     return {"status": "ok", "config": QuickstartGuide().complete().to_dict()}
 
 
 @app.post("/api/quickstart/demo")
 async def api_qs_demo():
-    from .team.quickstart import QuickstartGuide
+    from gavvy_salesmaster.team_pkg.team.quickstart import QuickstartGuide
     return QuickstartGuide().generate_demo_data()
 
 

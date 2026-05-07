@@ -150,8 +150,83 @@
                     <div id="login-message" style="margin-top:12px;font-size:12px;text-align:center;display:none;"></div>
                 </div>
             </div>
+            <!-- 冷启动向导覆盖层 -->
+            <div id="quickstart-overlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.85);z-index:9998;align-items:center;justify-content:center;">
+                <div style="background:var(--bg-secondary,#1e293b);border-radius:16px;padding:32px;max-width:520px;width:90%;color:var(--text-primary,#e2e8f0);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+                    <!-- Step 1 选择行业 -->
+                    <div class="qs-step" id="qs-step-1">
+                        <div style="text-align:center;margin-bottom:24px;">
+                            <div style="font-size:48px;margin-bottom:8px;">🚀</div>
+                            <h2 style="margin:0 0 8px;font-size:22px;">👋 欢迎使用销售宗师</h2>
+                            <p style="margin:0;font-size:14px;color:var(--text-muted,#94a3b8);">选择您的行业，我们为您配置销售模板</p>
+                        </div>
+                        <div id="qs-industries" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+                            <!-- 由JS动态加载 -->
+                        </div>
+                        <div style="text-align:center;margin-top:20px;">
+                            <button onclick="qsNext()" style="padding:10px 32px;background:#3b82f6;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">下一步 →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 填写产品信息 -->
+                    <div class="qs-step" id="qs-step-2" style="display:none;">
+                        <div style="text-align:center;margin-bottom:24px;">
+                            <div style="font-size:48px;margin-bottom:8px;">📦</div>
+                            <h2 style="margin:0 0 8px;font-size:22px;">填写产品信息</h2>
+                            <p style="margin:0;font-size:14px;color:var(--text-muted,#94a3b8);">行业：<span id="qs-industry-name" style="color:#3b82f6;font-weight:600;"></span></p>
+                        </div>
+                        <div style="margin-bottom:12px;">
+                            <label style="font-size:13px;color:var(--text-muted,#94a3b8);display:block;margin-bottom:6px;">产品名称</label>
+                            <input id="qs-product" type="text" placeholder="如：AI智能客服系统" style="width:100%;padding:10px 14px;border:1px solid var(--border-color,#334155);border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;background:var(--bg-primary,#0f172a);color:var(--text-primary,#e2e8f0);">
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+                            <div>
+                                <label style="font-size:13px;color:var(--text-muted,#94a3b8);display:block;margin-bottom:6px;">最低价（元）</label>
+                                <input id="qs-price-min" type="number" placeholder="0" style="width:100%;padding:10px 14px;border:1px solid var(--border-color,#334155);border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;background:var(--bg-primary,#0f172a);color:var(--text-primary,#e2e8f0);">
+                            </div>
+                            <div>
+                                <label style="font-size:13px;color:var(--text-muted,#94a3b8);display:block;margin-bottom:6px;">最高价（元）</label>
+                                <input id="qs-price-max" type="number" placeholder="9999" style="width:100%;padding:10px 14px;border:1px solid var(--border-color,#334155);border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;background:var(--bg-primary,#0f172a);color:var(--text-primary,#e2e8f0);">
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <button onclick="qsApply()" style="padding:10px 32px;background:#3b82f6;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">应用模板 →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 启动 -->
+                    <div class="qs-step" id="qs-step-3" style="display:none;">
+                        <div style="text-align:center;margin-bottom:24px;">
+                            <div style="font-size:48px;margin-bottom:8px;">🛡️</div>
+                            <h2 style="margin:0 0 8px;font-size:22px;">准备就绪！</h2>
+                            <p style="margin:0;font-size:14px;color:var(--text-muted,#94a3b8);">模板已应用，现在启动您的AI销售团队</p>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+                            <div style="padding:16px;background:var(--bg-primary,#0f172a);border:2px solid #3b82f6;border-radius:8px;text-align:center;cursor:pointer;" onclick="qsSelectMode('conservative')">
+                                <div style="font-size:28px;margin-bottom:6px;">🛡️</div>
+                                <div style="font-weight:600;font-size:14px;">保守模式</div>
+                                <div style="font-size:11px;color:var(--text-muted,#94a3b8);">人工审核每条消息</div>
+                            </div>
+                            <div style="padding:16px;background:var(--bg-primary,#0f172a);border:2px solid transparent;border-radius:8px;text-align:center;cursor:pointer;" onclick="qsSelectMode('open')">
+                                <div style="font-size:28px;margin-bottom:6px;">🚀</div>
+                                <div style="font-weight:600;font-size:14px;">开放模式</div>
+                                <div style="font-size:11px;color:var(--text-muted,#94a3b8);">AI全自动执行</div>
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <button onclick="qsComplete()" style="padding:10px 32px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">🚀 启动销售团队</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="content-area" style="display:none;">
                 <div id="dashboard" class="view active">
+                    <!-- 冷启动提示卡片 -->
+                    <div id="quickstart-card" style="display:none;padding:20px;margin-bottom:16px;background:linear-gradient(135deg,#1e40af,#3b82f6);border-radius:12px;color:white;text-align:center;">
+                        <h3 style="margin:0 0 8px;font-size:18px;">🚀 快速启动您的AI销售团队</h3>
+                        <p style="margin:0 0 12px;font-size:13px;opacity:0.9;">只需3步，马上开始自动获客</p>
+                        <button onclick="showQuickstart()" style="padding:10px 24px;background:white;color:#1e40af;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px;">开始配置 →</button>
+                    </div>
                     <div class="stats-container">
                         <div class="stats-row">
                             <div class="stat-card primary">
