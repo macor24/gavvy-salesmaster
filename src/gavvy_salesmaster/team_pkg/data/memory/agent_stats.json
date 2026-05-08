@@ -5,13 +5,13 @@
     "failed": 4
   },
   "market_research_agent": {
-    "total": 13,
-    "success": 12,
+    "total": 14,
+    "success": 13,
     "failed": 1
   },
   "competitor_intel_agent": {
-    "total": 9,
-    "success": 9,
+    "total": 12,
+    "success": 12,
     "failed": 0
   }
 }
