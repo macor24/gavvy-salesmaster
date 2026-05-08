@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Gavvy 销售宗师</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #242424;
+            --bg-card: #2a2a2a;
+            --accent-blue: #007aff;
+            --accent-green: #34c759;
+            --accent-orange: #ff9500;
+            --accent-red: #ff3b30;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border-color: #3a3a3a;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        #app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部导航 */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-left, .header-right {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-subtitle {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(0.95);
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            padding-top: calc(56px + env(safe-area-inset-top));
+            padding-bottom: calc(64px + env(safe-area-inset-bottom));
+            overflow: hidden;
+        }
+
+        .page {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-action {
+            font-size: 12px;
+            color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .stat-card.blue::before { background: var(--accent-blue); }
+        .stat-card.green::before { background: var(--accent-green); }
+        .stat-card.orange::before { background: var(--accent-orange); }
+        .stat-card.red::before { background: var(--accent-red); }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 10px;
+            margin-top: 6px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .stat-trend.up {
+            background: rgba(52, 199, 89, 0.15);
+            color: var(--accent-green);
+        }
+
+        .stat-trend.down {
+            background: rgba(255, 59, 48, 0.15);
+            color: var(--accent-red);
+        }
+
+        /* 快速操作 */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 8px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:active {
+            background: rgba(0, 122, 255, 0.1);
+            transform: scale(0.95);
+        }
+
+        .action-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .action-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            width: 100%;
+            padding: 8px 0;
+        }
+
+        .chart {
+            width: 100%;
+            height: 220px;
+        }
+
+        /* 客户列表 */
+        .customer-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .customer-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .customer-item:active {
+            background: rgba(0, 122, 255, 0.1);
+        }
+
+        .customer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-blue), #5856d6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .customer-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .customer-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .customer-company {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .customer-status {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .customer-status.customer {
+            background: rgba(52, 199, 89, 0.15);
+            color: var(--accent-green);
+        }
+
+        .customer-status.qualified {
+            background: rgba(255, 149, 0, 0.15);
+            color: var(--accent-orange);
+        }
+
+        .customer-status.prospect {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .customer-status.lead {
+            background: rgba(102, 102, 102, 0.15);
+            color: var(--text-muted);
+        }
+
+        /* 线索列表 */
+        .lead-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .lead-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lead-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .lead-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .lead-score {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 149, 0, 0.15);
+            color: var(--accent-orange);
+        }
+
+        .lead-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .lead-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .lead-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* 搜索框 */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .search-icon {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-right: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* 底部导航 */
+        .mobile-tabbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(36, 36, 36, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 1000;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 56px;
+            position: relative;
+        }
+
+        .tab-item.active {
+            color: var(--accent-blue);
+        }
+
+        .tab-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .tab-label {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .tab-item.active .tab-label {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .tab-badge {
+            position: absolute;
+            top: 4px;
+            right: 50%;
+            transform: translateX(16px);
+            background: var(--accent-red);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* 加载状态 */
+        .loading {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .loading-spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 空状态 */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .empty-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* 聊天相关 */
+        .chat-layout {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-conversations {
+            flex: 0 0 auto;
+            max-height: 180px;
+            overflow-y: auto;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+        .conversation-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .conversation-item:active {
+            background: rgba(0, 122, 255, 0.1);
+        }
+
+        .conversation-item.active {
+            background: rgba(0, 122, 255, 0.15);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .conversation-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), #5856d6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .conversation-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .conversation-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .conversation-preview {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .conversation-meta {
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .conversation-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .conversation-badge {
+            background: var(--accent-red);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+        }
+
+        .chat-message.customer {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+
+        .chat-message.agent {
+            align-self: flex-start;
+            align-items: flex-start;
+        }
+
+        .message-bubble {
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .chat-message.customer .message-bubble {
+            background: var(--accent-blue);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-message.agent .message-bubble {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+
+        .chat-input-area {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .chat-send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .chat-send-btn:active {
+            transform: scale(0.95);
+            opacity: 0.8;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .chat-header-info {
+            flex: 1;
+        }
+
+        .chat-header-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chat-header-status {
+            font-size: 11px;
+            color: var(--accent-green);
+        }
+
+        .chat-header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-action-btn:active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 新建对话 */
+        .new-chat-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .new-chat-btn:active {
+            background: #0066d6;
+        }
+
+        .new-chat-btn span {
+            margin-left: 8px;
+        }
+
+        /* 客户资料侧边栏 */
+        .customer-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            z-index: 2000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .customer-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sidebar-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--text-secondary);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .sidebar-content {
+            padding: 16px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-item:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-value {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* 用户卡片 */
+        .user-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+
+        .user-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-blue), #5856d6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .user-email {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* 设置列表 */
+        .settings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item:active {
+            background: rgba(0, 122, 255, 0.1);
+        }
+
+        .settings-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .settings-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .settings-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .settings-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .settings-arrow {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        /* 列表内容区域 */
+        .page-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航 -->
+        <header class="mobile-header">
+            <div class="header-left">
+                <button class="nav-btn" id="menuBtn">☰</button>
+            </div>
+            <div class="header-center">
+                <div class="header-title" id="pageTitle">仪表盘</div>
+                <div class="header-subtitle" id="pageSubtitle">Sales Master</div>
+            </div>
+            <div class="header-right">
+                <button class="nav-btn" id="notificationBtn">🔔</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 仪表盘页面 -->
+            <div id="dashboardPage" class="page active">
+                <div class="page-content">
+                    <!-- 搜索框 -->
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="dashboardSearch" placeholder="搜索客户、线索...">
+                    </div>
+
+                    <!-- 统计卡片 -->
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card blue">
+                            <div class="stat-value">-</div>
+                            <div class="stat-label">今日新增线索</div>
+                            <div class="stat-trend up">-</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-value">-</div>
+                            <div class="stat-label">本月成交额</div>
+                            <div class="stat-trend up">-</div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-value">-</div>
+                            <div class="stat-label">待跟进线索</div>
+                            <div class="stat-trend down">-</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="stat-value">-</div>
+                            <div class="stat-label">待审核订单</div>
+                            <div class="stat-trend up">-</div>
+                        </div>
+                    </div>
+
+                    <!-- 快速操作 -->
+                    <div class="quick-actions">
+                        <button class="action-btn" onclick="switchPage('customers')">
+                            <span class="action-icon">👤</span>
+                            <span class="action-label">客户列表</span>
+                        </button>
+                        <button class="action-btn" onclick="switchPage('chat')">
+                            <span class="action-icon">💬</span>
+                            <span class="action-label">新建对话</span>
+                        </button>
+                        <button class="action-btn" onclick="switchPage('leads')">
+                            <span class="action-icon">📋</span>
+                            <span class="action-label">线索列表</span>
+                        </button>
+                        <button class="action-btn" onclick="switchPage('settings')">
+                            <span class="action-icon">📊</span>
+                            <span class="action-label">数据分析</span>
+                        </button>
+                    </div>
+
+                    <!-- 销售趋势图表 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">销售趋势</span>
+                            <span class="card-action">查看详情</span>
+                        </div>
+                        <div class="chart-container">
+                            <div id="salesTrendChart" class="chart"></div>
+                        </div>
+                    </div>
+
+                    <!-- 客户分布图表 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">客户分布</span>
+                            <span class="card-action">查看详情</span>
+                        </div>
+                        <div class="chart-container">
+                            <div id="customerDistributionChart" class="chart"></div>
+                        </div>
+                    </div>
+
+                    <!-- 最近客户 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">最近客户</span>
+                            <span class="card-action" onclick="switchPage('customers')">更多</span>
+                        </div>
+                        <div class="customer-list" id="recentCustomers"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户页面 -->
+            <div id="customersPage" class="page">
+                <div class="page-content">
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="customerSearch" placeholder="搜索客户..." oninput="filterCustomers(this.value)">
+                    </div>
+
+                    <div class="customer-list" id="allCustomers"></div>
+                </div>
+            </div>
+
+            <!-- 线索页面 -->
+            <div id="leadsPage" class="page">
+                <div class="page-content">
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="leadSearch" placeholder="搜索线索..." oninput="filterLeads(this.value)">
+                    </div>
+
+                    <div class="lead-list" id="allLeads"></div>
+                </div>
+            </div>
+
+            <!-- 聊天页面 -->
+            <div id="chatPage" class="page">
+                <div class="chat-layout">
+                    <!-- 新建对话按钮 -->
+                    <button class="new-chat-btn" onclick="startNewChat()">
+                        ✨ <span>新建AI对话</span>
+                    </button>
+
+                    <!-- 对话列表 -->
+                    <div class="chat-conversations" id="chatConversations"></div>
+
+                    <!-- 聊天区域 -->
+                    <div class="chat-area">
+                        <!-- 聊天头部 -->
+                        <div class="chat-header" id="chatHeader">
+                            <div class="chat-header-info">
+                                <div class="chat-header-name" id="chatCustomerName">选择客户开始对话</div>
+                                <div class="chat-header-status" id="chatStatus">在线</div>
+                            </div>
+                            <div class="chat-header-actions">
+                                <button class="chat-action-btn" onclick="showCustomerSidebar()">👤</button>
+                            </div>
+                        </div>
+
+                        <!-- 消息列表 -->
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="empty-state">
+                                <div class="empty-icon">💬</div>
+                                <div class="empty-title">暂无消息</div>
+                                <div class="empty-desc">从左侧选择一个客户或新建对话</div>
+                            </div>
+                        </div>
+
+                        <!-- 输入区域 -->
+                        <div class="chat-input-area">
+                            <input type="text" class="chat-input" id="chatInput" placeholder="输入消息..." onkeypress="handleChatKeypress(event)">
+                            <button class="chat-send-btn" onclick="sendChatMessage()">➤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设置页面 -->
+            <div id="settingsPage" class="page">
+                <div class="page-content">
+                    <div class="user-card">
+                        <div class="user-avatar-large">管</div>
+                        <div class="user-name">管理员</div>
+                        <div class="user-email">admin@gavvy.io</div>
+                    </div>
+
+                    <div class="settings-list">
+                        <div class="settings-item" onclick="toggleSetting('profile')">
+                            <div class="settings-icon">👤</div>
+                            <div class="settings-content">
+                                <div class="settings-title">个人信息</div>
+                                <div class="settings-desc">修改头像、姓名、联系方式</div>
+                            </div>
+                            <span class="settings-arrow">›</span>
+                        </div>
+                        <div class="settings-item" onclick="toggleSetting('security')">
+                            <div class="settings-icon">🔐</div>
+                            <div class="settings-content">
+                                <div class="settings-title">账号安全</div>
+                                <div class="settings-desc">修改密码、绑定手机</div>
+                            </div>
+                            <span class="settings-arrow">›</span>
+                        </div>
+                        <div class="settings-item" onclick="toggleSetting('notifications')">
+                            <div class="settings-icon">🔔</div>
+                            <div class="settings-content">
+                                <div class="settings-title">通知设置</div>
+                                <div class="settings-desc">消息提醒、邮件通知</div>
+                            </div>
+                            <span class="settings-arrow">›</span>
+                        </div>
+                        <div class="settings-item" onclick="toggleSetting('system')">
+                            <div class="settings-icon">⚙️</div>
+                            <div class="settings-content">
+                                <div class="settings-title">系统设置</div>
+                                <div class="settings-desc">数据源配置、API管理</div>
+                            </div>
+                            <span class="settings-arrow">›</span>
+                        </div>
+                        <div class="settings-item" onclick="toggleSetting('about')">
+                            <div class="settings-icon">ℹ️</div>
+                            <div class="settings-content">
+                                <div class="settings-title">关于我们</div>
+                                <div class="settings-desc">版本信息、帮助文档</div>
+                            </div>
+                            <span class="settings-arrow">›</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 底部导航 -->
+        <nav class="mobile-tabbar">
+            <div class="tab-item active" data-page="dashboard">
+                <span class="tab-icon">📊</span>
+                <span class="tab-label">仪表盘</span>
+            </div>
+            <div class="tab-item" data-page="customers">
+                <span class="tab-icon">👤</span>
+                <span class="tab-label">客户</span>
+            </div>
+            <div class="tab-item" data-page="chat">
+                <span class="tab-icon">💬</span>
+                <span class="tab-label">对话</span>
+            </div>
+            <div class="tab-item" data-page="leads">
+                <span class="tab-icon">📋</span>
+                <span class="tab-label">线索</span>
+            </div>
+            <div class="tab-item" data-page="settings">
+                <span class="tab-icon">⚙️</span>
+                <span class="tab-label">设置</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- 客户资料侧边栏 -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeCustomerSidebar()"></div>
+    <div class="customer-sidebar" id="customerSidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">客户资料</span>
+            <button class="sidebar-close" onclick="closeCustomerSidebar()">✕</button>
+        </div>
+        <div class="sidebar-content" id="sidebarContent">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">基本信息</div>
+                <div class="sidebar-item"><span class="sidebar-label">姓名</span><span class="sidebar-value" id="sidebarName">-</span></div>
+                <div class="sidebar-item"><span class="sidebar-label">公司</span><span class="sidebar-value" id="sidebarCompany">-</span></div>
+                <div class="sidebar-item"><span class="sidebar-label">职位</span><span class="sidebar-value" id="sidebarPosition">-</span></div>
+                <div class="sidebar-item"><span class="sidebar-label">电话</span><span class="sidebar-value" id="sidebarPhone">-</span></div>
+                <div class="sidebar-item"><span class="sidebar-label">邮箱</span><span class="sidebar-value" id="sidebarEmail">-</span></div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">意向信息</div>
+                <div class="sidebar-item"><span class="sidebar-label">意向阶段</span><span class="sidebar-value" id="sidebarStage">-</span></div>
+                <div class="sidebar-item"><span class="sidebar-label">意向评分</span><span class="sidebar-value" id="sidebarScore">-</span></div>
+                <div class="sidebar-item"><span class="sidebar-label">预算范围</span><span class="sidebar-value" id="sidebarBudget">-</span></div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">跟进记录</div>
+                <div class="sidebar-item"><span class="sidebar-label">最后联系</span><span class="sidebar-value" id="sidebarLastContact">-</span></div>
+                <div class="sidebar-item"><span class="sidebar-label">跟进次数</span><span class="sidebar-value" id="sidebarFollowupCount">-</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API 服务类
+        class APIService {
+            constructor() {
+                this.baseURL = '';
+            }
+
+            async request(url, method = 'GET', data = null) {
+                const options = {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+
+                try {
+                    const response = await fetch(`${this.baseURL}${url}`, options);
+                    const result = await response.json();
+                    return result;
+                } catch (error) {
+                    console.error('API请求失败:', error);
+                    return null;
+                }
+            }
+
+            async getCustomers(params = {}) {
+                const query = new URLSearchParams(params).toString();
+                return await this.request(`/api/crm/customers?${query}`);
+            }
+
+            async getDashboardStats() {
+                return await this.request('/api/crm/analytics/dashboard');
+            }
+
+            async getChartData() {
+                return await this.request('/api/crm/analytics/charts');
+            }
+        }
+
+        const api = new APIService();
+        
+        // 页面配置
+        const pages = {
+            dashboard: { title: '仪表盘', subtitle: 'Sales Master' },
+            customers: { title: '客户管理', subtitle: '客户列表' },
+            chat: { title: 'AI对话', subtitle: '智能助手' },
+            leads: { title: '线索管理', subtitle: '线索列表' },
+            settings: { title: '设置', subtitle: '系统设置' }
+        };
+
+        // 图表实例
+        let salesTrendChart = null;
+        let customerDistributionChart = null;
+
+        // 当前对话客户
+        let currentChatCustomer = null;
+        let conversations = [];
+
+        // 页面切换
+        function switchPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            const page = document.getElementById(pageName + 'Page');
+            if (page) {
+                page.classList.add('active');
+            }
+
+            const info = pages[pageName];
+            if (info) {
+                document.getElementById('pageTitle').textContent = info.title;
+                document.getElementById('pageSubtitle').textContent = info.subtitle;
+            }
+
+            document.querySelectorAll('.tab-item').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            const activeTab = document.querySelector(`[data-page="${pageName}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+
+            // 加载页面数据
+            if (pageName === 'dashboard') {
+                loadDashboardData();
+            } else if (pageName === 'customers') {
+                loadCustomersData();
+            } else if (pageName === 'chat') {
+                loadChatConversations();
+            } else if (pageName === 'leads') {
+                loadLeadsData();
+            }
+        }
+
+        // 初始化图表
+        function initCharts() {
+            const trendChartDom = document.getElementById('salesTrendChart');
+            if (trendChartDom) {
+                salesTrendChart = echarts.init(trendChartDom);
+                updateSalesTrendChart();
+            }
+
+            const distributionChartDom = document.getElementById('customerDistributionChart');
+            if (distributionChartDom) {
+                customerDistributionChart = echarts.init(distributionChartDom);
+                updateCustomerDistributionChart();
+            }
+        }
+
+        // 更新销售趋势图表
+        function updateSalesTrendChart(data = null) {
+            if (!salesTrendChart) return;
+
+            const chartData = data || {
+                months: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                revenue: [120, 150, 180, 220, 280, 350],
+                orders: [45, 58, 68, 82, 95, 110],
+                leads: [120, 145, 168, 195, 220, 258]
+            };
+
+            const option = {
+                backgroundColor: 'transparent',
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(42, 42, 42, 0.95)',
+                    borderColor: '#3a3a3a',
+                    textStyle: { color: '#ffffff' },
+                    axisPointer: {
+                        type: 'cross',
+                        lineStyle: { color: '#007aff' }
+                    }
+                },
+                legend: {
+                    data: ['成交额', '订单数', '线索数'],
+                    textStyle: { color: '#a0a0a0' },
+                    bottom: 0,
+                    itemWidth: 12,
+                    itemHeight: 12
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '15%',
+                    top: '10%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: chartData.months,
+                    axisLine: { lineStyle: { color: '#3a3a3a' } },
+                    axisLabel: { color: '#a0a0a0', fontSize: 10 }
+                },
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLine: { show: false },
+                        axisTick: { show: false },
+                        axisLabel: { color: '#a0a0a0', fontSize: 10 },
+                        splitLine: { lineStyle: { color: '#3a3a3a', type: 'dashed' } }
+                    }
+                ],
+                series: [
+                    {
+                        name: '成交额',
+                        type: 'line',
+                        smooth: true,
+                        data: chartData.revenue,
+                        lineStyle: { color: '#007aff', width: 2 },
+                        itemStyle: { color: '#007aff' },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: 'rgba(0, 122, 255, 0.3)' },
+                                { offset: 1, color: 'rgba(0, 122, 255, 0)' }
+                            ])
+                        }
+                    },
+                    {
+                        name: '订单数',
+                        type: 'line',
+                        smooth: true,
+                        data: chartData.orders,
+                        lineStyle: { color: '#34c759', width: 2 },
+                        itemStyle: { color: '#34c759' },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: 'rgba(52, 199, 89, 0.3)' },
+                                { offset: 1, color: 'rgba(52, 199, 89, 0)' }
+                            ])
+                        }
+                    },
+                    {
+                        name: '线索数',
+                        type: 'line',
+                        smooth: true,
+                        data: chartData.leads,
+                        lineStyle: { color: '#ff9500', width: 2 },
+                        itemStyle: { color: '#ff9500' }
+                    }
+                ]
+            };
+
+            salesTrendChart.setOption(option);
+        }
+
+        // 更新客户分布图表
+        function updateCustomerDistributionChart(data = null) {
+            if (!customerDistributionChart) return;
+
+            const chartData = data || {
+                industries: ['AI', '云计算', '大数据', '电商', '金融科技', '其他'],
+                counts: [156, 89, 124, 98, 67, 45],
+                colors: ['#007aff', '#34c759', '#ff9500', '#ff3b30', '#af52de', '#6b7280']
+            };
+
+            const option = {
+                backgroundColor: 'transparent',
+                tooltip: {
+                    trigger: 'item',
+                    backgroundColor: 'rgba(42, 42, 42, 0.95)',
+                    borderColor: '#3a3a3a',
+                    textStyle: { color: '#ffffff' },
+                    formatter: '{b}: {c}家 ({d}%)'
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: 0,
+                    textStyle: { color: '#a0a0a0', fontSize: 10 },
+                    itemWidth: 10,
+                    itemHeight: 10
+                },
+                series: [
+                    {
+                        name: '客户分布',
+                        type: 'pie',
+                        radius: ['45%', '70%'],
+                        center: ['50%', '40%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: {
+                            borderRadius: 8,
+                            borderColor: '#2a2a2a',
+                            borderWidth: 2
+                        },
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 16,
+                                fontWeight: 'bold',
+                                color: '#ffffff'
+                            },
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: chartData.industries.map((name, index) => ({
+                            value: chartData.counts[index],
+                            name: name,
+                            itemStyle: { color: chartData.colors[index] }
+                        }))
+                    }
+                ]
+            };
+
+            customerDistributionChart.setOption(option);
+        }
+
+        // 加载仪表盘数据
+        async function loadDashboardData() {
+            const result = await api.getDashboardStats();
+            
+            if (result && result.stats) {
+                updateStats(result.stats);
+            } else {
+                updateStats({
+                    new_leads: { value: '128', label: '今日新增线索', trend: '↑ 15%' },
+                    month_revenue: { value: '¥28.5万', label: '本月成交额', trend: '↑ 23%' },
+                    pending_leads: { value: '32', label: '待跟进线索', trend: '↓ 8%' },
+                    pending_orders: { value: '5', label: '待审核订单', trend: '↑ 5' }
+                });
+            }
+
+            const chartResult = await api.getChartData();
+            if (chartResult) {
+                if (chartResult.sales_trend) {
+                    updateSalesTrendChart(chartResult.sales_trend);
+                }
+                if (chartResult.customer_distribution) {
+                    updateCustomerDistributionChart({
+                        industries: chartResult.customer_distribution.industries,
+                        counts: chartResult.customer_distribution.counts,
+                        colors: ['#007aff', '#34c759', '#ff9500', '#ff3b30', '#af52de', '#6b7280']
+                    });
+                }
+            }
+
+            loadRecentCustomers();
+        }
+
+        // 更新统计卡片
+        function updateStats(stats) {
+            const statCards = document.querySelectorAll('.stats-grid .stat-card');
+            const statKeys = ['new_leads', 'month_revenue', 'pending_leads', 'pending_orders'];
+            
+            statCards.forEach((card, index) => {
+                const key = statKeys[index];
+                if (stats[key]) {
+                    const valueEl = card.querySelector('.stat-value');
+                    const labelEl = card.querySelector('.stat-label');
+                    const trendEl = card.querySelector('.stat-trend');
+                    
+                    if (valueEl) valueEl.textContent = stats[key].value;
+                    if (labelEl) labelEl.textContent = stats[key].label;
+                    if (trendEl) {
+                        trendEl.textContent = stats[key].trend;
+                        trendEl.className = `stat-trend ${stats[key].trend.startsWith('↑') ? 'up' : 'down'}`;
+                    }
+                }
+            });
+        }
+
+        // 加载最近客户
+        async function loadRecentCustomers() {
+            const result = await api.getCustomers({ page_size: 5 });
+            const container = document.getElementById('recentCustomers');
+            
+            if (result && result.customers && result.customers.length > 0) {
+                container.innerHTML = result.customers.slice(0, 5).map(customer => createCustomerItem(customer)).join('');
+            } else {
+                container.innerHTML = createMockCustomers().slice(0, 5);
+            }
+        }
+
+        // 加载所有客户
+        async function loadCustomersData() {
+            const result = await api.getCustomers({ page_size: 20 });
+            const container = document.getElementById('allCustomers');
+            
+            if (result && result.customers && result.customers.length > 0) {
+                container.innerHTML = result.customers.map(customer => createCustomerItem(customer)).join('');
+            } else {
+                container.innerHTML = createMockCustomers();
+            }
+        }
+
+        // 筛选客户
+        function filterCustomers(query) {
+            const container = document.getElementById('allCustomers');
+            const items = container.querySelectorAll('.customer-item');
+            const lowerQuery = query.toLowerCase();
+            
+            items.forEach(item => {
+                const name = item.querySelector('.customer-name').textContent.toLowerCase();
+                const company = item.querySelector('.customer-company').textContent.toLowerCase();
+                const visible = name.includes(lowerQuery) || company.includes(lowerQuery);
+                item.style.display = visible ? 'flex' : 'none';
+            });
+        }
+
+        // 创建客户项
+        function createCustomerItem(customer) {
+            const name = customer.name || customer.company || '客户';
+            const company = customer.company || customer.industry || '';
+            const stage = customer.stage || 'lead';
+            
+            return `
+                <div class="customer-item" onclick="selectCustomerForChat(${JSON.stringify(customer).replace(/"/g, '&quot;')})">
+                    <div class="customer-avatar">${name[0]}</div>
+                    <div class="customer-info">
+                        <div class="customer-name">${name}</div>
+                        <div class="customer-company">${company}</div>
+                    </div>
+                    <span class="customer-status ${stage}">${stage}</span>
+                </div>
+            `;
+        }
+
+        // 模拟客户数据
+        function createMockCustomers() {
+            const mockData = [
+                { id: '1', name: '林志远', company: '北京智言科技有限公司', stage: 'customer', industry: 'AI' },
+                { id: '2', name: '邓凯文', company: '北京字节方舟科技有限公司', stage: 'customer', industry: 'AI' },
+                { id: '3', name: '吴思敏', company: '上海自贸区数字贸易有限公司', stage: 'qualified', industry: '电商' },
+                { id: '4', name: '徐明远', company: '南京紫金山人工智能研究院', stage: 'qualified', industry: 'AI' },
+                { id: '5', name: '李秋实', company: '武汉长江大数据研究院', stage: 'prospect', industry: '大数据' }
+            ];
+            return mockData.map(customer => createCustomerItem(customer)).join('');
+        }
+
+        // 加载线索数据
+        async function loadLeadsData() {
+            const container = document.getElementById('allLeads');
+            container.innerHTML = createMockLeads();
+        }
+
+        // 筛选线索
+        function filterLeads(query) {
+            const container = document.getElementById('allLeads');
+            const items = container.querySelectorAll('.lead-card');
+            const lowerQuery = query.toLowerCase();
+            
+            items.forEach(item => {
+                const name = item.querySelector('.lead-name').textContent.toLowerCase();
+                const visible = name.includes(lowerQuery);
+                item.style.display = visible ? 'block' : 'none';
+            });
+        }
+
+        // 模拟线索数据
+        function createMockLeads() {
+            const mockLeads = [
+                { id: '1', name: '张经理', score: 85, tags: ['IT行业', '高意向', '北京'], desc: '对企业版产品感兴趣，需要安排产品演示...' },
+                { id: '2', name: '李总监', score: 72, tags: ['金融', '中意向', '上海'], desc: '已发送报价单，等待反馈中...' },
+                { id: '3', name: '王总', score: 92, tags: ['制造业', '高意向', '杭州'], desc: '通过官网表单提交，明确表示需要采购...' },
+                { id: '4', name: '陈经理', score: 68, tags: ['电商', '中意向', '杭州'], desc: '电话咨询过，需要发送详细资料...' },
+                { id: '5', name: '刘总监', score: 81, tags: ['教育', '高意向', '成都'], desc: '已安排演示，等待确认时间...' }
+            ];
+            
+            return mockLeads.map(lead => `
+                <div class="lead-card">
+                    <div class="lead-header">
+                        <span class="lead-name">${lead.name}</span>
+                        <span class="lead-score">${lead.score}分</span>
+                    </div>
+                    <div class="lead-info">
+                        ${lead.tags.map(tag => `<span class="lead-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="lead-desc">${lead.desc}</div>
+                </div>
+            `).join('');
+        }
+
+        // 聊天功能
+        function startNewChat() {
+            switchPage('customers');
+        }
+
+        function loadChatConversations() {
+            const container = document.getElementById('chatConversations');
+            
+            if (conversations.length === 0) {
+                container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:13px;">暂无对话记录<br>点击客户开始对话</div>';
+            } else {
+                container.innerHTML = conversations.map((conv, index) => `
+                    <div class="conversation-item ${index === 0 ? 'active' : ''}" onclick="loadChatWithCustomer(${index})">
+                        <div class="conversation-avatar">${conv.name[0]}</div>
+                        <div class="conversation-info">
+                            <div class="conversation-name">${conv.name}</div>
+                            <div class="conversation-preview">${conv.lastMessage || '开始对话...'}</div>
+                        </div>
+                        <div class="conversation-meta">
+                            <div class="conversation-time">${conv.time || '刚刚'}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function selectCustomerForChat(customer) {
+            // 添加到对话列表
+            const existingIndex = conversations.findIndex(c => c.id === customer.id);
+            if (existingIndex === -1) {
+                conversations.unshift({
+                    id: customer.id,
+                    name: customer.name || customer.company,
+                    lastMessage: '',
+                    time: '刚刚',
+                    messages: []
+                });
+            } else {
+                // 移到顶部
+                const conv = conversations.splice(existingIndex, 1)[0];
+                conversations.unshift(conv);
+            }
+
+            currentChatCustomer = customer;
+            
+            // 更新聊天头部
+            document.getElementById('chatCustomerName').textContent = customer.name || customer.company;
+            document.getElementById('chatStatus').textContent = '在线';
+            
+            // 清空消息区域
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">👋</div>
+                    <div class="empty-title">开始与 ${customer.name || customer.company} 的对话</div>
+                    <div class="empty-desc">发送消息开始沟通</div>
+                </div>
+            `;
+
+            // 更新对话列表
+            loadChatConversations();
+            
+            // 切换到聊天页面
+            switchPage('chat');
+            
+            // 聚焦输入框
+            document.getElementById('chatInput').focus();
+        }
+
+        function loadChatWithCustomer(index) {
+            const conv = conversations[index];
+            if (!conv) return;
+
+            // 更新当前客户
+            currentChatCustomer = { id: conv.id, name: conv.name };
+            
+            // 更新聊天头部
+            document.getElementById('chatCustomerName').textContent = conv.name;
+            document.getElementById('chatStatus').textContent = '在线';
+            
+            // 加载消息
+            const messagesContainer = document.getElementById('chatMessages');
+            if (conv.messages.length === 0) {
+                messagesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">👋</div>
+                        <div class="empty-title">开始与 ${conv.name} 的对话</div>
+                        <div class="empty-desc">发送消息开始沟通</div>
+                    </div>
+                `;
+            } else {
+                messagesContainer.innerHTML = conv.messages.map(msg => `
+                    <div class="chat-message ${msg.type}">
+                        <div class="message-bubble">${msg.content}</div>
+                        <div class="message-time">${msg.time}</div>
+                    </div>
+                `).join('');
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            // 更新对话列表选中状态
+            const items = document.querySelectorAll('.conversation-item');
+            items.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const content = input.value.trim();
+            
+            if (!content) return;
+            
+            if (!currentChatCustomer) {
+                // 没有选择客户，提示选择
+                switchPage('customers');
+                return;
+            }
+
+            // 添加用户消息
+            addMessageToChat('customer', content);
+            
+            // 清空输入框
+            input.value = '';
+            
+            // 模拟AI回复
+            setTimeout(() => {
+                const responses = [
+                    '好的，我会尽快处理您的问题。',
+                    '明白了，让我为您查询一下相关信息。',
+                    '感谢您的反馈，我会认真考虑您的建议。',
+                    '没问题，我来帮您安排。',
+                    '收到，我会协调相关部门跟进处理。'
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessageToChat('agent', randomResponse);
+            }, 800);
+        }
+
+        function addMessageToChat(type, content) {
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            // 如果是第一条消息，清空空状态
+            const emptyState = messagesContainer.querySelector('.empty-state');
+            if (emptyState) {
+                messagesContainer.innerHTML = '';
+            }
+
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+            messageDiv.innerHTML = `
+                <div class="message-bubble">${content}</div>
+                <div class="message-time">${time}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // 更新当前对话记录
+            if (currentChatCustomer) {
+                const conv = conversations.find(c => c.id === currentChatCustomer.id);
+                if (conv) {
+                    conv.lastMessage = content;
+                    conv.time = '刚刚';
+                    conv.messages.push({ type, content, time });
+                }
+            }
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        // 客户资料侧边栏
+        function showCustomerSidebar() {
+            if (!currentChatCustomer) return;
+            
+            // 填充客户资料
+            document.getElementById('sidebarName').textContent = currentChatCustomer.name || '-';
+            document.getElementById('sidebarCompany').textContent = currentChatCustomer.company || '-';
+            document.getElementById('sidebarPosition').textContent = currentChatCustomer.position || '-';
+            document.getElementById('sidebarPhone').textContent = currentChatCustomer.phone || '-';
+            document.getElementById('sidebarEmail').textContent = currentChatCustomer.email || '-';
+            document.getElementById('sidebarStage').textContent = currentChatCustomer.stage || '-';
+            document.getElementById('sidebarScore').textContent = currentChatCustomer.score ? currentChatCustomer.score + '分' : '-';
+            document.getElementById('sidebarBudget').textContent = currentChatCustomer.budget || '-';
+            document.getElementById('sidebarLastContact').textContent = '-';
+            document.getElementById('sidebarFollowupCount').textContent = '0次';
+            
+            document.getElementById('customerSidebar').classList.add('open');
+            document.getElementById('sidebarOverlay').classList.add('open');
+        }
+
+        function closeCustomerSidebar() {
+            document.getElementById('customerSidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('open');
+        }
+
+        // 设置功能
+        function toggleSetting(setting) {
+            // 设置功能暂时不跳转，只做视觉反馈
+            console.log('切换设置:', setting);
+        }
+
+        // 窗口大小变化时调整图表
+        window.addEventListener('resize', () => {
+            if (salesTrendChart) salesTrendChart.resize();
+            if (customerDistributionChart) customerDistributionChart.resize();
+        });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 底部导航点击事件
+            document.querySelectorAll('.tab-item').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const pageName = tab.getAttribute('data-page');
+                    switchPage(pageName);
+                });
+            });
+
+            // 搜索框事件
+            document.getElementById('dashboardSearch')?.addEventListener('input', (e) => {
+                console.log('搜索:', e.target.value);
+            });
+
+            // 初始化图表和数据
+            setTimeout(() => {
+                initCharts();
+                loadDashboardData();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

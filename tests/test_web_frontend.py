@@ -76,8 +76,8 @@ class TestFastAPIEndpoints(unittest.TestCase):
         self._skip_no_client()
         resp = self.client.get("/")
         html = resp.text
-        self.assertIn("script.js", html)
-        self.assertIn("gavvy", html)
+        self.assertIn("dashboard_v2.js", html)
+        self.assertIn("Gavvy", html)
 
     # ── 静态文件 ──
 
@@ -211,7 +211,7 @@ class TestHTMLStructure(unittest.TestCase):
         self.assertLess(size, 500000)
 
     def test_script_js_exists(self):
-        path = self.web_dir / "script.js"
+        path = self.web_dir / "dashboard_v2.js"
         self.assertTrue(path.exists())
         self.assertGreater(path.stat().st_size, 1000)
 
@@ -249,7 +249,7 @@ class TestHTMLStructure(unittest.TestCase):
         """检查所有 onclick 调用的函数在 JS 中有定义"""
         import re
         html_path = self.web_dir / "index.html"
-        js_path = self.web_dir / "script.js"
+        js_path = self.web_dir / "dashboard_v2.js"
         html = html_path.read_text(encoding="utf-8")
         js = js_path.read_text(encoding="utf-8")
 

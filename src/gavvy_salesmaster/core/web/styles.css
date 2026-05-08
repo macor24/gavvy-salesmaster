@@ -642,7 +642,8 @@ body {
     display: grid;
     grid-template-columns: 240px 1fr 320px;
     gap: 16px;
-    min-height: calc(100vh - 104px);
+    flex: 1;
+    min-height: 0;
     height: 100%;
     align-items: stretch;
 }
@@ -806,7 +807,7 @@ body {
     flex-direction: column;
     gap: 10px;
     background: #f8fafc;
-    min-height: 100px;
+    min-height: 0;
 }
 
 .ws-msg {

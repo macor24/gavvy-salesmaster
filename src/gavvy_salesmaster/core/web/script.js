@@ -7,18 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ── 通用 Toast 提示 ──────────────────────
-    window.showToast = function(message, type) {
-        const existing = document.querySelector('.sales-toast');
-        if (existing) existing.remove();
-        const toast = document.createElement('div');
-        toast.className = 'sales-toast';
-        const bg = type === 'success' ? '#059669' : '#dc2626';
-        const icon = type === 'success' ? '✅' : '❌';
-        toast.style.cssText = `position:fixed;top:20px;right:20px;z-index:99999;background:${bg};color:#fff;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,0.2);display:flex;align-items:center;gap:8px;animation:slideIn 0.3s ease;`;
-        toast.innerHTML = `${icon} ${message}`;
-        document.body.appendChild(toast);
-        setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 2500);
-    }
+    window.showToast = function(message, type) { /* disabled */ }
     // 注入 slideIn 动画
     if (!document.getElementById('toast-style')) {
         const style = document.createElement('style');

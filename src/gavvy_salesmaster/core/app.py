@@ -14,6 +14,18 @@ import os
 import secrets
 import sys
 import threading
+
+# Windows GBK 控制台兼容：强制 stdout/stderr 使用 UTF-8
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+
+# 动态读取包版本
+try:
+    from importlib.metadata import version as _pkg_version
+    _SERVICE_VERSION = _pkg_version('gavvy-salesmaster')
+except Exception:
+    _SERVICE_VERSION = '3.1.0'
 import uuid
 import time
 from pathlib import Path
@@ -63,7 +75,7 @@ def _get_api_key() -> str:
 app = FastAPI(
     title="Chat Sales API",
     description="开源销售引擎 — gavvy 六维能力 + 7-Agent 销售团队 + Pipeline 4步流程",
-    version="2.6.0",
+    version=_SERVICE_VERSION,
     docs_url="/docs",
     redoc_url="/redoc",
 )
@@ -453,7 +465,7 @@ async def root():
         return FileResponse(str(index_file))
     return JSONResponse({
         "service": "gavvy-sales-fastapi",
-        "version": "2.6.0",
+        "version": _SERVICE_VERSION,
         "docs": "/docs",
     })
 
@@ -1088,7 +1100,7 @@ def _get_default_messages(customer_id: str) -> list:
 @app.get("/api/health")
 async def api_health():
     """简单健康检查"""
-    return {"status": "ok", "service": "salesmaster-web"}
+    return {"status": "ok", "service": "salesmaster-web", "version": _SERVICE_VERSION}
 
 
 @app.get("/api/health/detailed")
@@ -1136,7 +1148,7 @@ async def api_health_detailed():
     return {
         "status": "ok" if healthy else "degraded",
         "service": "salesmaster-web",
-        "version": "2.6.0",
+        "version": _SERVICE_VERSION,
         "python_version": sys.version,
         "timestamp": datetime.now().isoformat(),
         "checks": checks

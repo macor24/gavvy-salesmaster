@@ -24,3 +24,4 @@ reports/
 # Environment
 .env
 *.env.local
+gavvy_salesmaster-3.1.0/

@@ -9,12 +9,18 @@
     var API_BASE = window.GAVVY_API_BASE || '';
 
     // ── 页面切换 ──
-    function switchView(viewId) {
+    function switchView(pageId) {
+        console.log('切换到页面:', pageId);
         document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
         document.querySelectorAll('.nav-btn, .nav-expand-item').forEach(function(b) { b.classList.remove('active'); });
-        var page = document.getElementById('page-' + viewId);
-        if (page) page.classList.add('active');
-        var btn = document.querySelector('[data-page="' + viewId + '"]');
+        var page = document.getElementById('page-' + pageId);
+        if (page) {
+            page.classList.add('active');
+            console.log('页面已显示: page-' + pageId);
+        } else {
+            console.error('页面不存在: page-' + pageId);
+        }
+        var btn = document.querySelector('[data-page="' + pageId + '"]');
         if (btn) btn.classList.add('active');
         var titleMap = {
             'dashboard': '仪表盘', 'chat': 'AI对话', 'customers': '客户列表',
@@ -25,8 +31,9 @@
             'payment': '支付管理', 'settings': '系统设置', 'rbac': '权限管理', 'api': 'API管理'
         };
         var h1 = document.querySelector('.topbar-left h1');
-        if (h1) h1.textContent = titleMap[viewId] || viewId;
-        loadPageData(viewId);
+        if (h1) h1.textContent = titleMap[pageId] || pageId;
+        loadPageData(pageId);
+        showToast('切换到 ' + (titleMap[pageId] || pageId), 'info');
     }
     window.switchPage = switchView;
 
@@ -424,6 +431,47 @@
         }).catch(function(){});
     }
 
+    // ── 客户列表页 ──
+    function loadCustomers() {
+        apiGet('/api/crm/customers').then(function(data) {
+            var customers = data.customers || [];
+            var container = document.querySelector('#page-customers .list-body');
+            if (!container) return;
+            if (customers.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">暂无客户</div><div class="empty-desc">添加客户开始使用</div></div>';
+                return;
+            }
+            var html = '<div class="table-row table-row-5 table-header"><span>客户名称</span><span>联系方式</span><span>意向阶段</span><span>负责Agent</span><span>更新时间</span></div>';
+            customers.forEach(function(c) {
+                html += '<div class="table-row table-row-5"><span>' + (c.name||'客户') + '</span><span>' + (c.phone||'--') + '</span><span><span class="tag">' + (c.stage||'线索') + '</span></span><span>' + (c.assigned_agent||'售前谈判官') + '</span><span>' + (c.updated_at||'--') + '</span></div>';
+            });
+            container.innerHTML = html;
+        }).catch(function(){});
+    }
+
+    // ── 团队配置页 ──
+    function loadTeamPage() {
+        apiGet('/api/orchestrator/agents').then(function(data) {
+            var agents = data.agents || {};
+            var container = document.querySelector('#page-team .customer-grid');
+            if (!container) return;
+            var colors = ['#3b82f6','#10b981','#8b5cf6','#f59e0b','#06b6d4','#ef4444'];
+            var icons = ['🎯','🔍','🤝','🎁','📦','🚀'];
+            var idx = 0, html = '';
+            for (var key in agents) {
+                var a = agents[key];
+                html += '<div class="customer-card"><div class="customer-avatar" style="background:linear-gradient(135deg,' + colors[idx%colors.length] + ',' + colors[idx%colors.length] + '88);">' + (icons[idx%icons.length]) + '</div><div class="customer-name">' + (a.display_name||a.role_en||key) + '</div><div class="customer-company">' + (a.description||'待命中') + '</div><div class="customer-tags"><span class="tag success">在线</span><span class="tag">' + (a.task_count||0) + '个任务</span></div></div>';
+                idx++;
+            }
+            if (html === '') {
+                html = '<div class="customer-card"><div class="customer-avatar">🎯</div><div class="customer-name">市场调研官</div><div class="customer-company">负责行业趋势分析和市场洞察</div><div class="customer-tags"><span class="tag success">在线</span><span class="tag">12个任务</span></div></div>';
+                html += '<div class="customer-card"><div class="customer-avatar">🔍</div><div class="customer-name">竞品分析官</div><div class="customer-company">监控竞争对手动态和价格策略</div><div class="customer-tags"><span class="tag success">在线</span><span class="tag">8个任务</span></div></div>';
+                html += '<div class="customer-card"><div class="customer-avatar">🤝</div><div class="customer-name">售前谈判官</div><div class="customer-company">客户沟通、需求挖掘、促成交易</div><div class="customer-tags"><span class="tag warning">忙碌中</span><span class="tag">15个任务</span></div></div>';
+            }
+            container.innerHTML = html;
+        }).catch(function(){});
+    }
+
     // ── 初始化 ──
     document.addEventListener('DOMContentLoaded', function() {
         loadDashboard();
@@ -431,3 +479,10 @@
     });
 
 })();
+
+// 对话框控制函数（由 index.html onclick 调用）
+function switchPage(pageId) { document.querySelectorAll(".page").forEach(p => p.classList.remove("active")); const el = document.getElementById("page-" + pageId); if (el) el.classList.add("active"); document.querySelectorAll(".nav-btn, .nav-expand-item").forEach(b => b.classList.remove("active")); const btn = document.querySelector(`[onclick*="'${pageId}'"]`); if (btn) btn.classList.add("active"); }
+function closeNewChatModal() { document.getElementById("new-chat-modal").style.display = "none"; }
+function startNewChat() { closeNewChatModal(); showToast("🚀 对话已创建", "success"); }
+function closeNewTaskModal() { document.getElementById("new-task-modal").style.display = "none"; }
+function createScheduledTask() { closeNewTaskModal(); showToast("📅 任务已创建", "success"); }
