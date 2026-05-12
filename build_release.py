@@ -19,6 +19,7 @@ PRO_MODULES = [
     "gavvy_salesmaster/team_pkg/llm/deepseek",
     "gavvy_salesmaster/team_pkg/llm/fallback",
     "gavvy_salesmaster/team_pkg/memory/__init__",
+    "gavvy_salesmaster/team_pkg/memory/flywheel",
     "gavvy_salesmaster/team_pkg/team/__init__",
     "gavvy_salesmaster/team_pkg/team/agents",
     "gavvy_salesmaster/team_pkg/team/api_config",
@@ -30,6 +31,13 @@ PRO_MODULES = [
     "gavvy_salesmaster/team_pkg/team/safety",
     "gavvy_salesmaster/team_pkg/team/scorer",
     "gavvy_salesmaster/team_pkg/team/session",
+    "gavvy_salesmaster/crm_pkg/catalog",
+    "gavvy_salesmaster/core/license",
+    "gavvy_salesmaster/core/flow",
+    "gavvy_salesmaster/core/routers/catalog",
+    "gavvy_salesmaster/core/routers/flow",
+    "gavvy_salesmaster/channels_pkg/channels/desktop",
+    "gavvy_salesmaster/cli",
 ]
 
 
@@ -140,18 +148,8 @@ def build():
         else:
             print(f"  WARNING: {built_so} not found")
     
-    # Step 3: 先构建 sdist（此时所有 .py 都在，ARM用户可源码安装）
-    print("\n[3/4] Building sdist (含全部源码)...")
-    result_sdist = subprocess.run(
-        [sys.executable, "-m", "build", "--sdist", "--no-isolation"],
-        capture_output=True, text=True, cwd=os.path.dirname(os.path.abspath(__file__))
-    )
-    if result_sdist.returncode != 0:
-        print(f"sdist STDERR: {result_sdist.stderr[-300:]}")
-    else:
-        for f in sorted(os.listdir("dist")):
-            if f.endswith(".tar.gz"):
-                print(f"  {f} ({os.path.getsize(f'dist/{f}') / 1024:.0f} KB)")
+    # Step 3: Skip sdist（只发 wheel，不暴露源码）
+    print("\n[3/4] Skip sdist (只发 wheel，不暴露源码)")
 
     # Step 4: 替换 .py 为 .so（仅用于 wheel 构建）
     print("\n[4/4] Replacing .py with .so for wheel build...")
@@ -183,8 +181,7 @@ def build():
         import glob
         for whl in sorted(glob.glob("dist/*.whl")):
             print(f"   {whl} ({os.path.getsize(whl) / 1024:.0f} KB)")
-        for tgz in sorted(glob.glob("dist/*.tar.gz")):
-            print(f"   {tgz} ({os.path.getsize(tgz) / 1024:.0f} KB)")
+
     
     # Step 5: Restore .py files (don't leave source tree dirty)
     print("\n[5/4] Restoring .py source files...")
