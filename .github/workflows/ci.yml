@@ -15,6 +15,10 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: "3.12"
+    - name: Install build deps
+      run: pip install "setuptools>=64" build cython
+    - name: Build (compile to .so)
+      run: python build_release.py
     - name: Install
       run: pip install -e .
     - name: Test
